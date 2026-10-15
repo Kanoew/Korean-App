@@ -1,0 +1,15 @@
+{
+  "name": "한글 with Karina",
+  "short_name": "한글",
+  "description": "Apprendre le coréen (A2 → B2) avec Karina.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#14161f",
+  "theme_color": "#14161f",
+  "lang": "fr",
+  "icons": [
+    { "src": "assets/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

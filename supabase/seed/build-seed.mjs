@@ -69,7 +69,7 @@ const floor1 = {
             fb('저___ 학생이에요.', 'Moi, je suis étudiant(e). (thème)', ['는', '가', '를', '에'], '는', '저 finit par une voyelle et on pose le thème : 저는.', ['topic_particle', 'particles']),
             fb('책___ 읽어요.', 'Je lis un livre. (COD)', ['을', '를', '이', '가'], '을', '책 finit par une consonne (ㄱ) → 을.', ['object_particle', 'particles']),
             fb('친구___ 왔어요.', 'Un ami est arrivé. (information nouvelle)', ['가', '이', '을', '를'], '가', '친구 finit par une voyelle → 가.', ['subject_particle', 'particles']),
-            fb('물___ 마셔요.', 'Je bois de l\'eau.', ['을', '를', '은', '는'], '을', '물 finit par ㄹ, une consonne → 을.', ['object_particle', 'particles']),
+            fb('물___ 마셔요.', 'Je bois de l\'eau.', ['을', '를', '이', '는'], '을', '물 finit par ㄹ, une consonne → 을.', ['object_particle', 'particles']),
             fb('이것___ 뭐예요?', 'Qu\'est-ce que c\'est ?', ['은', '는', '을', '를'], '은', '이것 finit par ㅅ, une consonne → 은 (thème).', ['topic_particle', 'particles']),
             mc('Quelle particule marque le thème ("quant à moi…") ?', null, ['은/는', '이/가', '을/를', '에'], '은/는', '은/는 pose le thème ; 이/가 marque le sujet ; 을/를 l\'objet.', ['topic_particle', 'particles']),
             ro('Je bois du café.', ['저는', '커피를', '마셔요'], '저는 커피를 마셔요', 'Ordre coréen : thème → objet → verbe (le verbe est toujours à la fin).', ['object_particle', 'particles'], 1),
@@ -86,9 +86,9 @@ const floor1 = {
             fb('영화___ 봐요.', 'Je regarde un film.', ['를', '을', '가', '이'], '를', '영화 finit par une voyelle → 를.', ['object_particle', 'particles']),
             fb('선생님___ 한국 사람이에요.', 'Le professeur, il est coréen. (thème)', ['은', '는', '를', '을'], '은', '선생님 finit par ㅁ, une consonne → 은.', ['topic_particle', 'particles']),
             fb('우리___ 영화를 봐요.', 'Nous, on regarde un film.', ['는', '를', '에서', '로'], '는', '"우리를" est une erreur fréquente : 를 marque l\'objet (영화를). Pour dire "nous" en thème, on met 는 : 우리는.', ['topic_particle', 'object_particle', 'particles'], 2),
-            fb('비___ 와요.', 'Il pleut.', ['가', '이', '를', '는'], '가', '비 finit par une voyelle → 가.', ['subject_particle', 'particles']),
+            fb('비___ 와요.', 'Il pleut.', ['가', '이', '를', '을'], '가', '비 finit par une voyelle → 가.', ['subject_particle', 'particles']),
             mc('Forme polie de "moi" + particule de sujet :', null, ['제가', '저가', '내가', '저이'], '제가', 'Avec 이/가, 저 devient 제 : 제가. (저가 n\'existe pas.)', ['subject_particle', 'particles']),
-            ro('Mon ami aime la cuisine coréenne.', ['친구가', '한국', '음식을', '좋아해요'], '친구가 한국 음식을 좋아해요', 'Sujet (이/가) → objet (을/를) → verbe.', ['subject_particle', 'object_particle', 'particles'], 2),
+            ro('Mon ami aime la cuisine coréenne.', ['친구가', '한국', '음식을', '좋아해요'], '친구가 한국 음식을 좋아해요 | 한국 음식을 친구가 좋아해요', 'Sujet (이/가) → objet (을/를) → verbe.', ['subject_particle', 'object_particle', 'particles'], 2),
             tf('저는 한국어를 공부해요.', 'J\'étudie le coréen | J\'apprends le coréen | Moi, j\'étudie le coréen', '한국어(coréen) + 를 + 공부해요(étudier).', ['object_particle', 'particles']),
             tk('Je bois de l\'eau.', '저는 물을 마셔요 | 물을 마셔요', '물 finit par une consonne → 을.', ['object_particle', 'particles']),
           ],
@@ -124,7 +124,7 @@ const floor1 = {
                 title: '에서 — là où l\'action se passe',
                 body: 'Lieu d\'une action (manger, étudier, travailler…) ou origine ("de"). Verbes typiques : 먹다, 공부하다, 일하다.',
                 examples: [
-                  { ko: '도서관에서 공부해요.', rom: 'do-seo-gwan-e-seo gong-bu-hae-yo', fr: 'J\'étudie à la bibliothèque.' },
+                  { ko: '도서관에서 공부해요.', rom: 'do-seo-gwa-ne-seo gong-bu-hae-yo', fr: 'J\'étudie à la bibliothèque.' },
                   { ko: '프랑스에서 왔어요.', rom: 'peu-rang-seu-e-seo wa-sseo-yo', fr: 'Je viens de France.' },
                 ],
               },
@@ -133,17 +133,17 @@ const floor1 = {
                 body: 'Direction ("vers") ou moyen ("en bus", "avec la main"). Après une voyelle ou ㄹ : 로. Après une autre consonne : 으로.',
                 examples: [
                   { ko: '버스로 가요.', rom: 'beo-seu-ro ga-yo', fr: 'J\'y vais en bus.' },
-                  { ko: '손으로 먹어요.', rom: 'son-eu-ro meo-geo-yo', fr: 'Je mange avec les mains.' },
+                  { ko: '손으로 먹어요.', rom: 'so-neu-ro meo-geo-yo', fr: 'Je mange avec les mains.' },
                 ],
               },
             ],
-            tip: 'Astuce : demande-toi "le verbe est une ACTION ?" → 에서. "Mouvement ou existence ?" → 에. (Exception : 살다 accepte les deux.)',
+            tip: 'Demande-toi "le verbe est une ACTION ?" → 에서. "Mouvement ou existence ?" → 에. (Exception : 살다 accepte les deux.)',
           },
           exercises: [
             fb('학교___ 가요.', 'Je vais à l\'école.', ['에', '에서', '을', '가'], '에', '가다 = mouvement vers une destination → 에.', ['e_vs_eseo', 'particles']),
             fb('도서관___ 공부해요.', 'J\'étudie à la bibliothèque.', ['에', '에서', '로', '를'], '에서', '공부하다 est une action → 에서.', ['e_vs_eseo', 'particles']),
             fb('집___ 있어요.', 'Je suis à la maison.', ['에', '에서', '으로', '를'], '에', '있다 (exister, être quelque part) → 에.', ['e_vs_eseo', 'particles']),
-            fb('카페___ 커피를 마셔요.', 'Je bois un café au café.', ['에', '에서', '으로', '가'], '에서', '마시다 est une action → 에서.', ['e_vs_eseo', 'particles']),
+            fb('카페___ 커피를 마셔요.', 'Je bois un café dans un café.', ['에', '에서', '으로', '가'], '에서', '마시다 est une action → 에서.', ['e_vs_eseo', 'particles']),
             mc('Quelle particule avec une action (manger, étudier, travailler) ?', null, ['에서', '에', '으로', '도'], '에서', 'Action → 에서. Mouvement / existence → 에.', ['e_vs_eseo', 'particles']),
             mc('Quelle particule avec 가다 / 오다 (destination) ?', null, ['에', '에서', '이', '는'], '에', '가다 / 오다 + lieu d\'arrivée → 에.', ['e_vs_eseo', 'particles']),
             tk('Je vais à l\'école.', '학교에 가요 | 저는 학교에 가요', '학교(école) + 에 + 가요(aller).', ['e_vs_eseo', 'particles']),
@@ -200,7 +200,7 @@ const floor1 = {
                 title: '전에 / 후에 — avant / après',
                 body: 'Nom + 전에 / 후에. Avec un verbe : radical + 기 전에 (avant de…) et radical + (으)ㄴ 후에 (après avoir…).',
                 examples: [
-                  { ko: '자기 전에 책을 읽어요.', rom: 'ja-gi jeon-e chae-geul il-geo-yo', fr: 'Avant de dormir, je lis un livre.' },
+                  { ko: '자기 전에 책을 읽어요.', rom: 'ja-gi jeo-ne chae-geul il-geo-yo', fr: 'Avant de dormir, je lis un livre.' },
                   { ko: '식사 후에 커피를 마셔요.', rom: 'sik-sa hu-e keo-pi-reul ma-syeo-yo', fr: 'Après le repas, je bois un café.' },
                 ],
               },
@@ -215,7 +215,7 @@ const floor1 = {
                 title: 'Le piège : 에 avec le temps',
                 body: 'On met 에 avec une heure ou un jour précis (3시에, 월요일에, 주말에). Mais PAS avec 어제, 오늘, 내일, 지금.',
                 examples: [
-                  { ko: '3시에 도착해요.', rom: 'se-si-e do-chak-hae-yo', fr: 'J\'arrive à 3 heures.' },
+                  { ko: '3시에 도착해요.', rom: 'se-si-e do-cha-kae-yo', fr: 'J\'arrive à 3 heures.' },
                   { ko: '내일 만나요.', rom: 'nae-il man-na-yo', fr: 'On se voit demain.' },
                 ],
               },
@@ -247,7 +247,7 @@ const floor1 = {
             mc('Quelle phrase est correcte ? (aujourd\'hui, on se voit)', null, ['오늘 만나요', '오늘에 만나요', '오늘에서 만나요', '오늘으로 만나요'], '오늘 만나요', 'Pas de 에 après 오늘.', ['time_particle', 'temporal'], 3),
             ls('식사 후에 커피를 마셔요', ['식사 후에 커피를 마셔요', '식사 전에 커피를 마셔요', '식사 동안 커피를 마셔요', '식사 때 커피를 마셔요'], '식사 후에 커피를 마셔요', '후에 = après. Écoute bien la différence avec 전에 !', ['temporal']),
             tf('저는 수업 후에 도서관에 가요.', 'Après le cours, je vais à la bibliothèque | Je vais à la bibliothèque après le cours | Après le cours je vais à la bibliothèque | Après les cours, je vais à la bibliothèque | Je vais à la bibliothèque après les cours | Après les cours je vais à la bibliothèque', '수업 후에 = après le cours ; 도서관에 가요 = je vais à la bibliothèque.', ['temporal', 'e_vs_eseo'], 3),
-            tk('Pendant les vacances, je voyage.', '방학 때 여행해요 | 방학 동안 여행해요 | 저는 방학 때 여행해요 | 저는 방학 동안 여행해요', '방학 때 (au moment des vacances) ou 방학 동안 (durant les vacances).', ['temporal'], 3),
+            tk('Pendant les vacances, je voyage.', '방학 때 여행해요 | 방학 동안 여행해요 | 저는 방학 때 여행해요 | 저는 방학 동안 여행해요 | 방학에 여행해요 | 저는 방학에 여행해요', '방학 때 (au moment des vacances) ou 방학 동안 (durant les vacances).', ['temporal'], 3),
             ro('Avant de dormir, je prends une douche.', ['저는', '자기', '전에', '샤워해요'], '저는 자기 전에 샤워해요', 'Radical + 기 전에 se place avant le verbe principal.', ['temporal'], 2),
           ],
         },
@@ -276,7 +276,7 @@ const floor1 = {
                 examples: [
                   { ko: '삼천 원', rom: 'sam-cheon won', fr: '3 000 wons' },
                   { ko: '이십 분', rom: 'i-sip bun', fr: '20 minutes' },
-                  { ko: '이천이십육 년', rom: 'i-cheon-i-sip-yuk nyeon', fr: 'l\'année 2026' },
+                  { ko: '이천이십육 년', rom: 'i-cheo-ni-sim-nyung nyeon', fr: 'l\'année 2026' },
                 ],
               },
               {
@@ -318,7 +318,7 @@ const floor1 = {
             mc('Comment lit-on "2번 버스" ?', null, ['이 번 버스', '두 번 버스', '둘 번 버스', '이 개 버스'], '이 번 버스', 'Un numéro (번호) se dit en sino : 이 번.', ['numbers_sino', 'counters'], 3),
             mc('Trouve l\'intrus (nombres sino-coréens) :', null, ['하나', '일', '이', '삼'], '하나', '하나 est un nombre natif, pas sino-coréen.', ['numbers_sino']),
             ls('삼십 분', ['삼십 분', '십삼 분', '삼 분', '삼백 분'], '삼십 분', '삼십 = 30 ; 십삼 = 13 ; 삼 = 3 ; 삼백 = 300.', ['numbers_sino']),
-            tk('Je suis au 5e étage.', '저는 오 층에 있어요 | 오 층에 있어요 | 오층에 있어요', '오 + 층 (étage) ; lieu d\'existence → 에 있어요.', ['numbers_sino', 'e_vs_eseo'], 3),
+            tk('Je suis au 5e étage.', '저는 오 층에 있어요 | 오 층에 있어요 | 오층에 있어요 | 5층에 있어요 | 저는 5층에 있어요', '오 + 층 (étage) ; lieu d\'existence → 에 있어요.', ['numbers_sino', 'e_vs_eseo'], 3),
             tf('삼만 원이에요.', 'Ça fait 30000 wons | C\'est 30000 wons | Ça fait trente mille wons | C\'est trente mille wons | Ça coûte 30000 wons', '삼만 = 3 × 10 000 = 30 000.', ['numbers_sino', 'counters'], 3),
             ro('Ce livre coûte 10 000 wons.', ['이', '책은', '만', '원이에요'], '이 책은 만 원이에요', '만 원 : pas besoin de 일.', ['numbers_sino', 'topic_particle'], 3),
           ],
@@ -366,10 +366,10 @@ const floor1 = {
                 ],
               },
             ],
-            tip: 'Heures = natif (세 시), minutes = sino (십 분) : "세 시 십 분" = 3 h 10. Les deux systèmes dans la même phrase, c\'est tout le charme du coréen 😏',
+            tip: 'Heures = natif (세 시), minutes = sino (십 분) : "세 시 십 분" = 3 h 10. Les deux systèmes dans la même phrase, c\'est tout le charme du coréen 😏 Et pour la demie, on dit souvent 반 : 두 시 반 = 2 h 30.',
           },
           exercises: [
-            mc('Comment dit-on 3 en coréen natif ?', null, ['셋', '삼', '세', '사'], '셋', '셋 = 3 natif (devant un compteur : 세).', ['numbers_native']),
+            mc('Comment dit-on 3 en coréen natif ?', null, ['셋', '삼', '넷', '사'], '셋', '셋 = 3 natif (devant un compteur : 세).', ['numbers_native']),
             mc('Devant un compteur, "un" (하나) devient :', null, ['한', '하나', '일', '첫'], '한', '하나 → 한 devant un compteur : 한 명, 한 잔.', ['numbers_native', 'counters']),
             fb('커피 ___ 잔 주세요.', 'Deux cafés, s\'il vous plaît.', ['두', '둘', '이', '둘이'], '두', '둘 → 두 devant un compteur.', ['numbers_native', 'counters']),
             mc('Quel compteur pour les personnes ?', null, ['명', '개', '마리', '권'], '명', '명 (ou 사람) pour les personnes.', ['counters']),
@@ -415,19 +415,19 @@ const floor1 = {
           title_ko: '1층 보스',
           title_fr: 'Boss de l\'étage 1',
           exercises: [
-            fb('저는 회사___ 일해요.', 'Je travaille à l\'entreprise.', ['에서', '에', '로', '를'], '에서', '일하다 est une action → 에서.', ['e_vs_eseo', 'particles'], 3),
+            fb('저는 회사___ 일해요.', 'Je travaille au bureau.', ['에서', '에', '로', '를'], '에서', '일하다 est une action → 에서.', ['e_vs_eseo', 'particles'], 3),
             fb('내일 부산___ 가요.', 'Demain, je vais à Busan.', ['에', '에서', '로', '를'], '에', '가다 + destination → 에.', ['e_vs_eseo', 'particles'], 3),
             fb('저___ 프랑스 사람이에요.', 'Moi, je suis français(e).', ['는', '가', '를', '에'], '는', 'Thème "quant à moi" → 저는.', ['topic_particle', 'particles'], 2),
             fb('저는 커피___ 마셔요.', 'Je bois du café.', ['를', '을', '가', '이'], '를', '커피 finit par une voyelle → 를.', ['object_particle', 'particles'], 2),
             fb('자기 ___ 샤워해요.', 'Je prends une douche avant de dormir.', ['전에', '후에', '동안', '때'], '전에', '"Avant de" = 기 전에.', ['temporal'], 3),
             fb('택시___ 가요.', 'J\'y vais en taxi.', ['로', '으로', '에', '에서'], '로', '택시 finit par une voyelle → 로.', ['direction', 'particles'], 3),
             mc('Comment lit-on 10분 ?', null, ['십 분', '열 분', '십 시', '열 시'], '십 분', 'Minutes = sino.', ['numbers_sino', 'counters'], 2),
-            ls('저는 도서관에서 책을 읽어요', ['저는 도서관에서 책을 읽어요', '저는 도서관에 책을 읽어요', '저는 도서관에서 책이 읽어요', '저는 도서관에서 책을 일해요'], '저는 도서관에서 책을 읽어요', '읽다 est une action → 에서.', ['e_vs_eseo', 'listening'], 3),
+            ls('저는 식당에서 밥을 먹어요', ['저는 식당에서 밥을 먹어요', '저는 식당에 밥을 먹어요', '저는 식당에서 밥이 먹어요', '저는 식당에서 밥을 마셔요'], '저는 식당에서 밥을 먹어요', '먹다 est une action → 에서.', ['e_vs_eseo', 'listening'], 3),
             ro('Je lis un livre à la bibliothèque.', ['저는', '도서관에서', '책을', '읽어요'], '저는 도서관에서 책을 읽어요', 'Thème → lieu de l\'action → objet → verbe.', ['e_vs_eseo', 'object_particle'], 3),
             tf('저는 학교에서 한국어를 공부해요.', 'J\'étudie le coréen à l\'école | J\'apprends le coréen à l\'école | Moi, j\'étudie le coréen à l\'école', '학교에서 = à l\'école (action) ; 한국어를 = le coréen (COD).', ['e_vs_eseo', 'object_particle'], 3),
             tk('Trois mille wons.', '삼천 원', 'Argent = sino : 삼천 원.', ['numbers_sino', 'counters'], 3),
             tk('Quatre personnes.', '네 명 | 네 사람', '넷 → 네 devant 명.', ['numbers_native', 'counters'], 3),
-            tk('Je prends le petit-déjeuner à 7 heures.', '일곱 시에 아침을 먹어요 | 저는 일곱 시에 아침을 먹어요', 'Heures = natif (일곱 시) + 에 (heure précise).', ['numbers_native', 'time_particle', 'temporal'], 4),
+            tk('Je prends le petit-déjeuner à 7 heures.', '일곱 시에 아침을 먹어요 | 저는 일곱 시에 아침을 먹어요 | 7시에 아침을 먹어요 | 저는 7시에 아침을 먹어요', 'Heures = natif (일곱 시) + 에 (heure précise).', ['numbers_native', 'time_particle', 'temporal'], 4),
           ],
         },
       ],
@@ -510,7 +510,7 @@ md.push('1. **La justesse** : la phrase coréenne est-elle grammaticalement corr
 md.push('2. **Le naturel** : est-ce ce qu\'un natif dirait ? (une phrase peut être correcte mais bizarre)');
 md.push('3. **Les mauvaises options** : sont-elles bien fausses ? (une option « fausse » qui serait en fait acceptable est un vrai problème)');
 md.push('4. **La traduction française** correspond-elle ?');
-md.push('5. **Les romanisations** des cours (Revised Romanization).');
+md.push('5. **Les romanisations** des cours (romanisation simplifiée : syllabes séparées par des tirets, liaison à l\'intérieur d\'un mot, pas de liaison entre deux mots).');
 md.push('');
 md.push('Le niveau visé est A2 → B1. Les phrases sont volontairement simples.');
 md.push('');

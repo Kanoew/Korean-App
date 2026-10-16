@@ -6,6 +6,7 @@ import * as dashboard from './components/dashboard.js';
 import * as learn from './components/learn.js';
 import * as lessonView from './components/lesson-view.js';
 import * as stats from './components/stats.js';
+import * as lab from './components/lab.js';
 import { review, rewards } from './components/soon.js';
 import { preloadSprites, showLoading } from './utils/sprites.js';
 import { clearBubble } from './components/karina-bubble.js';
@@ -23,6 +24,7 @@ const ROUTES = [
   [/^#\/review$/, review, 'review'],
   [/^#\/rewards$/, rewards, 'rewards'],
   [/^#\/stats$/, stats, 'stats'],
+  [/^#\/lab$/, lab, 'stats'],
 ];
 
 let token = 0;

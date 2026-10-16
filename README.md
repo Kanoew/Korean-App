@@ -4,7 +4,7 @@ Application web (PWA) pour apprendre le coréen, de A2 vers B2, avec Karina comm
 Front statique (HTML/CSS/JS, sans build) hébergé sur GitHub Pages · Supabase pour l'auth et la base de données.
 
 **État : V0 terminée** — boucle complète *connexion → leçon → exercices → progression*.
-Les révisions espacées (SRS), les récompenses, les Edge Functions LLM et la reconnaissance vocale arrivent en V1/V2 (voir la spec).
+Les révisions espacées (SRS), les récompenses et la reconnaissance vocale arrivent ensuite. La **couche IA** (Gemini) est prête : il ne manque que ta clé (voir « Couche IA »).
 
 ## Ce que fait la V0
 
@@ -55,6 +55,22 @@ python3 -m http.server 8000
 ### 5. Déployer sur GitHub Pages
 
 **Settings → Pages → Build and deployment → Deploy from a branch** → branche `main`, dossier `/ (root)`.
+
+## Couche IA (Gemini) — clé côté serveur uniquement
+
+Ce que ça ajoute : **production libre** (tu écris une phrase, Karina la corrige), **exercices générés** pour tes points faibles (badge « ✨ généré par l'IA »), **brouillons de messages** de Karina (toujours inactifs, jamais de `flirty` spicy : ceux-là, c'est toi) et **relecture IA** d'une leçon. Sans clé, l'appli marche exactement comme avant (les exercices « production libre » sont simplement masqués).
+
+La clé ne passe **jamais** par le front ni par GitHub : elle vit dans les secrets d'une Edge Function Supabase (`supabase/functions/llm/index.ts`), qui vérifie ta connexion, applique un plafond (20 appels par session, 100 par jour, contrôlé en SQL) et renvoie le résultat.
+
+1. **Rejoue `supabase/schema.sql`** puis **`supabase/seed.sql`** dans le SQL Editor (tables de quota + RPC, et les exercices de production libre).
+2. **Secrets** : Supabase → Edge Functions → Secrets → ajoute
+   - `LLM_API_KEY` : ta clé AI Studio ;
+   - `LLM_MODEL` : l'identifiant **exact** du modèle, recopié depuis AI Studio (par ex. celui de Flash que tu vois dans le sélecteur) ;
+   - (optionnel) `LLM_BASE_URL` : autre fournisseur compatible OpenAI ; par défaut `https://generativelanguage.googleapis.com/v1beta/openai`.
+3. **Déploie la fonction** `llm` : Edge Functions → Deploy a new function → colle `supabase/functions/llm/index.ts`, nom **`llm`**, et **désactive « Verify JWT »** (la fonction vérifie elle-même ton jeton). En CLI : `supabase functions deploy llm --no-verify-jwt`.
+4. **Teste** : dans l'appli, Statistiques → **🧪 Atelier IA** → « Tester la clé ». Les erreurs sont lisibles (clé refusée, modèle introuvable, quota atteint…).
+
+Les quotas gratuits de Google changent : vérifie les limites actuelles dans AI Studio (elles dépendent aussi du modèle et de ta région). Le plafond de l'appli est volontairement bas pour ne jamais les dépasser.
 
 ## Karina : sprites et messages
 
@@ -123,12 +139,13 @@ css/        main.css (thème) · components.css · animations.css
 js/
   app.js            routeur (hash) + garde d'authentification
   auth.js · supabase.js · config.js · state.js · karina.js
-  api/              lessons · exercises · progress · messages
-  components/       dashboard · floor-map · karina-bubble · learn · lesson-view · exercise-player · exercise-types · stats · soon
+  api/              lessons · exercises · progress · messages · reports · llm
+  components/       dashboard · floor-map · karina-bubble · learn · lesson-view · exercise-player · exercise-types · stats · lab · soon
   utils/            helpers (correction, dates, XP) · tts · sprites
 assets/karina/      avatar.webp · karina-idle · karina-walk-right · karina-celebrate · karina-thinking (.png)
 supabase/
-  schema.sql        tables + RLS
+  schema.sql        tables + RLS + quotas IA
+  functions/llm/    Edge Function IA (Gemini, clé en secret)
   seed.sql          GÉNÉRÉ — ne pas éditer à la main
   seed/build-seed.mjs   source du contenu de l'étage 1
 ```

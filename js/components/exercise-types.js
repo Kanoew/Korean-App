@@ -23,6 +23,9 @@ function head(ex) {
       return `<p class="ex-label">Remets les mots dans l'ordre</p><div class="ex-fr big">${esc(ex.prompt_fr)}</div>`;
     case 'translate_ko':
       return `<p class="ex-label">Traduis en coréen</p><div class="ex-fr big">${esc(ex.prompt_fr)}</div>`;
+    case 'free_production':
+      return `<p class="ex-label">Production libre ✍️ — Karina te corrige</p><div class="ex-fr big">${esc(ex.prompt_fr)}</div>
+        <p class="ex-hint">Point travaillé : ${esc(ex.correct_answer)}</p>`;
     case 'translate_fr':
       return `<p class="ex-label">Traduis en français</p>
         <div class="ex-ko">${esc(ex.prompt_ko)} ${speakBtn(ex.prompt_ko)}</div>`;
@@ -51,7 +54,7 @@ export function renderExercise(ex, box, { onAnswer, onSubmit }) {
   } else if (mode === 'typed') {
     const lang = ex.exercise_type === 'translate_fr' ? 'fr' : 'ko';
     body = `<input class="input answer-input" id="typed" type="text" lang="${lang}" autocomplete="off" autocapitalize="off"
-      autocorrect="off" spellcheck="false" placeholder="${lang === 'ko' ? '한국어로 쓰기…' : 'Ta réponse en français…'}">`;
+      autocorrect="off" spellcheck="false" placeholder="${lang === 'ko' ? (ex.exercise_type === 'free_production' ? 'Ta phrase en coréen…' : '한국어로 쓰기…') : 'Ta réponse en français…'}">`;
   } else {
     let words = [...(ex.options || [])];
     let order = shuffle(words.map((_, i) => i));

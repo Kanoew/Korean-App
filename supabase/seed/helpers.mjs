@@ -8,3 +8,6 @@ export const tk = (fr, answer, expl, tags, d = 2) => ({ type: 'translate_ko', fr
 export const tf = (ko, answer, expl, tags, d = 2) => ({ type: 'translate_fr', ko, answer, expl, tags, d });
 export const ls = (ko, options, answer, expl, tags, d = 2) => ({ type: 'listening', ko, fr: 'Écoute et choisis la phrase entendue', options, answer, expl, tags: [...tags, 'listening'], d });
 
+// fp : production libre, corrigée par l'IA (jouable seulement si la couche IA est configurée).
+// `target` = le point de grammaire visé, donné à l'IA et affiché à l'élève.
+export const fp = (fr, target, expl, tags, d = 3) => ({ type: 'free_production', fr, answer: target, expl, tags: [...tags, 'production'], d });

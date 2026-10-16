@@ -99,6 +99,10 @@ insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_a
 select l.id, 'translate_ko', NULL, 'Je bois de l''eau.', '저는 물을 마셔요 | 물을 마셔요', NULL, '물 finit par une consonne → 을.', 2, ARRAY['object_particle', 'particles']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 1 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'free_production', NULL, 'Dis ce que tu regardes ou ce que tu bois, en une phrase.', 'La particule d''objet 을/를', NULL, 'Exemple : 저는 영화를 봐요.', 3, ARRAY['object_particle', 'particles', 'production']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 1 and u.unit_number = 1 and l.lesson_number = 2;
 
 -- ---------- Étage 1 · Unité 2 : Particules de lieu : 에, 에서, 으로 ----------
 insert into units (floor_id, unit_number, title_ko, title_fr, topic, description)
@@ -636,6 +640,10 @@ insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_a
 select l.id, 'translate_ko', NULL, 'Mon nom est Jordan.', '제 이름은 조던이에요 | 이름은 조던이에요', NULL, '조던 + 이에요 (consonne finale ㄴ).', 2, ARRAY['copula']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 1 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'free_production', NULL, 'Présente-toi en une ou deux phrases : ton nom et ta nationalité.', '이에요 / 예요 avec un nom (nom, nationalité)', NULL, 'Exemple : 저는 조던이에요. 저는 프랑스 사람이에요.', 3, ARRAY['copula', 'production']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 1 and l.lesson_number = 2;
 
 -- ---------- Étage 2 · Unité 2 : Acheter et commander ----------
 insert into units (floor_id, unit_number, title_ko, title_fr, topic, description)
@@ -985,6 +993,10 @@ select l.id, 'translate_ko', NULL, 'J''ai acheté du tofu.', '두부를 샀어�
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'free_production', NULL, 'Dis ce que tu as fait hier, en une phrase.', 'Le passé poli (-았어요 / -었어요)', NULL, 'Exemple : 어제 친구를 만났어요.', 3, ARRAY['past', 'production']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
 select l.id, 'translate_ko', NULL, 'Hier, j''ai vu un film avec un ami.', '어제 친구랑 영화를 봤어요 | 어제 친구하고 영화를 봤어요 | 저는 어제 친구랑 영화를 봤어요 | 저는 어제 친구하고 영화를 봤어요', NULL, '친구랑 / 친구하고 = avec un ami ; 봤어요 = j''ai vu.', 3, ARRAY['past', 'linking']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 2;
@@ -1058,8 +1070,12 @@ select l.id, 'translate_ko', NULL, 'Ce week-end, j''irai à Séoul en train.', '
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 6 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'free_production', NULL, 'Dis ce que tu feras demain, avec un lieu.', 'Le futur (-(으)ㄹ 거예요) et la particule de lieu 에', NULL, 'Exemple : 내일 시장에 갈 거예요.', 4, ARRAY['future', 'e_vs_eseo', 'production']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 6 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
 select l.id, 'translate_fr', '어제 시장에서 두부하고 사과를 샀어요.', NULL, 'Hier, j''ai acheté du tofu et des pommes au marché | J''ai acheté du tofu et des pommes au marché hier | Hier, au marché, j''ai acheté du tofu et des pommes', NULL, '시장에서 = au marché (action) ; 두부하고 사과 = du tofu et des pommes.', 4, ARRAY['past', 'linking', 'e_vs_eseo']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 6 and l.lesson_number = 1;
 
--- 202 exercices au total.
+-- 206 exercices au total.

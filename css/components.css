@@ -225,3 +225,18 @@
 .report-form .row { margin-top: 8px; }
 .btn.small { padding: 8px 14px; font-size: 0.9rem; }
 .report .msg { margin-top: 6px; }
+
+/* Couche IA */
+.ex-hint { color: var(--gold); font-size: 0.85rem; margin: 0 0 12px; }
+.ai-badge { font-size: 0.74rem; color: var(--gold); background: rgba(212, 165, 116, 0.12); border: 1px solid rgba(212, 165, 116, 0.35); border-radius: 99px; padding: 3px 10px; display: inline-block; margin-bottom: 8px; }
+.fb-point { margin-top: 6px; font-size: 0.9rem; }
+.lab select, .lab input[type=number] { width: 100%; font: inherit; color: var(--text); background: var(--bg); border: 2px solid var(--border); border-radius: 10px; padding: 10px; margin: 6px 0; }
+.lab .result { margin-top: 10px; font-size: 0.9rem; }
+.lab .result ul { padding-left: 18px; margin: 6px 0; }
+.lab .issue.error { color: #ffb0b0; }
+.lab .issue.warning { color: var(--gold); }
+
+/* Atelier IA */
+.lab select.input, .lab .card .btn { margin-top: 8px; }
+.lab ul { margin: 6px 0 0 18px; padding: 0; }
+.lab code { font-size: 0.85em; }

@@ -133,6 +133,137 @@ create table if not exists exercise_reports (
   created_at TIMESTAMPTZ default now()
 );
 
+-- ---------- Couche LLM (Edge Function `llm`) ----------
+-- Quotas : 20 appels par session de l'appli, 100 par jour (voir llm_take_quota ci-dessous pour les changer).
+create table if not exists llm_usage (
+  user_id UUID references auth.users(id) on delete cascade,
+  day DATE not null default current_date,
+  calls INT not null default 0,
+  primary key (user_id, day)
+);
+create table if not exists llm_usage_session (
+  user_id UUID references auth.users(id) on delete cascade,
+  session_id TEXT not null,
+  calls INT not null default 0,
+  created_at TIMESTAMPTZ default now(),
+  primary key (user_id, session_id)
+);
+
+-- Réserve p_n appels. Renvoie {ok, reason?, day_used, session_used}. Les plafonds sont ICI, pas côté client.
+create or replace function public.llm_take_quota(p_session text, p_n int default 1)
+returns jsonb
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  u uuid := auth.uid();
+  v_session text := left(coalesce(p_session, 'default'), 64);
+  max_day constant int := 100;
+  max_session constant int := 20;
+  d int;
+  s int;
+begin
+  if u is null then
+    raise exception 'not authenticated';
+  end if;
+  if p_n is null or p_n < 1 or p_n > 10 then
+    raise exception 'invalid quota request';
+  end if;
+  insert into llm_usage (user_id, day, calls) values (u, current_date, 0) on conflict do nothing;
+  insert into llm_usage_session (user_id, session_id, calls) values (u, v_session, 0) on conflict do nothing;
+  select calls into d from llm_usage where user_id = u and day = current_date for update;
+  select calls into s from llm_usage_session where user_id = u and session_id = v_session for update;
+  if d + p_n > max_day then
+    return jsonb_build_object('ok', false, 'reason', 'day', 'day_used', d, 'session_used', s, 'max_day', max_day, 'max_session', max_session);
+  end if;
+  if s + p_n > max_session then
+    return jsonb_build_object('ok', false, 'reason', 'session', 'day_used', d, 'session_used', s, 'max_day', max_day, 'max_session', max_session);
+  end if;
+  update llm_usage set calls = calls + p_n where user_id = u and day = current_date;
+  update llm_usage_session set calls = calls + p_n where user_id = u and session_id = v_session;
+  return jsonb_build_object('ok', true, 'day_used', d + p_n, 'session_used', s + p_n, 'max_day', max_day, 'max_session', max_session);
+end;
+$$;
+
+-- Enregistre des exercices générés par l'IA (jamais rattachés à une leçon ; marqués is_llm_generated).
+create or replace function public.llm_store_exercises(items jsonb)
+returns int
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  n int := 0;
+  it jsonb;
+begin
+  if auth.uid() is null then
+    raise exception 'not authenticated';
+  end if;
+  if jsonb_typeof(items) <> 'array' or jsonb_array_length(items) > 20 then
+    raise exception 'invalid items';
+  end if;
+  for it in select * from jsonb_array_elements(items) loop
+    if it->>'exercise_type' not in ('multiple_choice', 'fill_blank', 'reorder', 'translate_ko', 'translate_fr', 'listening') then
+      continue;
+    end if;
+    insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+    values (
+      null,
+      it->>'exercise_type',
+      nullif(it->>'prompt_ko', ''),
+      nullif(it->>'prompt_fr', ''),
+      it->>'correct_answer',
+      case when jsonb_typeof(it->'options') = 'array' then it->'options' else null end,
+      nullif(it->>'explanation_fr', ''),
+      least(greatest(coalesce((it->>'difficulty')::int, 2), 1), 5),
+      case when jsonb_typeof(it->'tags') = 'array' then array(select jsonb_array_elements_text(it->'tags')) else null end,
+      true
+    );
+    n := n + 1;
+  end loop;
+  return n;
+end;
+$$;
+
+-- Enregistre des BROUILLONS de messages de Karina (inactifs : tu les relis et les actives toi-même).
+create or replace function public.llm_store_message_drafts(p_category text, p_subcategory text, items jsonb)
+returns int
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  n int := 0;
+  t text;
+begin
+  if auth.uid() is null then
+    raise exception 'not authenticated';
+  end if;
+  if p_category = 'flirty' and coalesce(p_subcategory, '') = 'spicy' then
+    raise exception 'les messages flirty/spicy s''écrivent à la main';
+  end if;
+  if jsonb_typeof(items) <> 'array' or jsonb_array_length(items) > 12 then
+    raise exception 'invalid items';
+  end if;
+  for t in select jsonb_array_elements_text(items) loop
+    if length(trim(t)) between 3 and 400 then
+      insert into karina_messages (category, subcategory, trigger_context, message_text, is_active)
+      values (p_category, nullif(p_subcategory, ''), 'brouillon IA — à relire', trim(t), false);
+      n := n + 1;
+    end if;
+  end loop;
+  return n;
+end;
+$$;
+
+revoke all on function public.llm_take_quota(text, int) from public, anon;
+revoke all on function public.llm_store_exercises(jsonb) from public, anon;
+revoke all on function public.llm_store_message_drafts(text, text, jsonb) from public, anon;
+grant execute on function public.llm_take_quota(text, int) to authenticated;
+grant execute on function public.llm_store_exercises(jsonb) to authenticated;
+grant execute on function public.llm_store_message_drafts(text, text, jsonb) to authenticated;
+
 -- ---------- Récompenses (V1) ----------
 create table if not exists rewards (
   id SERIAL primary key,
@@ -256,6 +387,8 @@ alter table rewards         enable row level security;
 alter table weakness_log    enable row level security;
 alter table karina_messages enable row level security;
 alter table exercise_reports enable row level security;
+alter table llm_usage enable row level security;
+alter table llm_usage_session enable row level security;
 
 -- Curriculum : lecture seule pour tout utilisateur connecté
 drop policy if exists "floors_read" on floors;
@@ -287,6 +420,11 @@ create policy "sessions_own" on sessions for all to authenticated
 drop policy if exists "progress_own" on lesson_progress;
 create policy "progress_own" on lesson_progress for all to authenticated
   using (user_id = auth.uid()) with check (user_id = auth.uid());
+
+drop policy if exists "llm_usage_own" on llm_usage;
+create policy "llm_usage_own" on llm_usage for select to authenticated using (user_id = auth.uid());
+drop policy if exists "llm_usage_session_own" on llm_usage_session;
+create policy "llm_usage_session_own" on llm_usage_session for select to authenticated using (user_id = auth.uid());
 
 drop policy if exists "reports_own" on exercise_reports;
 create policy "reports_own" on exercise_reports for all to authenticated

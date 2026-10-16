@@ -1,6 +1,7 @@
 // Parcours d'une leçon : intro (teach) → exercices → résultats. Gère aussi l'entraînement "points faibles".
 import { state, isUnlocked, xpBoostActive } from '../state.js';
 import { loadExercises, loadWeakExercises } from '../api/exercises.js';
+import { generateExercises } from '../api/llm.js';
 import { loadWeaknesses, finishSession } from '../api/progress.js';
 import { playExercises } from './exercise-player.js';
 import { esc, $, spreadTypes, shuffle, tagLabel } from '../utils/helpers.js';
@@ -32,6 +33,16 @@ export async function render(root, params) {
     if (weakMode) {
       weakTags = (await loadWeaknesses(state.user.id, 5)).map((w) => w.tag);
       pool = await loadWeakExercises(weakTags, 10);
+      // Pool trop mince : l'IA (si configurée) en génère de nouveaux sur le point le plus faible.
+      if (pool.length < 5 && weakTags.length && state.llm?.configured) {
+        showLoading(root, 'Karina invente de nouveaux exercices pour toi…');
+        try {
+          await generateExercises({ tag: weakTags[0], focus: tagLabel(weakTags[0]), count: 6 });
+          pool = await loadWeakExercises(weakTags, 10);
+        } catch (e) {
+          console.warn('Génération IA indisponible :', e.message);
+        }
+      }
     } else {
       pool = await loadExercises(lesson.id);
     }

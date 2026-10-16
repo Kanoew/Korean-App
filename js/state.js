@@ -2,6 +2,7 @@
 import { loadCurriculum, loadProgress } from './api/lessons.js';
 import { ensureProfile } from './api/progress.js';
 import { loadKarinaMessages } from './api/messages.js';
+import { loadLlmStatus } from './api/llm.js';
 import { todayStr, yesterdayStr, hasXpBoost } from './utils/helpers.js';
 
 export const state = {
@@ -11,6 +12,8 @@ export const state = {
   lessons: [], // liste à plat, ordonnée : { ...lesson, unit, floor, index }
   progress: new Map(), // lesson_id -> ligne lesson_progress
   messages: [], // messages de Karina saisis dans Supabase (table karina_messages)
+  llm: { configured: false, model: null }, // couche IA disponible ?
+  llmReady: Promise.resolve(), // résolue quand le statut de la couche IA est connu
 };
 
 export function resetState() {
@@ -20,6 +23,8 @@ export function resetState() {
   state.lessons = [];
   state.progress = new Map();
   state.messages = [];
+  state.llm = { configured: false, model: null };
+  state.llmReady = Promise.resolve();
 }
 
 export async function loadAll(user) {
@@ -34,6 +39,10 @@ export async function loadAll(user) {
   state.progress = progress;
   state.profile = profile;
   state.messages = messages;
+  // Statut de l'IA en arrière-plan : ne ralentit pas le démarrage (la fonction peut mettre 1-2 s à se réveiller)
+  state.llmReady = loadLlmStatus().then((s) => {
+    state.llm = s;
+  });
   state.lessons = [];
   for (const floor of floors) {
     for (const unit of floor.units) {

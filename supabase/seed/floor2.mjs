@@ -1,6 +1,6 @@
 // Étage 2 — 일상 대화 : conversations du quotidien (A2+).
 // ⚠️ Contenu écrit par une IA et PAS ENCORE relu par un humain : voir docs/relecture-etage2.md.
-import { mc, fb, ro, tk, tf, ls } from './helpers.mjs';
+import { mc, fb, ro, tk, tf, ls, fp } from './helpers.mjs';
 
 export const floor2 = {
   floor_number: 2,
@@ -74,6 +74,7 @@ export const floor2 = {
             ls('저는 의사예요', ['저는 의사예요', '저는 학생이에요', '저는 의사가 아니에요', '저는 의사이에요'], '저는 의사예요', '의사 + 예요 (voyelle).', ['copula']),
             tf('날씨가 좋아요.', 'Il fait beau | Le temps est bon | La météo est bonne | Il fait bon', '좋아요 : « c\'est bien / agréable ».', ['adjectives']),
             tk('Mon nom est Jordan.', '제 이름은 조던이에요 | 이름은 조던이에요', '조던 + 이에요 (consonne finale ㄴ).', ['copula'], 2),
+            fp('Présente-toi en une ou deux phrases : ton nom et ta nationalité.', '이에요 / 예요 avec un nom (nom, nationalité)', "Exemple : 저는 조던이에요. 저는 프랑스 사람이에요.", ['copula']),
           ],
         },
       ],
@@ -350,6 +351,7 @@ export const floor2 = {
             mc('Pour relier deux NOMS (du pain et du lait), on utilise :', null, ['하고 / (이)랑', '그리고', '그래서', '하지만'], '하고 / (이)랑', '하고 et (이)랑 relient des noms ; 그리고 relie des phrases.', ['linking']),
             mc('Que signifie 그다음에 ?', null, ['ensuite, après ça', 'avant ça', 'pendant ce temps', 'à cause de ça'], 'ensuite, après ça', '그다음에 = ensuite.', ['linking']),
             tk("J'ai acheté du tofu.", '두부를 샀어요 | 저는 두부를 샀어요', '사다 → 샀어요 ; 두부를 (objet).', ['past', 'object_particle']),
+            fp("Dis ce que tu as fait hier, en une phrase.", 'Le passé poli (-았어요 / -었어요)', "Exemple : 어제 친구를 만났어요.", ['past']),
             tk("Hier, j'ai vu un film avec un ami.", '어제 친구랑 영화를 봤어요 | 어제 친구하고 영화를 봤어요 | 저는 어제 친구랑 영화를 봤어요 | 저는 어제 친구하고 영화를 봤어요', '친구랑 / 친구하고 = avec un ami ; 봤어요 = j\'ai vu.', ['past', 'linking'], 3),
             ls('어제 친구를 만났어요', ['어제 친구를 만났어요', '어제 친구를 만나요', '오늘 친구를 만났어요', '어제 친구랑 만났어요'], '어제 친구를 만났어요', '만났어요 = passé ; 어제 = hier. Écoute bien le temps du verbe et le mot de temps.', ['past']),
             tf('저는 어제 영화를 봤어요.', "Hier, j'ai vu un film | J'ai vu un film hier | Moi, hier, j'ai vu un film", '어제 = hier ; 봤어요 = j\'ai vu.', ['past']),
@@ -384,6 +386,7 @@ export const floor2 = {
             tk('Combien coûte ce tofu ?', '이 두부 얼마예요 | 이거 얼마예요 | 이 두부는 얼마예요', '이 두부 = ce tofu ; 얼마예요 = combien ?', ['requests'], 3),
             tk('Allez tout droit, puis à droite.', '똑바로 가세요. 그다음에 오른쪽으로 가세요 | 쭉 가세요. 그다음에 오른쪽으로 가세요 | 똑바로 가세요. 그리고 오른쪽으로 가세요 | 쭉 가세요. 그리고 오른쪽으로 가세요', '똑바로 = tout droit ; 그다음에 = ensuite ; 오른쪽으로 = vers la droite.', ['directions', 'linking'], 4),
             tk("Ce week-end, j'irai à Séoul en train.", '주말에 기차로 서울에 갈 거예요 | 이번 주말에 기차로 서울에 갈 거예요 | 주말에 서울에 기차로 갈 거예요', '주말에 (moment) + 기차로 (moyen) + 서울에 (destination) + 갈 거예요.', ['future', 'direction', 'e_vs_eseo'], 4),
+            fp('Dis ce que tu feras demain, avec un lieu.', 'Le futur (-(으)ㄹ 거예요) et la particule de lieu 에', "Exemple : 내일 시장에 갈 거예요.", ['future', 'e_vs_eseo'], 4),
             tf('어제 시장에서 두부하고 사과를 샀어요.', "Hier, j'ai acheté du tofu et des pommes au marché | J'ai acheté du tofu et des pommes au marché hier | Hier, au marché, j'ai acheté du tofu et des pommes", '시장에서 = au marché (action) ; 두부하고 사과 = du tofu et des pommes.', ['past', 'linking', 'e_vs_eseo'], 4),
           ],
         },

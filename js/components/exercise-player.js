@@ -10,6 +10,7 @@ import {
 import { say, clearBubble } from './karina-bubble.js';
 import { stopSpeaking } from '../utils/tts.js';
 import { reportExercise } from '../api/reports.js';
+import { evaluateProduction } from '../api/llm.js';
 
 export function playExercises(root, { exercises, streakActive, label = '', onDone, onExit }) {
   let i = 0;
@@ -43,6 +44,7 @@ export function playExercises(root, { exercises, streakActive, label = '', onDon
           <span class="muted small">${i + 1}/${exercises.length}</span>
         </div>
         ${label ? `<div class="player-label">${esc(label)}</div>` : ''}
+        ${ex.is_llm_generated ? '<div class="ai-badge">✨ Exercice généré par l\'IA — signale-moi tout ce qui cloche</div>' : ''}
         <div class="ex-card" id="ex"></div>
         <div class="feedback" id="fb" hidden></div>
         <div class="player-actions"><button class="btn primary block" id="main" disabled>Vérifier</button></div>
@@ -74,20 +76,42 @@ export function playExercises(root, { exercises, streakActive, label = '', onDon
       }
     };
 
-    main.onclick = () => {
+    main.onclick = async () => {
       if (phase === 'answering') {
-        phase = 'feedback';
         stopIdle();
         stopSpeaking();
-        const { result, expected } = checkAnswer(ex, answer);
+        let outcome;
+        if (ex.exercise_type === 'free_production') {
+          // Karina lit la phrase : c'est l'IA qui corrige (appel réseau, parfois lent)
+          phase = 'evaluating';
+          main.disabled = true;
+          main.textContent = 'Karina lit ta phrase…';
+          try {
+            const ev = await evaluateProduction({ exercise: ex, sentence: answer });
+            outcome = { result: ev.verdict, expected: ev.corrected, explanation: ev.explanation_fr, points: ev.points, free: true };
+          } catch (err) {
+            phase = 'answering';
+            main.disabled = false;
+            main.textContent = 'Vérifier';
+            showLlmProblem(err);
+            return;
+          }
+        } else {
+          outcome = checkAnswer(ex, answer);
+        }
+        phase = 'feedback';
+        const { result, expected } = outcome;
         const xp = xpFor(result, streakActive);
         results.push({ ex, result, xp, given: answer });
         view.lock();
         view.reveal(result);
-        showFeedback(ex, result, expected, xp, answer);
+        showFeedback(ex, result, expected, xp, answer, outcome);
+        main.disabled = false;
         main.textContent = i + 1 === exercises.length ? 'Terminer' : 'Continuer';
         main.classList.toggle('wrong-btn', result === 'wrong');
         main.focus();
+      } else if (phase === 'evaluating') {
+        return;
       } else {
         i += 1;
         if (i >= exercises.length) {
@@ -104,7 +128,27 @@ export function playExercises(root, { exercises, streakActive, label = '', onDon
     };
   }
 
-  function showFeedback(ex, result, expected, xp, given) {
+  // L'IA ne répond pas : on le dit, on laisse réessayer ou passer (un exercice passé ne compte pas)
+  function showLlmProblem(err) {
+    const fb = $('#fb', root);
+    fb.hidden = false;
+    fb.className = 'feedback slide-up';
+    fb.innerHTML = `<div class="fb-head">Karina est injoignable 😅</div>
+      <div class="fb-expl">${esc(err.message)}</div>
+      <div class="row" style="margin-top:8px"><button type="button" class="btn ghost small" id="skip">Passer cet exercice</button></div>`;
+    $('#skip', root).onclick = () => {
+      i += 1;
+      if (i >= exercises.length) {
+        clearBubble();
+        onDone(results);
+      } else {
+        clearBubble();
+        show();
+      }
+    };
+  }
+
+  function showFeedback(ex, result, expected, xp, given, outcome = {}) {
     // Séries et points récurrents pour choisir la sous-catégorie du message
     let bubble = null;
     if (result === 'correct') {
@@ -133,8 +177,8 @@ export function playExercises(root, { exercises, streakActive, label = '', onDon
     const headline = bubble ? feedbackLabel(result) : fallbackFeedbackLine(result);
     fb.innerHTML = `
       <div class="fb-head">${esc(headline)}${xp ? `<span class="xp-pop">+${xp} XP</span>` : ''}</div>
-      ${result !== 'correct' ? `<div class="fb-answer">Réponse : <strong>${esc(expected)}</strong></div>` : ''}
-      ${ex.explanation_fr ? `<div class="fb-expl">${esc(ex.explanation_fr)}</div>` : ''}
+      ${result !== 'correct' ? `<div class="fb-answer">${outcome.free ? 'Version corrigée' : 'Réponse'} : <strong>${esc(expected)}</strong></div>` : ''}
+      ${outcome.free ? `${outcome.explanation ? `<div class="fb-expl">${esc(outcome.explanation)}</div>` : ''}${(outcome.points || []).map((p) => `<div class="fb-point"><s>${esc(p.wrong)}</s> → <strong>${esc(p.right)}</strong> <span class="muted">${esc(p.rule_fr)}</span></div>`).join('')}` : ex.explanation_fr ? `<div class="fb-expl">${esc(ex.explanation_fr)}</div>` : ''}
       ${result === 'wrong' && tags ? `<div class="fb-tags">${tags}</div>` : ''}
       <div class="report">
         <button type="button" class="link-btn" id="report-open">⚑ Signaler un problème</button>

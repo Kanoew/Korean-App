@@ -4,7 +4,7 @@ import { writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
-import { mc, fb, ro, tk, tf, ls } from './helpers.mjs';
+import { mc, fb, ro, tk, tf, ls, fp } from './helpers.mjs';
 import { floor2 } from './floor2.mjs';
 
 const floor1 = {
@@ -84,6 +84,7 @@ const floor1 = {
             ro('Mon ami aime la cuisine coréenne.', ['친구가', '한국', '음식을', '좋아해요'], '친구가 한국 음식을 좋아해요 | 한국 음식을 친구가 좋아해요', 'Sujet (이/가) → objet (을/를) → verbe.', ['subject_particle', 'object_particle', 'particles'], 2),
             tf('저는 한국어를 공부해요.', 'J\'étudie le coréen | J\'apprends le coréen | Moi, j\'étudie le coréen', '한국어(coréen) + 를 + 공부해요(étudier).', ['object_particle', 'particles']),
             tk('Je bois de l\'eau.', '저는 물을 마셔요 | 물을 마셔요', '물 finit par une consonne → 을.', ['object_particle', 'particles']),
+            fp('Dis ce que tu regardes ou ce que tu bois, en une phrase.', 'La particule d\'objet 을/를', 'Exemple : 저는 영화를 봐요.', ['object_particle', 'particles']),
           ],
         },
       ],
@@ -553,6 +554,8 @@ for (const f of FLOORS) {
           wrong = e.options.filter((o) => !answers.includes(o)).join(' · ');
         } else if (e.type === 'reorder') {
           sentence = `(remettre en ordre) ${e.options.join(' / ')}`;
+        } else if (e.type === 'free_production') {
+          sentence = `(production libre, corrigée par l'IA) ${e.fr}`;
         } else if (e.type === 'translate_fr') {
           sentence = `(traduire en français) ${e.ko}`;
         } else {

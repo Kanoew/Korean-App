@@ -125,7 +125,7 @@ export function levenshtein(a, b) {
   return prev[n];
 }
 
-export const PLAYABLE = new Set(['multiple_choice', 'fill_blank', 'reorder', 'translate_ko', 'translate_fr', 'listening']);
+export const PLAYABLE = new Set(['multiple_choice', 'fill_blank', 'reorder', 'translate_ko', 'translate_fr', 'listening', 'free_production']);
 
 // 'choice' = boutons, 'typed' = champ texte, 'reorder' = mots à remettre dans l'ordre
 export function getMode(ex) {
@@ -134,6 +134,7 @@ export function getMode(ex) {
       return 'reorder';
     case 'translate_ko':
     case 'translate_fr':
+    case 'free_production':
       return 'typed';
     case 'multiple_choice':
       return 'choice';

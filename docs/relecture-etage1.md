@@ -60,6 +60,7 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 | 15 | (remettre en ordre) 친구가 / 한국 / 음식을 / 좋아해요 | 친구가 한국 음식을 좋아해요  ·  한국 음식을 친구가 좋아해요 |  | Mon ami aime la cuisine coréenne. | |
 | 16 | (traduire en français) 저는 한국어를 공부해요. | J'étudie le coréen  ·  J'apprends le coréen  ·  Moi, j'étudie le coréen |  |  | |
 | 17 | (traduire en coréen) Je bois de l'eau. | 저는 물을 마셔요  ·  물을 마셔요 |  |  | |
+| 18 | (production libre, corrigée par l'IA) Dis ce que tu regardes ou ce que tu bois, en une phrase. | La particule d'objet 을/를 |  | Dis ce que tu regardes ou ce que tu bois, en une phrase. | |
 
 ## Unité 2 — Particules de lieu : 에, 에서, 으로 (장소 조사)
 
@@ -82,14 +83,14 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 
 | # | Phrase / question | Réponse attendue | Options fausses | Traduction / consigne | Avis |
 | --- | --- | --- | --- | --- | --- |
-| 18 | 학교**에** 가요. | 에 | 에서 · 을 · 가 | Je vais à l'école. | |
-| 19 | 도서관**에서** 공부해요. | 에서 | 에 · 로 · 를 | J'étudie à la bibliothèque. | |
-| 20 | 집**에** 있어요. | 에 | 에서 · 으로 · 를 | Je suis à la maison. | |
-| 21 | 카페**에서** 커피를 마셔요. | 에서 | 에 · 으로 · 가 | Je bois un café dans un café. | |
-| 22 | Quelle particule avec une action (manger, étudier, travailler) ? | 에서 | 에 · 으로 · 도 |  | |
-| 23 | Quelle particule avec 가다 / 오다 (destination) ? | 에 | 에서 · 이 · 는 |  | |
-| 24 | (traduire en coréen) Je vais à la bibliothèque. | 도서관에 가요  ·  저는 도서관에 가요 |  |  | |
-| 25 | (traduire en coréen) Je travaille au café. | 카페에서 일해요  ·  저는 카페에서 일해요 |  |  | |
+| 19 | 학교**에** 가요. | 에 | 에서 · 을 · 가 | Je vais à l'école. | |
+| 20 | 도서관**에서** 공부해요. | 에서 | 에 · 로 · 를 | J'étudie à la bibliothèque. | |
+| 21 | 집**에** 있어요. | 에 | 에서 · 으로 · 를 | Je suis à la maison. | |
+| 22 | 카페**에서** 커피를 마셔요. | 에서 | 에 · 으로 · 가 | Je bois un café dans un café. | |
+| 23 | Quelle particule avec une action (manger, étudier, travailler) ? | 에서 | 에 · 으로 · 도 |  | |
+| 24 | Quelle particule avec 가다 / 오다 (destination) ? | 에 | 에서 · 이 · 는 |  | |
+| 25 | (traduire en coréen) Je vais à la bibliothèque. | 도서관에 가요  ·  저는 도서관에 가요 |  |  | |
+| 26 | (traduire en coréen) Je travaille au café. | 카페에서 일해요  ·  저는 카페에서 일해요 |  |  | |
 
 ### Entraînement : 에 / 에서 / 으로 (장소 조사 연습) — practice
 
@@ -97,17 +98,17 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 
 | # | Phrase / question | Réponse attendue | Options fausses | Traduction / consigne | Avis |
 | --- | --- | --- | --- | --- | --- |
-| 26 | 친구가 서울**에** 있어요. | 에 | 에서 · 를 · 로 | Mon ami est à Séoul. | |
-| 27 | 도서관**에** 가요. | 에 | 에서 · 를 · 가 | Je vais à la bibliothèque. | |
-| 28 | 식당**에서** 점심을 먹어요. | 에서 | 에 · 로 · 를 | Je déjeune au restaurant. | |
-| 29 | 우리는 공원**에서** 운동해요. | 에서 | 에 · 으로 · 가 | Nous faisons du sport au parc. | |
-| 30 | 저는 프랑스**에서** 왔어요. | 에서 | 에 · 로 · 를 | Je viens de France. (origine) | |
-| 31 | 버스**로** 가요. | 로 | 으로 · 에 · 에서 | J'y vais en bus. | |
-| 32 | 지하철**로** 가요. | 로 | 으로 · 에서 · 에 | J'y vais en métro. | |
-| 33 | 손**으로** 먹어요. | 으로 | 로 · 에 · 에서 | Je mange avec les mains. | |
-| 34 | (écoute) 학교에 가요 | 학교에 가요 | 학교에서 가요 · 학교를 가요 · 학교가 가요 | Écoute et choisis la phrase entendue | |
-| 35 | (remettre en ordre) 저는 / 도서관에서 / 공부해요 | 저는 도서관에서 공부해요 |  | J'étudie à la bibliothèque. | |
-| 36 | (traduire en coréen) Je mange au restaurant. | 식당에서 먹어요  ·  저는 식당에서 먹어요 |  |  | |
+| 27 | 친구가 서울**에** 있어요. | 에 | 에서 · 를 · 로 | Mon ami est à Séoul. | |
+| 28 | 도서관**에** 가요. | 에 | 에서 · 를 · 가 | Je vais à la bibliothèque. | |
+| 29 | 식당**에서** 점심을 먹어요. | 에서 | 에 · 로 · 를 | Je déjeune au restaurant. | |
+| 30 | 우리는 공원**에서** 운동해요. | 에서 | 에 · 으로 · 가 | Nous faisons du sport au parc. | |
+| 31 | 저는 프랑스**에서** 왔어요. | 에서 | 에 · 로 · 를 | Je viens de France. (origine) | |
+| 32 | 버스**로** 가요. | 로 | 으로 · 에 · 에서 | J'y vais en bus. | |
+| 33 | 지하철**로** 가요. | 로 | 으로 · 에서 · 에 | J'y vais en métro. | |
+| 34 | 손**으로** 먹어요. | 으로 | 로 · 에 · 에서 | Je mange avec les mains. | |
+| 35 | (écoute) 학교에 가요 | 학교에 가요 | 학교에서 가요 · 학교를 가요 · 학교가 가요 | Écoute et choisis la phrase entendue | |
+| 36 | (remettre en ordre) 저는 / 도서관에서 / 공부해요 | 저는 도서관에서 공부해요 |  | J'étudie à la bibliothèque. | |
+| 37 | (traduire en coréen) Je mange au restaurant. | 식당에서 먹어요  ·  저는 식당에서 먹어요 |  |  | |
 
 ## Unité 3 — Le temps et les connecteurs (시간 표현)
 
@@ -132,14 +133,14 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 
 | # | Phrase / question | Réponse attendue | Options fausses | Traduction / consigne | Avis |
 | --- | --- | --- | --- | --- | --- |
-| 37 | 밥을 먹기 **전에** 손을 씻어요. | 전에 | 후에 · 동안 · 때 | Je me lave les mains avant de manger. | |
-| 38 | 수업 **후에** 커피를 마셔요. | 후에 | 전에 · 동안 · 에서 | Je bois un café après le cours. | |
-| 39 | 방학 **때** 한국에 갈 거예요. | 때 | 전에 · 후에 · 으로 | Pendant les vacances, j'irai en Corée. | |
-| 40 | 저는 3시**에** 도착해요. | 에 | 에서 · 를 · 은 | J'arrive à 3 heures. | |
-| 41 | Quel mot signifie "pendant" (une durée) ? | 동안 | 전에 · 후에 · 때 |  | |
-| 42 | Avec lequel de ces mots n'utilise-t-on PAS la particule 에 ? | 내일 | 3시 · 월요일 · 주말 |  | |
-| 43 | (traduire en coréen) Avant de dormir, je lis un livre. | 자기 전에 책을 읽어요  ·  저는 자기 전에 책을 읽어요 |  |  | |
-| 44 | (remettre en ordre) 식사 / 후에 / 커피를 / 마셔요 | 식사 후에 커피를 마셔요 |  | Après le repas, je bois un café. | |
+| 38 | 밥을 먹기 **전에** 손을 씻어요. | 전에 | 후에 · 동안 · 때 | Je me lave les mains avant de manger. | |
+| 39 | 수업 **후에** 커피를 마셔요. | 후에 | 전에 · 동안 · 에서 | Je bois un café après le cours. | |
+| 40 | 방학 **때** 한국에 갈 거예요. | 때 | 전에 · 후에 · 으로 | Pendant les vacances, j'irai en Corée. | |
+| 41 | 저는 3시**에** 도착해요. | 에 | 에서 · 를 · 은 | J'arrive à 3 heures. | |
+| 42 | Quel mot signifie "pendant" (une durée) ? | 동안 | 전에 · 후에 · 때 |  | |
+| 43 | Avec lequel de ces mots n'utilise-t-on PAS la particule 에 ? | 내일 | 3시 · 월요일 · 주말 |  | |
+| 44 | (traduire en coréen) Avant de dormir, je lis un livre. | 자기 전에 책을 읽어요  ·  저는 자기 전에 책을 읽어요 |  |  | |
+| 45 | (remettre en ordre) 식사 / 후에 / 커피를 / 마셔요 | 식사 후에 커피를 마셔요 |  | Après le repas, je bois un café. | |
 
 ### Entraînement : le temps (시간 표현 연습) — practice
 
@@ -147,16 +148,16 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 
 | # | Phrase / question | Réponse attendue | Options fausses | Traduction / consigne | Avis |
 | --- | --- | --- | --- | --- | --- |
-| 45 | 한국에 가기 **전에** 한국어를 공부했어요. | 전에 | 후에 · 동안 · 때 | J'ai étudié le coréen avant d'aller en Corée. | |
-| 46 | 일이 끝난 **후에** 운동해요. | 후에 | 전에 · 동안 · 때 | Je fais du sport après le travail. | |
-| 47 | 1시간 **동안** 기다렸어요. | 동안 | 전에 · 후에 · 때 | J'ai attendu pendant une heure. | |
-| 48 | 어렸을 **때** 서울에 살았어요. | 때 | 전에 · 후에 · 동안 | Quand j'étais petit, j'habitais à Séoul. | |
-| 49 | 주말**에** 뭐 해요? | 에 | 에서 · 을 · 가 | Que fais-tu le week-end ? | |
-| 50 | Quelle phrase est correcte ? (aujourd'hui, on se voit) | 오늘 만나요 | 오늘에 만나요 · 오늘에서 만나요 · 오늘으로 만나요 |  | |
-| 51 | (écoute) 식사 후에 커피를 마셔요 | 식사 후에 커피를 마셔요 | 식사 전에 커피를 마셔요 · 식사 동안 커피를 마셔요 · 식사 때 커피를 마셔요 | Écoute et choisis la phrase entendue | |
-| 52 | (traduire en français) 저는 수업 후에 도서관에 가요. | Après le cours, je vais à la bibliothèque  ·  Je vais à la bibliothèque après le cours  ·  Après le cours je vais à la bibliothèque  ·  Après les cours, je vais à la bibliothèque  ·  Je vais à la bibliothèque après les cours  ·  Après les cours je vais à la bibliothèque |  |  | |
-| 53 | (traduire en coréen) Pendant les vacances, je voyage. | 방학 때 여행해요  ·  방학 동안 여행해요  ·  저는 방학 때 여행해요  ·  저는 방학 동안 여행해요  ·  방학에 여행해요  ·  저는 방학에 여행해요 |  |  | |
-| 54 | (remettre en ordre) 저는 / 자기 / 전에 / 샤워해요 | 저는 자기 전에 샤워해요 |  | Avant de dormir, je prends une douche. | |
+| 46 | 한국에 가기 **전에** 한국어를 공부했어요. | 전에 | 후에 · 동안 · 때 | J'ai étudié le coréen avant d'aller en Corée. | |
+| 47 | 일이 끝난 **후에** 운동해요. | 후에 | 전에 · 동안 · 때 | Je fais du sport après le travail. | |
+| 48 | 1시간 **동안** 기다렸어요. | 동안 | 전에 · 후에 · 때 | J'ai attendu pendant une heure. | |
+| 49 | 어렸을 **때** 서울에 살았어요. | 때 | 전에 · 후에 · 동안 | Quand j'étais petit, j'habitais à Séoul. | |
+| 50 | 주말**에** 뭐 해요? | 에 | 에서 · 을 · 가 | Que fais-tu le week-end ? | |
+| 51 | Quelle phrase est correcte ? (aujourd'hui, on se voit) | 오늘 만나요 | 오늘에 만나요 · 오늘에서 만나요 · 오늘으로 만나요 |  | |
+| 52 | (écoute) 식사 후에 커피를 마셔요 | 식사 후에 커피를 마셔요 | 식사 전에 커피를 마셔요 · 식사 동안 커피를 마셔요 · 식사 때 커피를 마셔요 | Écoute et choisis la phrase entendue | |
+| 53 | (traduire en français) 저는 수업 후에 도서관에 가요. | Après le cours, je vais à la bibliothèque  ·  Je vais à la bibliothèque après le cours  ·  Après le cours je vais à la bibliothèque  ·  Après les cours, je vais à la bibliothèque  ·  Je vais à la bibliothèque après les cours  ·  Après les cours je vais à la bibliothèque |  |  | |
+| 54 | (traduire en coréen) Pendant les vacances, je voyage. | 방학 때 여행해요  ·  방학 동안 여행해요  ·  저는 방학 때 여행해요  ·  저는 방학 동안 여행해요  ·  방학에 여행해요  ·  저는 방학에 여행해요 |  |  | |
+| 55 | (remettre en ordre) 저는 / 자기 / 전에 / 샤워해요 | 저는 자기 전에 샤워해요 |  | Avant de dormir, je prends une douche. | |
 
 ## Unité 4 — Nombres sino-coréens (한자어 숫자)
 
@@ -179,14 +180,14 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 
 | # | Phrase / question | Réponse attendue | Options fausses | Traduction / consigne | Avis |
 | --- | --- | --- | --- | --- | --- |
-| 55 | Comment dit-on 5 en sino-coréen ? | 오 | 다섯 · 사 · 육 |  | |
-| 56 | Comment lit-on 3 000원 ? | 삼천 원 | 세천 원 · 삼십 원 · 셋천 원 |  | |
-| 57 | Pour les minutes (분), quel système de nombres utilise-t-on ? | Sino-coréen | Coréen natif · Les deux au choix · Aucun |  | |
-| 58 | Comment lit-on 10분 ? | 십 분 | 열 분 · 십 시 · 열 시 |  | |
-| 59 | Comment lit-on 6월 (juin) ? | 유월 | 육월 · 여섯월 · 륙월 |  | |
-| 60 | Quel nombre signifie 100 ? | 백 | 십 · 천 · 만 |  | |
-| 61 | (traduire en coréen) Dix mille wons. | 만 원 |  |  | |
-| 62 | (traduire en coréen) Le 15 mai. | 오월 십오일  ·  오월 십오 일  ·  5월 15일 |  |  | |
+| 56 | Comment dit-on 5 en sino-coréen ? | 오 | 다섯 · 사 · 육 |  | |
+| 57 | Comment lit-on 3 000원 ? | 삼천 원 | 세천 원 · 삼십 원 · 셋천 원 |  | |
+| 58 | Pour les minutes (분), quel système de nombres utilise-t-on ? | Sino-coréen | Coréen natif · Les deux au choix · Aucun |  | |
+| 59 | Comment lit-on 10분 ? | 십 분 | 열 분 · 십 시 · 열 시 |  | |
+| 60 | Comment lit-on 6월 (juin) ? | 유월 | 육월 · 여섯월 · 륙월 |  | |
+| 61 | Quel nombre signifie 100 ? | 백 | 십 · 천 · 만 |  | |
+| 62 | (traduire en coréen) Dix mille wons. | 만 원 |  |  | |
+| 63 | (traduire en coréen) Le 15 mai. | 오월 십오일  ·  오월 십오 일  ·  5월 15일 |  |  | |
 
 ### Entraînement : nombres sino-coréens (한자어 숫자 연습) — practice
 
@@ -194,15 +195,15 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 
 | # | Phrase / question | Réponse attendue | Options fausses | Traduction / consigne | Avis |
 | --- | --- | --- | --- | --- | --- |
-| 63 | Comment lit-on 1 500원 ? | 천오백 원 | 십오백 원 · 백오십 원 · 천오십 원 |  | |
-| 64 | Comment lit-on 2024년 ? | 이천이십사 년 | 이천이십사 월 · 두천스물네 년 · 이천사십이 년 |  | |
-| 65 | Comment lit-on 20분 ? | 이십 분 | 스무 분 · 이 분십 · 열 분 |  | |
-| 66 | Comment lit-on "2번 버스" ? | 이 번 버스 | 두 번 버스 · 둘 번 버스 · 이 개 버스 |  | |
-| 67 | Trouve l'intrus (nombres sino-coréens) : | 하나 | 일 · 이 · 삼 |  | |
-| 68 | (écoute) 삼십 분 | 삼십 분 | 십삼 분 · 삼 분 · 삼백 분 | Écoute et choisis la phrase entendue | |
-| 69 | (traduire en coréen) Je suis au 5e étage. | 저는 오 층에 있어요  ·  오 층에 있어요  ·  오층에 있어요  ·  5층에 있어요  ·  저는 5층에 있어요 |  |  | |
-| 70 | (traduire en français) 삼만 원이에요. | Ça fait 30000 wons  ·  C'est 30000 wons  ·  Ça fait trente mille wons  ·  C'est trente mille wons  ·  Ça coûte 30000 wons |  |  | |
-| 71 | (remettre en ordre) 이 / 책은 / 만 / 원이에요 | 이 책은 만 원이에요 |  | Ce livre coûte 10 000 wons. | |
+| 64 | Comment lit-on 1 500원 ? | 천오백 원 | 십오백 원 · 백오십 원 · 천오십 원 |  | |
+| 65 | Comment lit-on 2024년 ? | 이천이십사 년 | 이천이십사 월 · 두천스물네 년 · 이천사십이 년 |  | |
+| 66 | Comment lit-on 20분 ? | 이십 분 | 스무 분 · 이 분십 · 열 분 |  | |
+| 67 | Comment lit-on "2번 버스" ? | 이 번 버스 | 두 번 버스 · 둘 번 버스 · 이 개 버스 |  | |
+| 68 | Trouve l'intrus (nombres sino-coréens) : | 하나 | 일 · 이 · 삼 |  | |
+| 69 | (écoute) 삼십 분 | 삼십 분 | 십삼 분 · 삼 분 · 삼백 분 | Écoute et choisis la phrase entendue | |
+| 70 | (traduire en coréen) Je suis au 5e étage. | 저는 오 층에 있어요  ·  오 층에 있어요  ·  오층에 있어요  ·  5층에 있어요  ·  저는 5층에 있어요 |  |  | |
+| 71 | (traduire en français) 삼만 원이에요. | Ça fait 30000 wons  ·  C'est 30000 wons  ·  Ça fait trente mille wons  ·  C'est trente mille wons  ·  Ça coûte 30000 wons |  |  | |
+| 72 | (remettre en ordre) 이 / 책은 / 만 / 원이에요 | 이 책은 만 원이에요 |  | Ce livre coûte 10 000 wons. | |
 
 ## Unité 5 — Nombres coréens natifs (고유어 숫자)
 
@@ -224,14 +225,14 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 
 | # | Phrase / question | Réponse attendue | Options fausses | Traduction / consigne | Avis |
 | --- | --- | --- | --- | --- | --- |
-| 72 | Comment dit-on 3 en coréen natif ? | 셋 | 삼 · 넷 · 사 |  | |
-| 73 | Devant un compteur, "un" (하나) devient : | 한 | 하나 · 일 · 첫 |  | |
-| 74 | 커피 **두** 잔 주세요. | 두 | 둘 · 이 · 둘이 | Deux cafés, s'il vous plaît. | |
-| 75 | Quel compteur pour les personnes ? | 명 | 개 · 마리 · 권 |  | |
-| 76 | Quel compteur pour les livres ? | 권 | 개 · 병 · 명 |  | |
-| 77 | Comment lit-on 3시 (3 heures) ? | 세 시 | 삼 시 · 셋 시 · 사 시 |  | |
-| 78 | (traduire en coréen) Deux personnes. | 두 명  ·  두 사람 |  |  | |
-| 79 | (traduire en coréen) Trois cafés, s'il vous plaît. | 커피 세 잔 주세요 |  |  | |
+| 73 | Comment dit-on 3 en coréen natif ? | 셋 | 삼 · 넷 · 사 |  | |
+| 74 | Devant un compteur, "un" (하나) devient : | 한 | 하나 · 일 · 첫 |  | |
+| 75 | 커피 **두** 잔 주세요. | 두 | 둘 · 이 · 둘이 | Deux cafés, s'il vous plaît. | |
+| 76 | Quel compteur pour les personnes ? | 명 | 개 · 마리 · 권 |  | |
+| 77 | Quel compteur pour les livres ? | 권 | 개 · 병 · 명 |  | |
+| 78 | Comment lit-on 3시 (3 heures) ? | 세 시 | 삼 시 · 셋 시 · 사 시 |  | |
+| 79 | (traduire en coréen) Deux personnes. | 두 명  ·  두 사람 |  |  | |
+| 80 | (traduire en coréen) Trois cafés, s'il vous plaît. | 커피 세 잔 주세요 |  |  | |
 
 ### Entraînement : nombres natifs (고유어 숫자 연습) — practice
 
@@ -239,17 +240,17 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 
 | # | Phrase / question | Réponse attendue | Options fausses | Traduction / consigne | Avis |
 | --- | --- | --- | --- | --- | --- |
-| 80 | 저는 **스물다섯** 살이에요. (25 ans) | 스물다섯 | 이십오 · 스무다섯 · 이십다섯 | J'ai 25 ans. | |
-| 81 | 물 **한** 병 주세요. | 한 | 하나 · 일 · 첫 | Une bouteille d'eau, s'il vous plaît. | |
-| 82 | 고양이 **네** 마리가 있어요. | 네 | 넷 · 사 · 너 | J'ai quatre chats. | |
-| 83 | 사과가 **세** 개 있어요. | 세 | 셋 · 삼 · 사 | Il y a trois pommes. | |
-| 84 | Quel système utilise-t-on pour l'âge (살) ? | Coréen natif | Sino-coréen · Les deux au choix · Aucun |  | |
-| 85 | Comment lit-on 2시 30분 ? | 두 시 삼십 분 | 이 시 삼십 분 · 두 시 서른 분 · 이 시 서른 분 |  | |
-| 86 | (écoute) 커피 두 잔 주세요 | 커피 두 잔 주세요 | 커피 세 잔 주세요 · 커피 한 잔 주세요 · 커피 네 잔 주세요 | Écoute et choisis la phrase entendue | |
-| 87 | (traduire en français) 저는 책 두 권을 샀어요. | J'ai acheté deux livres  ·  J'ai acheté 2 livres  ·  Moi, j'ai acheté deux livres |  |  | |
-| 88 | Quelle phrase est correcte ? (trois pommes) | 사과 세 개 | 세 사과 개 · 세 개 사과 · 사과 개 세 |  | |
-| 89 | Quelle phrase est correcte ? (deux cafés) | 커피 두 잔 | 두 커피 잔 · 두 잔 커피 · 잔 두 커피 |  | |
-| 90 | (remettre en ordre) 저는 / 사과 / 세 / 개를 / 먹었어요 | 저는 사과 세 개를 먹었어요 |  | J'ai mangé trois pommes. | |
+| 81 | 저는 **스물다섯** 살이에요. (25 ans) | 스물다섯 | 이십오 · 스무다섯 · 이십다섯 | J'ai 25 ans. | |
+| 82 | 물 **한** 병 주세요. | 한 | 하나 · 일 · 첫 | Une bouteille d'eau, s'il vous plaît. | |
+| 83 | 고양이 **네** 마리가 있어요. | 네 | 넷 · 사 · 너 | J'ai quatre chats. | |
+| 84 | 사과가 **세** 개 있어요. | 세 | 셋 · 삼 · 사 | Il y a trois pommes. | |
+| 85 | Quel système utilise-t-on pour l'âge (살) ? | Coréen natif | Sino-coréen · Les deux au choix · Aucun |  | |
+| 86 | Comment lit-on 2시 30분 ? | 두 시 삼십 분 | 이 시 삼십 분 · 두 시 서른 분 · 이 시 서른 분 |  | |
+| 87 | (écoute) 커피 두 잔 주세요 | 커피 두 잔 주세요 | 커피 세 잔 주세요 · 커피 한 잔 주세요 · 커피 네 잔 주세요 | Écoute et choisis la phrase entendue | |
+| 88 | (traduire en français) 저는 책 두 권을 샀어요. | J'ai acheté deux livres  ·  J'ai acheté 2 livres  ·  Moi, j'ai acheté deux livres |  |  | |
+| 89 | Quelle phrase est correcte ? (trois pommes) | 사과 세 개 | 세 사과 개 · 세 개 사과 · 사과 개 세 |  | |
+| 90 | Quelle phrase est correcte ? (deux cafés) | 커피 두 잔 | 두 커피 잔 · 두 잔 커피 · 잔 두 커피 |  | |
+| 91 | (remettre en ordre) 저는 / 사과 / 세 / 개를 / 먹었어요 | 저는 사과 세 개를 먹었어요 |  | J'ai mangé trois pommes. | |
 
 ## Unité 6 — Boss : évaluation mixte (종합 평가)
 
@@ -259,17 +260,17 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 
 | # | Phrase / question | Réponse attendue | Options fausses | Traduction / consigne | Avis |
 | --- | --- | --- | --- | --- | --- |
-| 91 | 저는 회사**에서** 일해요. | 에서 | 에 · 로 · 를 | Je travaille au bureau. | |
-| 92 | 내일 부산**에** 가요. | 에 | 에서 · 로 · 를 | Demain, je vais à Busan. | |
-| 93 | 저**는** 프랑스 사람이에요. | 는 | 가 · 를 · 에 | Moi, je suis français(e). | |
-| 94 | 저는 커피**를** 마셔요. | 를 | 을 · 가 · 이 | Je bois du café. | |
-| 95 | 자기 **전에** 샤워해요. | 전에 | 후에 · 동안 · 때 | Je prends une douche avant de dormir. | |
-| 96 | 택시**로** 가요. | 로 | 으로 · 에 · 에서 | J'y vais en taxi. | |
-| 97 | Comment lit-on 10분 ? | 십 분 | 열 분 · 십 시 · 열 시 |  | |
-| 98 | (écoute) 저는 식당에서 밥을 먹어요 | 저는 식당에서 밥을 먹어요 | 저는 식당에 밥을 먹어요 · 저는 식당에서 밥이 먹어요 · 저는 식당에서 밥을 마셔요 | Écoute et choisis la phrase entendue | |
-| 99 | (remettre en ordre) 저는 / 도서관에서 / 책을 / 읽어요 | 저는 도서관에서 책을 읽어요 |  | Je lis un livre à la bibliothèque. | |
-| 100 | (traduire en français) 저는 학교에서 한국어를 공부해요. | J'étudie le coréen à l'école  ·  J'apprends le coréen à l'école  ·  Moi, j'étudie le coréen à l'école |  |  | |
-| 101 | (traduire en coréen) Trois mille wons. | 삼천 원 |  |  | |
-| 102 | (traduire en coréen) Quatre personnes. | 네 명  ·  네 사람 |  |  | |
-| 103 | (traduire en coréen) Je prends le petit-déjeuner à 7 heures. | 일곱 시에 아침을 먹어요  ·  저는 일곱 시에 아침을 먹어요  ·  7시에 아침을 먹어요  ·  저는 7시에 아침을 먹어요 |  |  | |
+| 92 | 저는 회사**에서** 일해요. | 에서 | 에 · 로 · 를 | Je travaille au bureau. | |
+| 93 | 내일 부산**에** 가요. | 에 | 에서 · 로 · 를 | Demain, je vais à Busan. | |
+| 94 | 저**는** 프랑스 사람이에요. | 는 | 가 · 를 · 에 | Moi, je suis français(e). | |
+| 95 | 저는 커피**를** 마셔요. | 를 | 을 · 가 · 이 | Je bois du café. | |
+| 96 | 자기 **전에** 샤워해요. | 전에 | 후에 · 동안 · 때 | Je prends une douche avant de dormir. | |
+| 97 | 택시**로** 가요. | 로 | 으로 · 에 · 에서 | J'y vais en taxi. | |
+| 98 | Comment lit-on 10분 ? | 십 분 | 열 분 · 십 시 · 열 시 |  | |
+| 99 | (écoute) 저는 식당에서 밥을 먹어요 | 저는 식당에서 밥을 먹어요 | 저는 식당에 밥을 먹어요 · 저는 식당에서 밥이 먹어요 · 저는 식당에서 밥을 마셔요 | Écoute et choisis la phrase entendue | |
+| 100 | (remettre en ordre) 저는 / 도서관에서 / 책을 / 읽어요 | 저는 도서관에서 책을 읽어요 |  | Je lis un livre à la bibliothèque. | |
+| 101 | (traduire en français) 저는 학교에서 한국어를 공부해요. | J'étudie le coréen à l'école  ·  J'apprends le coréen à l'école  ·  Moi, j'étudie le coréen à l'école |  |  | |
+| 102 | (traduire en coréen) Trois mille wons. | 삼천 원 |  |  | |
+| 103 | (traduire en coréen) Quatre personnes. | 네 명  ·  네 사람 |  |  | |
+| 104 | (traduire en coréen) Je prends le petit-déjeuner à 7 heures. | 일곱 시에 아침을 먹어요  ·  저는 일곱 시에 아침을 먹어요  ·  7시에 아침을 먹어요  ·  저는 7시에 아침을 먹어요 |  |  | |
 

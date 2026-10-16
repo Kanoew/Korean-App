@@ -120,7 +120,7 @@ function llmConfig() {
   return { key, model, base: (env('LLM_BASE_URL') || DEFAULT_BASE).replace(/\/+$/, '') };
 }
 
-async function chat(messages: { role: string; content: string }[], opts: { temperature?: number; maxTokens?: number } = {}): Promise<string> {
+async function chatOnce(messages: { role: string; content: string }[], opts: { temperature?: number; maxTokens?: number } = {}): Promise<string> {
   const { key, model, base } = llmConfig();
   const ctl = new AbortController();
   const timer = setTimeout(() => ctl.abort(), 40000);
@@ -142,12 +142,25 @@ async function chat(messages: { role: string; content: string }[], opts: { tempe
     if (res.status === 401 || res.status === 403) throw new AppError('provider_auth', "Clé refusée par le fournisseur. Vérifie LLM_API_KEY.");
     if (res.status === 404) throw new AppError('model_not_found', 'Modèle introuvable. Vérifie LLM_MODEL (nom exact affiché dans AI Studio).');
     if (res.status === 429) throw new AppError('provider_rate_limited', "Limite gratuite du fournisseur atteinte pour le moment. Réessaie plus tard.");
+    if (res.status === 500 || res.status === 502 || res.status === 503 || res.status === 504) throw new AppError('provider_busy', 'Le modèle est surchargé chez le fournisseur (pic de demande, souvent passager). Réessaie dans un instant, ou essaie un autre modèle dans LLM_MODEL.');
     throw new AppError('provider_error', `Erreur du fournisseur (${res.status}). ${detail}`);
   }
   const data = await res.json().catch(() => null);
   const text = data?.choices?.[0]?.message?.content;
   if (typeof text !== 'string' || !text.trim()) throw new AppError('bad_llm_output', "Réponse vide du modèle.");
   return text;
+}
+
+// Pics de demande (503) : deux nouvelles tentatives espacées avant d'abandonner.
+async function chat(messages: { role: string; content: string }[], opts: { temperature?: number; maxTokens?: number } = {}): Promise<string> {
+  for (let attempt = 0; ; attempt++) {
+    try {
+      return await chatOnce(messages, opts);
+    } catch (e) {
+      if (!(e instanceof AppError) || e.code !== 'provider_busy' || attempt >= 2) throw e;
+      await new Promise((r) => setTimeout(r, 1500 * (attempt + 1)));
+    }
+  }
 }
 
 // Extrait un objet / tableau JSON d'une réponse qui peut contenir des ``` ou du texte autour

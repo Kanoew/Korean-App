@@ -1,6 +1,7 @@
 // État partagé de l'application (utilisateur, profil, curriculum, progression).
 import { loadCurriculum, loadProgress } from './api/lessons.js';
 import { ensureProfile } from './api/progress.js';
+import { loadKarinaMessages } from './api/messages.js';
 import { todayStr, yesterdayStr, hasXpBoost } from './utils/helpers.js';
 
 export const state = {
@@ -9,6 +10,7 @@ export const state = {
   floors: [],
   lessons: [], // liste à plat, ordonnée : { ...lesson, unit, floor, index }
   progress: new Map(), // lesson_id -> ligne lesson_progress
+  messages: [], // messages de Karina saisis dans Supabase (table karina_messages)
 };
 
 export function resetState() {
@@ -17,14 +19,21 @@ export function resetState() {
   state.floors = [];
   state.lessons = [];
   state.progress = new Map();
+  state.messages = [];
 }
 
 export async function loadAll(user) {
   state.user = user;
-  const [floors, progress, profile] = await Promise.all([loadCurriculum(), loadProgress(user.id), ensureProfile(user)]);
+  const [floors, progress, profile, messages] = await Promise.all([
+    loadCurriculum(),
+    loadProgress(user.id),
+    ensureProfile(user),
+    loadKarinaMessages(),
+  ]);
   state.floors = floors;
   state.progress = progress;
   state.profile = profile;
+  state.messages = messages;
   state.lessons = [];
   for (const floor of floors) {
     for (const unit of floor.units) {

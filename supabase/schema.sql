@@ -141,6 +141,36 @@ create table if not exists weakness_log (
   unique (user_id, tag)
 );
 
+-- ---------- Messages de Karina (saisis à la main dans le Table Editor) ----------
+-- Catégories lues par l'app :
+--   greeting     : first_time, comeback_long, comeback, streak_30, streak_7, streak, morning, afternoon, evening, night
+--   feedback     : correct, partial, wrong
+--   result       : perfect, pass, fail, boss_pass, boss_fail
+--   floor_clear  : (subcategory vide)
+-- Variables dans message_text : {name} {streak} {xp} {floor} {level} {gap} {floor_title}
+create table if not exists karina_messages (
+  id SERIAL primary key,
+  category TEXT not null,
+  subcategory TEXT,
+  trigger_context TEXT,           -- note libre : quand ce message apparaît
+  message_text TEXT not null,
+  min_floor INT default 1,        -- n'apparaît pas avant cet étage
+  is_active BOOLEAN default true,
+  created_at TIMESTAMPTZ default now()
+);
+create index if not exists karina_messages_lookup_idx on karina_messages (category, subcategory) where is_active;
+
+-- ---------- Bucket public pour les sprites de Karina ----------
+-- (ignoré si le schéma storage n'existe pas, ex. Postgres de test)
+do $$
+begin
+  if to_regclass('storage.buckets') is not null then
+    insert into storage.buckets (id, name, public)
+    values ('karina-sprites', 'karina-sprites', true)
+    on conflict (id) do update set public = true;
+  end if;
+end $$;
+
 -- ============================================================
 -- Création automatique du profil à l'inscription
 -- ============================================================
@@ -176,6 +206,7 @@ alter table sessions        enable row level security;
 alter table lesson_progress enable row level security;
 alter table rewards         enable row level security;
 alter table weakness_log    enable row level security;
+alter table karina_messages enable row level security;
 
 -- Curriculum : lecture seule pour tout utilisateur connecté
 drop policy if exists "floors_read" on floors;
@@ -186,6 +217,8 @@ drop policy if exists "lessons_read" on lessons;
 create policy "lessons_read" on lessons for select to authenticated using (true);
 drop policy if exists "exercises_read" on exercises;
 create policy "exercises_read" on exercises for select to authenticated using (true);
+drop policy if exists "karina_messages_read" on karina_messages;
+create policy "karina_messages_read" on karina_messages for select to authenticated using (true);
 drop policy if exists "rewards_read" on rewards;
 create policy "rewards_read" on rewards for select to authenticated using (true);
 

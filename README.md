@@ -16,6 +16,7 @@ Les révisions espacées (SRS), les récompenses, les Edge Functions LLM et la r
 - XP (+10 juste, +5 « presque », +50 leçon, +200 boss, ×1,5 dès 2 jours de suite), série quotidienne
 - Suivi des points faibles (`weakness_log`) : une erreur incrémente le tag, 5 bonnes réponses d'affilée le résolvent ; bouton « Points faibles » pour s'entraîner dessus
 - Stats : XP sur 7 jours, taux de réussite, points faibles récurrents
+- **Karina à l'écran** : avatar rond dans l'en-tête, carte des étages où elle marche vers sa leçon courante, messages personnalisables (voir plus bas)
 - Contenu de l'**étage 1** : 6 unités, 11 leçons, 99 exercices (particules 은/는 이/가 을/를, **에 / 에서 / 으로**, connecteurs temporels, nombres sino-coréens et natifs, boss)
 
 ## Mise en route
@@ -53,6 +54,45 @@ python3 -m http.server 8000
 
 **Settings → Pages → Build and deployment → Deploy from a branch** → branche `main`, dossier `/ (root)`.
 
+## Karina : sprites et messages
+
+### Sprites (bucket `karina-sprites`)
+
+`schema.sql` crée le bucket public `karina-sprites`. Dépose-y tes PNG (Storage → karina-sprites → Upload), avec **exactement** ces noms :
+
+| Fichier | Où il sert |
+| --- | --- |
+| `karina-idle.png` | debout de face : accueil, carte des étages (flotte doucement) |
+| `karina-walk-right.png` | marche vers la droite : quand elle avance ou change d'étage |
+| `karina-celebrate.png` | écran de résultats quand la leçon est validée (rebond) |
+| `karina-thinking.png` | écrans d'attente (balancement) |
+
+Ordre de recherche : **bucket → `assets/karina/` → pose de repli (idle)**. Livrés dans le dépôt : `karina-idle.png` et `karina-walk-right.png` (découpés de la planche de poses, fond transparent, contour blanc pour rester lisibles sur le thème sombre). Tant que `celebrate` et `thinking` ne sont pas déposés, c'est `idle` qui s'affiche avec l'animation correspondante. Hauteur : 120 px sur mobile, 180 px sur grand écran.
+
+`assets/karina/avatar.webp` est l'avatar de l'en-tête (tête cadrée en cercle).
+
+### Messages (table `karina_messages`)
+
+Saisis-les dans Supabase → Table Editor → `karina_messages`. L'app les lit au chargement ; s'il n'y en a pas pour un cas, elle utilise ses messages intégrés.
+
+| category | subcategory | Quand |
+| --- | --- | --- |
+| `greeting` | `first_time`, `comeback_long` (≥ 7 j), `comeback` (≥ 3 j), `streak_30`, `streak_7`, `streak` (≥ 2 j), `morning`, `afternoon`, `evening`, `night` | accueil |
+| `feedback` | `correct`, `partial`, `wrong` | après chaque réponse |
+| `result` | `perfect`, `pass`, `fail`, `boss_pass`, `boss_fail` | fin de leçon |
+| `floor_clear` | *(vide)* | étage terminé |
+
+- `min_floor` : le message n'apparaît pas avant cet étage. `is_active` : décoche pour le désactiver.
+- `trigger_context` : note libre pour toi (non lue par l'app).
+- Une sous-catégorie précise l'emporte sur une ligne sans sous-catégorie ; plusieurs messages possibles → tirage au sort.
+- Variables dans `message_text` : `{name}` `{streak}` `{xp}` `{floor}` `{level}` `{gap}` `{floor_title}`.
+
+```sql
+insert into karina_messages (category, subcategory, trigger_context, message_text) values
+  ('greeting', 'streak_7', 'accueil, série ≥ 7 jours', '{streak} jours de suite, {name}. Je ne dis rien… mais je suis fière 😏'),
+  ('feedback', 'wrong', 'mauvaise réponse', 'Non, mon chou. Relis l''explication, c''est rapide.');
+```
+
 ## Structure
 
 ```
@@ -61,9 +101,10 @@ css/        main.css (thème) · components.css · animations.css
 js/
   app.js            routeur (hash) + garde d'authentification
   auth.js · supabase.js · config.js · state.js · karina.js
-  api/              lessons · exercises · progress
-  components/       dashboard · learn · lesson-view · exercise-player · exercise-types · stats · soon
-  utils/            helpers (correction, dates, XP) · tts
+  api/              lessons · exercises · progress · messages
+  components/       dashboard · floor-map · learn · lesson-view · exercise-player · exercise-types · stats · soon
+  utils/            helpers (correction, dates, XP) · tts · sprites
+assets/karina/      avatar.webp · karina-idle.png · karina-walk-right.png
 supabase/
   schema.sql        tables + RLS
   seed.sql          GÉNÉRÉ — ne pas éditer à la main

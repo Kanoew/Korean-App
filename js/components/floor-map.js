@@ -1,4 +1,4 @@
-// Carte des étages : Karina se tient à sa leçon courante et marche (translateX/translateY)
+// Carte des étages : Jordan se tient à sa leçon courante et marche (translateX/translateY)
 // quand elle avance ou change d'étage depuis ta dernière visite.
 import { state, currentFloor, floorProgress } from '../state.js';
 import { esc } from '../utils/helpers.js';
@@ -61,13 +61,13 @@ export function renderFloorMap(box) {
   box.innerHTML = `
     <div class="fm card" aria-label="Progression dans la tour">
       ${rows.join('')}
-      <div class="fm-karina"><img class="sprite" alt="Karina" draggable="false"></div>
+      <div class="fm-karina"><img class="sprite" alt="Jordan" draggable="false"></div>
     </div>`;
 
   const fm = box.querySelector('.fm');
   const holder = fm.querySelector('.fm-karina');
   const img = holder.querySelector('img');
-  useSprite(img, 'idle');
+  useSprite(img, 'jordan');
 
   // Position (coin haut-gauche du sprite) correspondant à une leçon d'un étage
   const spot = (floorNumber, index) => {
@@ -99,17 +99,15 @@ export function renderFloorMap(box) {
     put(to, false);
   } else {
     // Marche de l'ancienne position vers la nouvelle
-    holder.classList.toggle('flip', to.x < from.x);
+    holder.classList.toggle('flip', to.x > from.x); // le sprite regarde vers la gauche : on le retourne pour aller à droite
     put(from, false);
     holder.getBoundingClientRect(); // force le reflow
-    useSprite(img, 'walk');
     holder.classList.add('walking');
     let finished = false;
     const done = () => {
       if (finished) return;
       finished = true;
       holder.classList.remove('walking', 'flip');
-      useSprite(img, 'idle');
     };
     holder.addEventListener('transitionend', done, { once: true });
     setTimeout(done, 2300);

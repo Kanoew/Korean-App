@@ -84,6 +84,14 @@ export const TAG_LABELS = {
   word_order: 'Ordre des mots',
   listening: 'Compréhension orale',
   production: 'Production écrite',
+  copula: 'Être (이에요 / 예요)',
+  adjectives: 'Adjectifs (-아요 / 어요)',
+  requests: 'Demander (주세요, 얼마예요)',
+  directions: 'Chemin et transports',
+  location_words: 'Position (옆, 앞, 뒤)',
+  future: 'Futur (-(으)ㄹ 거예요)',
+  past: 'Passé (-았 / 었-)',
+  linking: 'Relier : 하고 / 랑 / 그리고',
 };
 export const tagLabel = (t) => TAG_LABELS[t] || t;
 

@@ -1,4 +1,4 @@
-# Relecture du coréen — étage 1
+# Relecture du coréen — étage 1 : Les fondations (기초 다지기)
 
 Document généré depuis le contenu de l'application (`supabase/seed/build-seed.mjs`). Les phrases ont été écrites par une IA, **sans relecteur humain**.
 

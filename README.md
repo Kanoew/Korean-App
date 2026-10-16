@@ -1,6 +1,6 @@
 # 한글 with Karina
 
-Application web (PWA) pour apprendre le coréen, de A2 vers B2, avec Karina comme tutrice.
+Application web (PWA) pour apprendre le coréen, de A2 vers B2, avec Karina comme tutrice : **gravir une tour de 100 étages**, avec Jordan qui monte et Karina qui l'accompagne.
 Front statique (HTML/CSS/JS, sans build) hébergé sur GitHub Pages · Supabase pour l'auth et la base de données.
 
 **État : V0 terminée** — boucle complète *connexion → leçon → exercices → progression*.
@@ -17,7 +17,9 @@ Les révisions espacées (SRS), les récompenses, les Edge Functions LLM et la r
 - Suivi des points faibles (`weakness_log`) : une erreur incrémente le tag, 5 bonnes réponses d'affilée le résolvent ; bouton « Points faibles » pour s'entraîner dessus
 - Stats : XP sur 7 jours, taux de réussite, points faibles récurrents
 - **Karina à l'écran** : avatar rond dans l'en-tête, carte des étages où elle marche vers sa leçon courante, messages personnalisables (voir plus bas)
-- Contenu de l'**étage 1** : 6 unités, 11 leçons, 99 exercices (particules 은/는 이/가 을/를, **에 / 에서 / 으로**, connecteurs temporels, nombres sino-coréens et natifs, boss)
+- **Étage 1** (103 exercices) : particules 은/는 이/가 을/를, **에 / 에서 / 으로**, connecteurs temporels, nombres sino-coréens et natifs, boss.
+- **Étage 2** (99 exercices) : se présenter (이에요/예요, adjectifs), commander (주세요, compteurs, prix), chemin et transports, futur (-(으)ㄹ 거예요), passé (-았/었-) et relier des noms (하고 / 랑 contre 그리고), boss « une journée au marché ». ⚠️ Pas encore relu par un humain.
+- **Bouton « Signaler »** sous chaque correction : une phrase te paraît fausse ou bizarre → une note, enregistrée dans `exercise_reports` (avec une copie du texte, car les identifiants d'exercices changent à chaque `seed.sql`).
 
 ## Mise en route
 
@@ -66,6 +68,10 @@ python3 -m http.server 8000
 | `karina-walk-right.png` | marche vers la droite : quand elle avance ou change d'étage |
 | `karina-celebrate.png` | écran de résultats quand la leçon est validée (rebond) |
 | `karina-thinking.png` | écrans d'attente (balancement) |
+| `jordan-idle.png` | **Jordan** sur la carte des étages : c'est lui qui grimpe (retourné quand il va vers la droite) |
+| `couple-hug.png` | écran de résultats : **étage terminé** |
+| `couple-piggyback.png` | étage terminé **multiple de 5**, ou série de **30 jours** |
+| `couple-forehead.png` | **leçon parfaite** ou **1 000 XP** franchis |
 
 Ordre de recherche : **bucket → `assets/karina/` → pose de repli (idle)**. Les quatre poses sont livrées dans le dépôt (`assets/karina/`, fond transparent, fin contour blanc pour rester lisibles sur le thème sombre). Si une pose manque partout, c'est `idle` qui s'affiche avec l'animation correspondante. Hauteur : 120 px sur mobile, 180 px sur grand écran.
 
@@ -129,7 +135,7 @@ supabase/
 
 ## Modifier ou ajouter du contenu
 
-Le contenu pédagogique vit dans `supabase/seed/build-seed.mjs` (constructeurs `mc`, `fb`, `ro`, `tk`, `tf`, `ls`). Après modification :
+Le contenu pédagogique vit dans `supabase/seed/build-seed.mjs` (étage 1) et `supabase/seed/floor2.mjs` (étage 2), avec les constructeurs `mc`, `fb`, `ro`, `tk`, `tf`, `ls` de `supabase/seed/helpers.mjs`. Règle pour les options : exactement 3 mauvaises options, **qui ne forment aucune phrase correcte** (attention aux formes comme « 가는 거예요 » ou « 만난 거예요 », qui existent vraiment). Après modification :
 
 ```bash
 node supabase/seed/build-seed.mjs   # régénère supabase/seed.sql
@@ -144,7 +150,15 @@ puis recolle `seed.sql` dans le SQL Editor. Conventions :
 
 ## Relecture du coréen par un humain
 
-`docs/relecture-etage1.md` liste toutes les phrases de l'étage 1 (réponses attendues, **mauvaises options**, cours, romanisations) avec une consigne pour le relecteur et une colonne « Avis ». Il est régénéré par `node supabase/seed/build-seed.mjs` en même temps que `seed.sql`. Le coréen a été écrit par une IA : à faire relire avant d'ajouter d'autres étages.
+`docs/relecture-etage1.md` et `docs/relecture-etage2.md` listent toutes les phrases de chaque étage (réponses attendues, **mauvaises options**, cours, romanisations) avec une consigne pour le relecteur et une colonne « Avis ». Ils sont régénérés par `node supabase/seed/build-seed.mjs` en même temps que `seed.sql`. Le coréen a été écrit par une IA : à faire relire avant d'ajouter d'autres étages.
+
+Pour lire les signalements faits depuis l'app (Supabase → SQL Editor) :
+
+```sql
+select created_at, snapshot->>'prompt_ko' as ko, snapshot->>'prompt_fr' as fr,
+       snapshot->>'correct_answer' as attendu, given_answer as donne, note
+from exercise_reports where status = 'open' order by created_at desc;
+```
 
 ## Notes techniques
 

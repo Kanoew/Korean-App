@@ -19,7 +19,7 @@ export async function render(root) {
       <header class="dash-top">
         <img class="avatar-img" src="${AVATAR}" alt="Karina" width="64" height="64">
         <div class="dash-title">
-          <div class="muted small">${esc(p.current_level)} · Étage ${esc(floor?.floor_number ?? 1)}</div>
+          <div class="muted small">${esc(p.current_level)} · Étage ${esc(floor?.floor_number ?? 1)} / 100</div>
           <h1>${esc(floor?.title_fr ?? 'Bienvenue')} <span class="ko-title">${esc(floor?.title_ko ?? '')}</span></h1>
         </div>
         <button class="icon-btn" id="logout" aria-label="Se déconnecter" title="Se déconnecter">⎋</button>

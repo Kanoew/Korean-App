@@ -8,9 +8,13 @@ const FILES = {
   walk: 'karina-walk-right.png', //     marche vers la droite (changement de position / d'étage)
   celebrate: 'karina-celebrate.png', // célébration (étage terminé, jalon)
   thinking: 'karina-thinking.png', //   main sur le menton (chargement)
+  jordan: 'jordan-idle.png', //         Jordan : celui qui grimpe la tour (carte des étages)
+  hug: 'couple-hug.png', //             câlin : étage terminé
+  piggyback: 'couple-piggyback.png', // sur le dos : jalon spécial (série de 30 jours, étage multiple de 5)
+  forehead: 'couple-forehead.png', //   front contre front : leçon parfaite, 1 000 XP
 };
-const SHIPPED = new Set(['idle', 'walk', 'celebrate', 'thinking']); // les quatre poses sont livrées dans le dépôt
-const FALLBACK = { celebrate: 'idle', thinking: 'idle', walk: 'idle' };
+const SHIPPED = new Set(Object.keys(FILES)); // toutes les poses sont livrées dans le dépôt
+const FALLBACK = { celebrate: 'idle', thinking: 'idle', walk: 'idle', hug: 'celebrate', piggyback: 'celebrate', forehead: 'celebrate', jordan: 'idle' };
 
 export const AVATAR = 'assets/karina/avatar.webp?v=2'; // ?v= : force le rechargement quand l'image change
 const bucketUrl = (key) => `${SUPABASE_URL}/storage/v1/object/public/karina-sprites/${FILES[key]}`;
@@ -44,8 +48,9 @@ export function resolveSprite(key) {
   return cache.get(key);
 }
 
+// Seules les poses de l'accueil sont sondées d'emblée ; les autres le sont à la demande.
 export function preloadSprites() {
-  Object.keys(FILES).forEach(resolveSprite);
+  ['idle', 'jordan'].forEach(resolveSprite);
 }
 
 // Applique une pose à un <img> existant (utile quand le même élément change de pose).

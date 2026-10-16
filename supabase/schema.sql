@@ -116,6 +116,23 @@ create table if not exists lesson_progress (
   primary key (user_id, lesson_id)
 );
 
+-- ---------- Signalements d'exercices (bouton « Signaler » de l'app) ----------
+-- Chaque signalement garde une copie du texte : les exercices sont recréés à chaque seed.sql,
+-- leur identifiant n'est donc pas stable. Lecture :
+--   select created_at, snapshot->>'prompt_ko' as ko, snapshot->>'prompt_fr' as fr,
+--          snapshot->>'correct_answer' as attendu, given_answer as donne, note
+--   from exercise_reports where status = 'open' order by created_at desc;
+create table if not exists exercise_reports (
+  id SERIAL primary key,
+  user_id UUID references auth.users(id) on delete cascade,
+  exercise_id INT references exercises(id) on delete set null,
+  note TEXT,
+  given_answer TEXT,
+  snapshot JSONB,
+  status TEXT default 'open' check (status in ('open', 'fixed', 'dismissed')),
+  created_at TIMESTAMPTZ default now()
+);
+
 -- ---------- Récompenses (V1) ----------
 create table if not exists rewards (
   id SERIAL primary key,
@@ -238,6 +255,7 @@ alter table lesson_progress enable row level security;
 alter table rewards         enable row level security;
 alter table weakness_log    enable row level security;
 alter table karina_messages enable row level security;
+alter table exercise_reports enable row level security;
 
 -- Curriculum : lecture seule pour tout utilisateur connecté
 drop policy if exists "floors_read" on floors;
@@ -268,6 +286,10 @@ create policy "sessions_own" on sessions for all to authenticated
 
 drop policy if exists "progress_own" on lesson_progress;
 create policy "progress_own" on lesson_progress for all to authenticated
+  using (user_id = auth.uid()) with check (user_id = auth.uid());
+
+drop policy if exists "reports_own" on exercise_reports;
+create policy "reports_own" on exercise_reports for all to authenticated
   using (user_id = auth.uid()) with check (user_id = auth.uid());
 
 drop policy if exists "weakness_own" on weakness_log;

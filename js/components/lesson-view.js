@@ -4,7 +4,7 @@ import { loadExercises, loadWeakExercises } from '../api/exercises.js';
 import { loadWeaknesses, finishSession } from '../api/progress.js';
 import { playExercises } from './exercise-player.js';
 import { esc, $, spreadTypes, shuffle, tagLabel } from '../utils/helpers.js';
-import { resultLine, floorClearLine, floorClearMessage, milestoneMessages, sessionEndMessage } from '../karina.js';
+import { resultLine, floorClearLine, floorClearMessage, milestoneMessages, crossedMilestones, sessionEndMessage } from '../karina.js';
 import { sayAll, clearBubble } from './karina-bubble.js';
 import { speak, ttsSupported } from '../utils/tts.js';
 import { spriteImg, hydrateSprites, showLoading } from '../utils/sprites.js';
@@ -108,10 +108,23 @@ function showIntro(root, lesson, content, start) {
   window.scrollTo(0, 0);
 }
 
+// Quelle image pour l'écran de résultats ?
+//  étage terminé → câlin (sur le dos si l'étage est un multiple de 5) ; série de 30 jours → sur le dos ;
+//  1 000 XP ou leçon parfaite → front contre front ; leçon réussie → célébration ; sinon Karina au repos.
+function heroPose(s) {
+  if (s.floorCleared) return s.floorCleared.floor_number % 5 === 0 ? 'piggyback' : 'hug';
+  const crossed = crossedMilestones(s);
+  if (crossed.includes('streak_30')) return 'piggyback';
+  if (crossed.includes('xp_1000')) return 'forehead';
+  if (s.passed && s.score === 1) return 'forehead';
+  return s.passed ? 'celebrate' : 'idle';
+}
+
 function showResults(root, lesson, s) {
   const pct = Math.round(s.score * 100);
   const next = lesson ? state.lessons[lesson.index + 1] : null;
-  const pose = s.passed ? 'celebrate' : 'idle';
+  const pose = heroPose(s);
+  const couple = ['hug', 'piggyback', 'forehead'].includes(pose);
   // Bulles de Karina : étage terminé → jalons → fin de session (chacune 4 s, ou au toucher)
   const talk = [
     s.floorCleared && floorClearMessage(s.floorCleared.floor_number, s.floorCleared.title_fr),
@@ -120,7 +133,7 @@ function showResults(root, lesson, s) {
   ].filter(Boolean);
   root.innerHTML = `
     <div class="results center stack fade-in">
-      <div class="results-hero ${s.floorCleared ? 'cleared' : ''} ${talk.length ? 'has-bubble' : ''}">${s.floorCleared ? '<span class="trophy pop">🏆</span>' : ''}${spriteImg(pose, s.passed ? 'cheer' : '')}</div>
+      <div class="results-hero ${s.floorCleared ? 'cleared' : ''} ${talk.length ? 'has-bubble' : ''}">${s.floorCleared ? '<span class="trophy pop">🏆</span>' : ''}${spriteImg(pose, couple ? 'couple' : s.passed ? 'cheer' : '')}</div>
       <h1>${s.weak ? 'Entraînement terminé' : s.passed ? 'Leçon validée !' : 'Pas encore…'}</h1>
       <div class="score-ring"><strong>${pct}%</strong><span>${s.correct}/${s.attempted} justes${s.partial ? ` · ${s.partial} presque` : ''}</span></div>
       <div class="stat-row">

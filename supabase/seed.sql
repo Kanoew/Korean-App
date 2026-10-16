@@ -1,16 +1,17 @@
 -- ============================================================
--- 한글 with Karina — Seed : étage 1 (consolidation A2)
+-- 한글 with Karina — Seed : étages 1 et 2
 -- Fichier GÉNÉRÉ par supabase/seed/build-seed.mjs — ne pas éditer à la main.
--- À exécuter APRÈS schema.sql. Rejouable : remplace le contenu statique de l'étage 1.
+-- À exécuter APRÈS schema.sql. Rejouable : remplace le contenu statique de chaque étage.
 -- ============================================================
 
+-- ################ Étage 1 : Les fondations ################
 insert into floors (floor_number, title_ko, title_fr, cefr_level, description, unlock_xp)
 values (1, '기초 다지기', 'Les fondations', 'A2', 'Consolider les bases : particules, lieu, temps, nombres.', 0)
 on conflict (floor_number) do update set
   title_ko = excluded.title_ko, title_fr = excluded.title_fr,
   cefr_level = excluded.cefr_level, description = excluded.description;
 
--- ---------- Unité 1 : Particules : rappel ----------
+-- ---------- Étage 1 · Unité 1 : Particules : rappel ----------
 insert into units (floor_id, unit_number, title_ko, title_fr, topic, description)
 select id, 1, '조사 복습', 'Particules : rappel', 'grammar', '은/는, 이/가, 을/를' from floors where floor_number = 1
 on conflict (floor_id, unit_number) do update set
@@ -99,7 +100,7 @@ select l.id, 'translate_ko', NULL, 'Je bois de l''eau.', '저는 물을 마셔�
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 1 and l.lesson_number = 2;
 
--- ---------- Unité 2 : Particules de lieu : 에, 에서, 으로 ----------
+-- ---------- Étage 1 · Unité 2 : Particules de lieu : 에, 에서, 으로 ----------
 insert into units (floor_id, unit_number, title_ko, title_fr, topic, description)
 select id, 2, '장소 조사', 'Particules de lieu : 에, 에서, 으로', 'grammar', 'Le point faible n°1 : 에 vs 에서' from floors where floor_number = 1
 on conflict (floor_id, unit_number) do update set
@@ -196,7 +197,7 @@ select l.id, 'translate_ko', NULL, 'Je mange au restaurant.', '식당에서 먹�
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 2;
 
--- ---------- Unité 3 : Le temps et les connecteurs ----------
+-- ---------- Étage 1 · Unité 3 : Le temps et les connecteurs ----------
 insert into units (floor_id, unit_number, title_ko, title_fr, topic, description)
 select id, 3, '시간 표현', 'Le temps et les connecteurs', 'grammar', '때, 전에, 후에, 동안' from floors where floor_number = 1
 on conflict (floor_id, unit_number) do update set
@@ -289,7 +290,7 @@ select l.id, 'reorder', NULL, 'Avant de dormir, je prends une douche.', '저는 
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 3 and l.lesson_number = 2;
 
--- ---------- Unité 4 : Nombres sino-coréens ----------
+-- ---------- Étage 1 · Unité 4 : Nombres sino-coréens ----------
 insert into units (floor_id, unit_number, title_ko, title_fr, topic, description)
 select id, 4, '한자어 숫자', 'Nombres sino-coréens', 'vocabulary', '일, 이, 삼… et leurs compteurs' from floors where floor_number = 1
 on conflict (floor_id, unit_number) do update set
@@ -378,7 +379,7 @@ select l.id, 'reorder', NULL, 'Ce livre coûte 10 000 wons.', '이 책은 만 �
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 4 and l.lesson_number = 2;
 
--- ---------- Unité 5 : Nombres coréens natifs ----------
+-- ---------- Étage 1 · Unité 5 : Nombres coréens natifs ----------
 insert into units (floor_id, unit_number, title_ko, title_fr, topic, description)
 select id, 5, '고유어 숫자', 'Nombres coréens natifs', 'vocabulary', '하나, 둘, 셋… et les compteurs' from floors where floor_number = 1
 on conflict (floor_id, unit_number) do update set
@@ -475,7 +476,7 @@ select l.id, 'reorder', NULL, 'J''ai mangé trois pommes.', '저는 사과 세 �
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 5 and l.lesson_number = 2;
 
--- ---------- Unité 6 : Boss : évaluation mixte ----------
+-- ---------- Étage 1 · Unité 6 : Boss : évaluation mixte ----------
 insert into units (floor_id, unit_number, title_ko, title_fr, topic, description)
 select id, 6, '종합 평가', 'Boss : évaluation mixte', 'grammar', 'Tout l''étage 1 en un seul combat' from floors where floor_number = 1
 on conflict (floor_id, unit_number) do update set
@@ -540,4 +541,525 @@ select l.id, 'translate_ko', NULL, 'Je prends le petit-déjeuner à 7 heures.', 
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 6 and l.lesson_number = 1;
 
--- 103 exercices au total.
+-- ################ Étage 2 : Conversations du quotidien ################
+insert into floors (floor_number, title_ko, title_fr, cefr_level, description, unlock_xp)
+values (2, '일상 대화', 'Conversations du quotidien', 'A2+', 'Se présenter, faire ses courses, demander son chemin, parler de demain et d''hier.', 0)
+on conflict (floor_number) do update set
+  title_ko = excluded.title_ko, title_fr = excluded.title_fr,
+  cefr_level = excluded.cefr_level, description = excluded.description;
+
+-- ---------- Étage 2 · Unité 1 : Se présenter et décrire ----------
+insert into units (floor_id, unit_number, title_ko, title_fr, topic, description)
+select id, 1, '자기소개', 'Se présenter et décrire', 'grammar', '이에요/예요 et les adjectifs en -아요/어요' from floors where floor_number = 2
+on conflict (floor_id, unit_number) do update set
+  title_ko = excluded.title_ko, title_fr = excluded.title_fr, topic = excluded.topic, description = excluded.description;
+insert into lessons (unit_id, lesson_number, title_ko, title_fr, lesson_type, content_json)
+select u.id, 1, '이에요 / 예요 · 형용사', 'Être, et décrire avec les adjectifs', 'teach', '{"intro":"Deux outils pour parler de toi et de ce qui t''entoure : le verbe « être » et les adjectifs. Rien de nouveau dans la logique : voyelle ou consonne, et c''est réglé.","sections":[{"title":"이에요 / 예요 — « être » (poli)","body":"Après un nom qui finit par une consonne : 이에요. Après une voyelle : 예요. C''est la même logique que 은/는.","examples":[{"ko":"저는 프랑스 사람이에요.","rom":"jeo-neun peu-rang-seu sa-ra-mi-e-yo","fr":"Je suis français(e)."},{"ko":"제 이름은 조던이에요.","rom":"je i-reu-meun jo-deo-ni-e-yo","fr":"Mon nom est Jordan."},{"ko":"저는 의사예요.","rom":"jeo-neun ui-sa-ye-yo","fr":"Je suis médecin."}]},{"title":"Les adjectifs : radical + 아요 / 어요","body":"En coréen, l''adjectif se conjugue comme un verbe. Dernière voyelle du radical ㅏ ou ㅗ → 아요 ; sinon → 어요 ; les adjectifs en 하다 → 해요. Si le radical finit par ㅡ, il tombe (크다 → 커요).","examples":[{"ko":"날씨가 좋아요.","rom":"nal-ssi-ga jo-a-yo","fr":"Il fait beau."},{"ko":"방이 커요.","rom":"bang-i keo-yo","fr":"La chambre est grande."},{"ko":"저는 바빠요.","rom":"jeo-neun ba-ppa-yo","fr":"Je suis occupé(e)."},{"ko":"이 음식은 맛있어요.","rom":"i eum-si-geun ma-si-sseo-yo","fr":"Ce plat est délicieux."},{"ko":"오늘은 피곤해요.","rom":"o-neu-reun pi-gon-hae-yo","fr":"Aujourd''hui, je suis fatigué(e)."}]}],"tip":"Pas de verbe « être » devant un adjectif : on dit « La chambre grande-est » → 방이 커요, jamais 방이 이에요 커요."}'::jsonb
+from units u join floors f on f.id = u.floor_id where f.floor_number = 2 and u.unit_number = 1
+on conflict (unit_id, lesson_number) do update set
+  title_ko = excluded.title_ko, title_fr = excluded.title_fr, lesson_type = excluded.lesson_type, content_json = excluded.content_json;
+delete from exercises where is_llm_generated = false and lesson_id in (select l.id from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 1 and l.lesson_number = 1);
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '저는 학생___.', 'Je suis étudiant(e).', '이에요', '["이에요","예요","이요","에요"]'::jsonb, '학생 finit par une consonne (ㅇ) → 이에요.', 1, ARRAY['copula', 'particles']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 1 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '저는 의사___.', 'Je suis médecin.', '예요', '["예요","이에요","이요","에요"]'::jsonb, '의사 finit par une voyelle → 예요.', 1, ARRAY['copula', 'particles']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 1 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '제 이름은 조던___.', 'Mon nom est Jordan.', '이에요', '["이에요","예요","이요","에요"]'::jsonb, '조던 finit par ㄴ, une consonne → 이에요.', 1, ARRAY['copula', 'particles']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 1 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'multiple_choice', NULL, 'Après un nom qui finit par une voyelle, « être » (poli) se dit :', '예요', '["예요","이에요","아요","어요"]'::jsonb, '예요 après une voyelle, 이에요 après une consonne. 아요/어요 servent aux verbes et adjectifs.', 1, ARRAY['copula']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 1 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '날씨가 ___.', 'Il fait beau.', '좋아요', '["좋아요","좋어요","좋해요","좋요"]'::jsonb, '좋다 : dernière voyelle ㅗ → 아요 : 좋아요.', 1, ARRAY['adjectives']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 1 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '방이 ___.', 'La chambre est grande.', '커요', '["커요","크어요","큰요","크아요"]'::jsonb, '크다 : le ㅡ tombe → 커요.', 2, ARRAY['adjectives']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 1 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_ko', NULL, 'Je suis français(e).', '저는 프랑스 사람이에요 | 프랑스 사람이에요', NULL, '사람 finit par une consonne (ㅁ) → 이에요.', 2, ARRAY['copula']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 1 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'reorder', NULL, 'Ma chambre est grande.', '제 방이 커요', '["제","방이","커요"]'::jsonb, 'Possesseur → sujet → adjectif à la fin.', 2, ARRAY['adjectives', 'word_order']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 1 and l.lesson_number = 1;
+
+insert into lessons (unit_id, lesson_number, title_ko, title_fr, lesson_type, content_json)
+select u.id, 2, '자기소개 연습', 'Entraînement : être et adjectifs', 'practice', NULL
+from units u join floors f on f.id = u.floor_id where f.floor_number = 2 and u.unit_number = 1
+on conflict (unit_id, lesson_number) do update set
+  title_ko = excluded.title_ko, title_fr = excluded.title_fr, lesson_type = excluded.lesson_type, content_json = excluded.content_json;
+delete from exercises where is_llm_generated = false and lesson_id in (select l.id from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 1 and l.lesson_number = 2);
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '이 음식은 ___.', 'Ce plat est délicieux.', '맛있어요', '["맛있어요","맛있아요","맛있해요","맛있요"]'::jsonb, '맛있다 : dernière voyelle ㅣ → 어요.', 1, ARRAY['adjectives']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 1 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '저는 오늘 ___.', 'Aujourd''hui, je suis occupé(e).', '바빠요', '["바빠요","바쁘어요","바빠어요","바쁘요"]'::jsonb, '바쁘다 : ㅡ tombe, la voyelle précédente est ㅏ → 아요 : 바빠요.', 3, ARRAY['adjectives']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 1 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '이 옷은 ___.', 'Ce vêtement est joli.', '예뻐요', '["예뻐요","예쁘어요","예뻐어요","예쁘요"]'::jsonb, '예쁘다 : ㅡ tombe, la voyelle précédente est ㅖ → 어요 : 예뻐요.', 3, ARRAY['adjectives']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 1 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '오늘은 정말 ___.', 'Aujourd''hui, je suis vraiment fatigué(e).', '피곤해요', '["피곤해요","피곤아요","피곤어요","피곤요"]'::jsonb, '피곤하다 : les adjectifs en 하다 font 해요.', 1, ARRAY['adjectives']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 1 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'multiple_choice', NULL, 'Quelle est la forme polie de 작다 (petit) ?', '작아요', '["작아요","작어요","작해요","작요"]'::jsonb, '작다 : dernière voyelle ㅏ → 아요.', 1, ARRAY['adjectives']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 1 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'multiple_choice', NULL, 'Quelle est la forme polie de 많다 (beaucoup) ?', '많아요', '["많아요","많어요","많해요","만아요"]'::jsonb, '많다 : dernière voyelle ㅏ → 아요.', 1, ARRAY['adjectives']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 1 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'listening', '저는 의사예요', 'Écoute et choisis la phrase entendue', '저는 의사예요', '["저는 의사예요","저는 학생이에요","저는 의사가 아니에요","저는 의사이에요"]'::jsonb, '의사 + 예요 (voyelle).', 2, ARRAY['copula', 'listening']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 1 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_fr', '날씨가 좋아요.', NULL, 'Il fait beau | Le temps est bon | La météo est bonne | Il fait bon', NULL, '좋아요 : « c''est bien / agréable ».', 2, ARRAY['adjectives']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 1 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_ko', NULL, 'Mon nom est Jordan.', '제 이름은 조던이에요 | 이름은 조던이에요', NULL, '조던 + 이에요 (consonne finale ㄴ).', 2, ARRAY['copula']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 1 and l.lesson_number = 2;
+
+-- ---------- Étage 2 · Unité 2 : Acheter et commander ----------
+insert into units (floor_id, unit_number, title_ko, title_fr, topic, description)
+select id, 2, '쇼핑과 주문', 'Acheter et commander', 'vocabulary', '주세요, les compteurs et les prix' from floors where floor_number = 2
+on conflict (floor_id, unit_number) do update set
+  title_ko = excluded.title_ko, title_fr = excluded.title_fr, topic = excluded.topic, description = excluded.description;
+insert into lessons (unit_id, lesson_number, title_ko, title_fr, lesson_type, content_json)
+select u.id, 1, '주세요', '« S''il vous plaît » : demander quelque chose', 'teach', '{"intro":"Au marché, au café, au restaurant : une seule structure te suffit pour presque tout demander. Et elle réutilise ce que tu sais déjà sur les compteurs.","sections":[{"title":"N + 주세요 — « donnez-moi… »","body":"On dit l''objet puis 주세요, sans particule. Pour la quantité : nom + nombre natif + compteur + 주세요. L''ordre est toujours nom → nombre → compteur.","examples":[{"ko":"커피 한 잔 주세요.","rom":"keo-pi han jan ju-se-yo","fr":"Un café, s''il vous plaît."},{"ko":"물 한 병 주세요.","rom":"mul han byeong ju-se-yo","fr":"Une bouteille d''eau, s''il vous plaît."},{"ko":"사과 세 개 주세요.","rom":"sa-gwa se gae ju-se-yo","fr":"Trois pommes, s''il vous plaît."},{"ko":"두부 한 모 주세요.","rom":"du-bu han mo ju-se-yo","fr":"Un bloc de tofu, s''il vous plaît."}]},{"title":"얼마예요 ? — le prix","body":"얼마예요 ? = « combien ça coûte ? ». La réponse utilise les nombres sino-coréens + 원, avec 이에요 / 예요.","examples":[{"ko":"이거 얼마예요?","rom":"i-geo eol-ma-ye-yo","fr":"Combien ça coûte ?"},{"ko":"삼천 원이에요.","rom":"sam-cheon wo-ni-e-yo","fr":"C''est 3 000 wons."}]}],"tip":"Compteurs utiles : 잔 (tasses, verres), 병 (bouteilles), 개 (objets), 명 (personnes), 모 (blocs de tofu). Le tofu a son propre compteur !"}'::jsonb
+from units u join floors f on f.id = u.floor_id where f.floor_number = 2 and u.unit_number = 2
+on conflict (unit_id, lesson_number) do update set
+  title_ko = excluded.title_ko, title_fr = excluded.title_fr, lesson_type = excluded.lesson_type, content_json = excluded.content_json;
+delete from exercises where is_llm_generated = false and lesson_id in (select l.id from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 1);
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_ko', NULL, 'Un café, s''il vous plaît.', '커피 한 잔 주세요', NULL, '커피 + 한 (하나 devant un compteur) + 잔 + 주세요.', 2, ARRAY['requests', 'counters', 'numbers_native']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_ko', NULL, 'Deux bouteilles d''eau, s''il vous plaît.', '물 두 병 주세요', NULL, '물 + 두 (둘 devant un compteur) + 병 + 주세요.', 2, ARRAY['requests', 'counters', 'numbers_native']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '커피 ___ 잔 주세요.', 'Un café, s''il vous plaît.', '한', '["한","하나","일","첫"]'::jsonb, '하나 → 한 devant le compteur 잔.', 1, ARRAY['numbers_native', 'counters']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'multiple_choice', NULL, 'Quel compteur pour un bloc de tofu ?', '모', '["모","마리","권","명"]'::jsonb, '모 est le compteur des blocs de tofu : 두부 한 모.', 1, ARRAY['counters']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'multiple_choice', NULL, 'Comment demande-t-on le prix ?', '얼마예요?', '["얼마예요?","뭐예요?","어디예요?","누구예요?"]'::jsonb, '얼마 = combien. 뭐 = quoi, 어디 = où, 누구 = qui.', 1, ARRAY['requests']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'multiple_choice', NULL, 'Quelle phrase est correcte ? (deux cafés, s''il vous plaît)', '커피 두 잔 주세요', '["커피 두 잔 주세요","두 커피 잔 주세요","커피 잔 두 주세요","주세요 커피 두 잔"]'::jsonb, 'Ordre : nom + nombre + compteur, puis 주세요.', 2, ARRAY['counters', 'requests']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'reorder', NULL, 'Un café, s''il vous plaît.', '커피 한 잔 주세요', '["커피","한","잔","주세요"]'::jsonb, 'Nom → nombre → compteur → 주세요.', 2, ARRAY['counters', 'requests', 'word_order']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_fr', '이거 얼마예요?', NULL, 'Combien ça coûte | Ça coûte combien | C''est combien | Combien ça fait', NULL, '이거 = ceci ; 얼마예요 = combien ça coûte.', 2, ARRAY['requests']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 1;
+
+insert into lessons (unit_id, lesson_number, title_ko, title_fr, lesson_type, content_json)
+select u.id, 2, '쇼핑 연습', 'Entraînement : commander et payer', 'practice', NULL
+from units u join floors f on f.id = u.floor_id where f.floor_number = 2 and u.unit_number = 2
+on conflict (unit_id, lesson_number) do update set
+  title_ko = excluded.title_ko, title_fr = excluded.title_fr, lesson_type = excluded.lesson_type, content_json = excluded.content_json;
+delete from exercises where is_llm_generated = false and lesson_id in (select l.id from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 2);
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '삼천 원___.', 'C''est 3 000 wons.', '이에요', '["이에요","예요","이요","에요"]'::jsonb, '원 finit par ㄴ, une consonne → 이에요.', 1, ARRAY['copula', 'numbers_sino']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '사과 세 ___ 주세요.', 'Trois pommes, s''il vous plaît.', '개', '["개","명","마리","권"]'::jsonb, '개 : compteur des objets (et des fruits).', 1, ARRAY['counters']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '친구 두 ___ 있어요.', 'J''ai deux amis.', '명', '["명","개","마리","잔"]'::jsonb, '명 : compteur des personnes.', 1, ARRAY['counters']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_ko', NULL, 'Trois pommes, s''il vous plaît.', '사과 세 개 주세요', NULL, '사과 + 세 (셋 devant un compteur) + 개 + 주세요.', 2, ARRAY['requests', 'counters', 'numbers_native']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_ko', NULL, 'Un bloc de tofu, s''il vous plaît.', '두부 한 모 주세요', NULL, '두부 + 한 + 모 (compteur du tofu) + 주세요.', 2, ARRAY['requests', 'counters', 'numbers_native']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_ko', NULL, 'Combien coûte ceci ?', '이거 얼마예요 | 이것 얼마예요 | 이거 얼마예요?', NULL, '이거 + 얼마예요.', 2, ARRAY['requests']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'listening', '물 한 병 주세요', 'Écoute et choisis la phrase entendue', '물 한 병 주세요', '["물 한 병 주세요","물 두 병 주세요","물 세 병 주세요","물 네 병 주세요"]'::jsonb, '한 = un. Écoute bien 한 / 두 / 세 / 네.', 2, ARRAY['numbers_native', 'counters', 'listening']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_fr', '두부 한 모 주세요.', NULL, 'Un bloc de tofu, s''il vous plaît | Un tofu, s''il vous plaît | Donnez-moi un bloc de tofu | Je voudrais un bloc de tofu', NULL, '모 = bloc de tofu.', 2, ARRAY['requests', 'counters']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'reorder', NULL, 'Deux pommes, s''il vous plaît.', '사과 두 개 주세요', '["사과","두","개","주세요"]'::jsonb, 'Nom → nombre → compteur → 주세요.', 2, ARRAY['counters', 'requests', 'word_order']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 2;
+
+-- ---------- Étage 2 · Unité 3 : Demander son chemin et se déplacer ----------
+insert into units (floor_id, unit_number, title_ko, title_fr, topic, description)
+select id, 3, '길 찾기와 교통', 'Demander son chemin et se déplacer', 'grammar', '어디, 옆에, 가세요, 에서…까지' from floors where floor_number = 2
+on conflict (floor_id, unit_number) do update set
+  title_ko = excluded.title_ko, title_fr = excluded.title_fr, topic = excluded.topic, description = excluded.description;
+insert into lessons (unit_id, lesson_number, title_ko, title_fr, lesson_type, content_json)
+select u.id, 1, '어디에 있어요?', 'Où est… ? Directions', 'teach', '{"intro":"Demander son chemin, c''est surtout 에 (où ça se trouve) et (으)로 (dans quelle direction / avec quoi). Tu connais déjà les deux : on les assemble.","sections":[{"title":"Où est… ? → 어디에 있어요 ?","body":"N이/가 + 어디에 있어요 ? Pour répondre : lieu + 에 + 있어요. Mots de position : 옆 (à côté), 앞 (devant), 뒤 (derrière), 위 (dessus).","examples":[{"ko":"은행이 어디에 있어요?","rom":"eun-haeng-i eo-di-e i-sseo-yo","fr":"Où est la banque ?"},{"ko":"병원은 시장 옆에 있어요.","rom":"byeong-wo-neun si-jang yeo-pe i-sseo-yo","fr":"L''hôpital est à côté du marché."}]},{"title":"Donner une direction : -(으)로 + 가세요","body":"오른쪽 (droite), 왼쪽 (gauche) + 으로 ; 똑바로 = tout droit. 가세요 est la forme polie pour dire « allez ». Avec un transport : 지하철로 (en métro), 버스로 (en bus), 택시로 (en taxi).","examples":[{"ko":"오른쪽으로 가세요.","rom":"o-reun-jjo-geu-ro ga-se-yo","fr":"Allez à droite."},{"ko":"똑바로 가세요.","rom":"ttok-ba-ro ga-se-yo","fr":"Allez tout droit."},{"ko":"지하철로 가요.","rom":"ji-ha-cheol-lo ga-yo","fr":"J''y vais en métro."}]},{"title":"De… à… : 에서 … 까지","body":"에서 donne le point de départ, 까지 l''arrivée. Pour la durée : 걸려요 (« ça prend »).","examples":[{"ko":"집에서 학교까지 걸어서 십 분 걸려요.","rom":"ji-be-seo hak-gyo-kka-ji geo-reo-seo sip bun geol-lyeo-yo","fr":"De chez moi à l''école, il faut dix minutes à pied."}]}],"tip":"Piège classique : 가다 (aller) prend 에 pour la destination, jamais 에서 : 도서관에 가요. Et on « prend » un transport avec 를/을 : 버스를 타요."}'::jsonb
+from units u join floors f on f.id = u.floor_id where f.floor_number = 2 and u.unit_number = 3
+on conflict (unit_id, lesson_number) do update set
+  title_ko = excluded.title_ko, title_fr = excluded.title_fr, lesson_type = excluded.lesson_type, content_json = excluded.content_json;
+delete from exercises where is_llm_generated = false and lesson_id in (select l.id from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 3 and l.lesson_number = 1);
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '은행은 시장 ___ 있어요.', 'La banque est à côté du marché.', '옆에', '["옆에","앞에","뒤에","위에"]'::jsonb, '옆 = à côté.', 1, ARRAY['location_words', 'e_vs_eseo']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 3 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '화장실이 ___ 있어요?', 'Où sont les toilettes ?', '어디에', '["어디에","누구에","무엇을","어디를"]'::jsonb, '어디 = où ; lieu où l''on se trouve → 에 있어요.', 1, ARRAY['directions', 'e_vs_eseo']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 3 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '오른쪽___ 가세요.', 'Allez à droite.', '으로', '["으로","로","를","이"]'::jsonb, '오른쪽 finit par ㄱ (consonne) → 으로.', 1, ARRAY['direction', 'directions']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 3 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'multiple_choice', NULL, 'Que signifie 오른쪽 ?', 'à droite', '["à droite","à gauche","tout droit","derrière"]'::jsonb, '오른쪽 = droite ; 왼쪽 = gauche ; 똑바로 = tout droit.', 1, ARRAY['directions']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 3 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'multiple_choice', NULL, 'Que signifie 가세요 (ici, dans une direction) ?', 'Allez', '["Allez","Il est allé","Je vais","Ne partez pas"]'::jsonb, '-(으)세요 : forme polie pour inviter / ordonner gentiment.', 1, ARRAY['directions']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 3 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_ko', NULL, 'Allez tout droit.', '똑바로 가세요 | 쭉 가세요', NULL, '똑바로 = tout droit ; 가세요 = allez (poli).', 2, ARRAY['directions']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 3 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'reorder', NULL, 'Où est la banque ?', '은행이 어디에 있어요', '["은행이","어디에","있어요"]'::jsonb, 'Sujet → où → il y a / se trouve.', 2, ARRAY['directions', 'e_vs_eseo', 'word_order']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 3 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_fr', '오른쪽으로 가세요.', NULL, 'Allez à droite | Allez vers la droite | Tournez à droite', NULL, '오른쪽으로 = vers la droite.', 2, ARRAY['directions']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 3 and l.lesson_number = 1;
+
+insert into lessons (unit_id, lesson_number, title_ko, title_fr, lesson_type, content_json)
+select u.id, 2, '길 찾기 연습', 'Entraînement : directions et transports', 'practice', NULL
+from units u join floors f on f.id = u.floor_id where f.floor_number = 2 and u.unit_number = 3
+on conflict (unit_id, lesson_number) do update set
+  title_ko = excluded.title_ko, title_fr = excluded.title_fr, lesson_type = excluded.lesson_type, content_json = excluded.content_json;
+delete from exercises where is_llm_generated = false and lesson_id in (select l.id from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 3 and l.lesson_number = 2);
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '집에서 학교___ 걸어서 십 분 걸려요.', 'De chez moi à l''école, il faut dix minutes à pied.', '까지', '["까지","부터","에서","으로"]'::jsonb, '에서 … 까지 = de … à … ; 까지 marque l''arrivée.', 1, ARRAY['directions', 'e_vs_eseo']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 3 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '지하철___ 가요.', 'J''y vais en métro.', '로', '["로","으로","를","에게"]'::jsonb, '지하철 finit par ㄹ → 로 (moyen de transport).', 3, ARRAY['direction', 'directions']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 3 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '버스___ 타요.', 'Je prends le bus.', '를', '["를","을","로","가"]'::jsonb, '버스 finit par une voyelle → 를. On « prend » un transport : 버스를 타요.', 1, ARRAY['object_particle', 'directions']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 3 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'multiple_choice', NULL, 'Quelle phrase est correcte ? (je prends le métro)', '지하철을 타요', '["지하철을 타요","지하철로 타요","지하철을 가요","지하철이 타요"]'::jsonb, '타다 (prendre un transport) se construit avec 을/를.', 3, ARRAY['object_particle', 'directions']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 3 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_ko', NULL, 'Je vais à l''école en bus.', '버스로 학교에 가요 | 학교에 버스로 가요 | 저는 버스로 학교에 가요', NULL, '버스로 (moyen) + 학교에 가요 (destination → 에).', 3, ARRAY['direction', 'e_vs_eseo']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 3 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_ko', NULL, 'Où est l''hôpital ?', '병원이 어디에 있어요 | 병원은 어디에 있어요 | 병원이 어디예요', NULL, '병원이/은 + 어디에 있어요.', 2, ARRAY['directions', 'e_vs_eseo']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 3 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'listening', '오른쪽으로 가세요', 'Écoute et choisis la phrase entendue', '오른쪽으로 가세요', '["오른쪽으로 가세요","왼쪽으로 가세요","똑바로 가세요","오른쪽에 있어요"]'::jsonb, '오른쪽 = droite ; 왼쪽 = gauche.', 2, ARRAY['directions', 'listening']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 3 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_fr', '은행은 병원 옆에 있어요.', NULL, 'La banque est à côté de l''hôpital | La banque se trouve à côté de l''hôpital', NULL, '옆에 있어요 = être à côté.', 2, ARRAY['location_words', 'e_vs_eseo']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 3 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'reorder', NULL, 'Je vais à la poste en taxi.', '저는 택시로 우체국에 가요 | 저는 우체국에 택시로 가요', '["저는","택시로","우체국에","가요"]'::jsonb, 'Moyen (로) et destination (에) avant le verbe.', 3, ARRAY['direction', 'e_vs_eseo', 'word_order']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 3 and l.lesson_number = 2;
+
+-- ---------- Étage 2 · Unité 4 : Faire des projets : le futur ----------
+insert into units (floor_id, unit_number, title_ko, title_fr, topic, description)
+select id, 4, '계획', 'Faire des projets : le futur', 'grammar', '-(으)ㄹ 거예요' from floors where floor_number = 2
+on conflict (floor_id, unit_number) do update set
+  title_ko = excluded.title_ko, title_fr = excluded.title_fr, topic = excluded.topic, description = excluded.description;
+insert into lessons (unit_id, lesson_number, title_ko, title_fr, lesson_type, content_json)
+select u.id, 1, '-(으)ㄹ 거예요', 'Dire ce que tu feras', 'teach', '{"intro":"Pour parler de demain, de ce week-end ou de l''année prochaine, une seule forme : radical + (으)ㄹ 거예요. Là encore : voyelle ou consonne.","sections":[{"title":"La forme","body":"Radical qui finit par une voyelle (ou ㄹ) → ㄹ 거예요 : 가다 → 갈 거예요. Radical qui finit par une consonne → 을 거예요 : 먹다 → 먹을 거예요. Verbes en ㄹ (살다) : le ㄹ ne se double pas : 살 거예요.","examples":[{"ko":"내일 친구를 만날 거예요.","rom":"nae-il chin-gu-reul man-nal geo-ye-yo","fr":"Demain, je verrai un ami."},{"ko":"저녁에 밥을 먹을 거예요.","rom":"jeo-nyeo-ge ba-beul meo-geul geo-ye-yo","fr":"Ce soir, je mangerai."},{"ko":"저는 서울에 살 거예요.","rom":"jeo-neun seo-u-re sal geo-ye-yo","fr":"J''habiterai à Séoul."}]},{"title":"Les repères de temps","body":"내일 (demain), 주말 (le week-end), 다음 주 (la semaine prochaine). Souvenir de l''étage 1 : 에 avec 주말 et 다음 주, mais pas avec 내일.","examples":[{"ko":"주말에 영화를 볼 거예요.","rom":"ju-ma-re yeong-hwa-reul bol geo-ye-yo","fr":"Ce week-end, je verrai un film."},{"ko":"다음 주에 한국에 갈 거예요.","rom":"da-eum ju-e han-gu-ge gal geo-ye-yo","fr":"La semaine prochaine, j''irai en Corée."}]}],"tip":"Pas de 에 après 내일, 오늘, 어제. Avec 주말, 다음 주, 3시 : oui."}'::jsonb
+from units u join floors f on f.id = u.floor_id where f.floor_number = 2 and u.unit_number = 4
+on conflict (unit_id, lesson_number) do update set
+  title_ko = excluded.title_ko, title_fr = excluded.title_fr, lesson_type = excluded.lesson_type, content_json = excluded.content_json;
+delete from exercises where is_llm_generated = false and lesson_id in (select l.id from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 4 and l.lesson_number = 1);
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '내일 학교에 ___ 거예요.', 'Demain, j''irai à l''école.', '갈', '["갈","가을","가","가서"]'::jsonb, '가다 : radical 가 (voyelle) → ㄹ 거예요 : 갈 거예요.', 1, ARRAY['future']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 4 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '저녁에 밥을 ___ 거예요.', 'Ce soir, je mangerai.', '먹을', '["먹을","먹어","먹으","먹"]'::jsonb, '먹다 : radical 먹 (consonne) → 을 거예요.', 1, ARRAY['future']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 4 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'multiple_choice', NULL, 'Après un radical qui finit par une consonne (먹다), le futur se forme avec :', '을 거예요', '["을 거예요","ㄹ 거예요","았어요","세요"]'::jsonb, 'Consonne → 을 거예요 ; voyelle → ㄹ 거예요. 았어요 = passé.', 1, ARRAY['future']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 4 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_ko', NULL, 'Demain, je verrai un film.', '내일 영화를 볼 거예요 | 저는 내일 영화를 볼 거예요', NULL, '보다 → 볼 거예요 ; pas de 에 après 내일.', 2, ARRAY['future', 'time_particle', 'temporal']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 4 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_ko', NULL, 'Ce week-end, je verrai un ami.', '주말에 친구를 만날 거예요 | 이번 주말에 친구를 만날 거예요 | 저는 주말에 친구를 만날 거예요', NULL, '만나다 → 만날 거예요 ; 주말에 (avec 에).', 3, ARRAY['future', 'time_particle', 'temporal']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 4 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'reorder', NULL, 'Demain, je lirai un livre.', '내일 책을 읽을 거예요', '["내일","책을","읽을","거예요"]'::jsonb, 'Temps → objet → verbe au futur.', 2, ARRAY['future', 'word_order']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 4 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_fr', '다음 주에 한국에 갈 거예요.', NULL, 'La semaine prochaine, j''irai en Corée | J''irai en Corée la semaine prochaine', NULL, '다음 주에 = la semaine prochaine ; 갈 거예요 = j''irai.', 2, ARRAY['future', 'time_particle']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 4 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'multiple_choice', NULL, 'Que signifie 내일 ?', 'demain', '["demain","hier","aujourd''hui","la semaine prochaine"]'::jsonb, '내일 = demain ; 어제 = hier ; 오늘 = aujourd''hui.', 1, ARRAY['temporal']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 4 and l.lesson_number = 1;
+
+insert into lessons (unit_id, lesson_number, title_ko, title_fr, lesson_type, content_json)
+select u.id, 2, '계획 연습', 'Entraînement : le futur', 'practice', NULL
+from units u join floors f on f.id = u.floor_id where f.floor_number = 2 and u.unit_number = 4
+on conflict (unit_id, lesson_number) do update set
+  title_ko = excluded.title_ko, title_fr = excluded.title_fr, lesson_type = excluded.lesson_type, content_json = excluded.content_json;
+delete from exercises where is_llm_generated = false and lesson_id in (select l.id from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 4 and l.lesson_number = 2);
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '주말에 영화를 ___ 거예요.', 'Ce week-end, je verrai un film.', '볼', '["볼","보을","볼을","보"]'::jsonb, '보다 : radical 보 (voyelle) → 볼 거예요.', 1, ARRAY['future']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 4 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '오늘 저녁에 친구를 ___ 거예요.', 'Ce soir, je verrai un ami.', '만날', '["만날","만나을","만나서","만나"]'::jsonb, '만나다 : radical 만나 (voyelle) → 만날 거예요.', 1, ARRAY['future']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 4 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '저는 서울에 ___ 거예요.', 'J''habiterai à Séoul.', '살', '["살","사을","살을","사"]'::jsonb, '살다 (radical en ㄹ) : 살 거예요, le ㄹ ne se double pas.', 3, ARRAY['future']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 4 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '내일 뭐 ___ 거예요?', 'Que feras-tu demain ?', '할', '["할","하을","해서","해"]'::jsonb, '하다 : radical 하 (voyelle) → 할 거예요.', 1, ARRAY['future']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 4 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '다음 주___ 한국에 갈 거예요.', 'La semaine prochaine, j''irai en Corée.', '에', '["에","에서","를","가"]'::jsonb, '다음 주 est un moment précis → 에.', 1, ARRAY['time_particle', 'temporal']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 4 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_ko', NULL, 'Demain, je mangerai du bibimbap.', '내일 비빔밥을 먹을 거예요 | 저는 내일 비빔밥을 먹을 거예요', NULL, '먹다 → 먹을 거예요 ; 비빔밥을 (objet).', 2, ARRAY['future', 'object_particle']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 4 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'listening', '내일 친구를 만날 거예요', 'Écoute et choisis la phrase entendue', '내일 친구를 만날 거예요', '["내일 친구를 만날 거예요","내일 친구를 먹을 거예요","내일 친구를 갈 거예요","내일 친구를 읽을 거예요"]'::jsonb, '만나다 (rencontrer) est le seul verbe cohérent avec 친구를.', 2, ARRAY['future', 'object_particle', 'listening']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 4 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_fr', '저는 주말에 영화를 볼 거예요.', NULL, 'Ce week-end, je verrai un film | Je verrai un film ce week-end | Moi, ce week-end, je verrai un film', NULL, '주말에 = ce week-end ; 볼 거예요 = je verrai.', 2, ARRAY['future']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 4 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'reorder', NULL, 'Ce week-end, j''irai au parc.', '주말에 공원에 갈 거예요', '["주말에","공원에","갈","거예요"]'::jsonb, 'Moment → destination (에) → verbe au futur.', 2, ARRAY['future', 'e_vs_eseo', 'word_order']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 4 and l.lesson_number = 2;
+
+-- ---------- Étage 2 · Unité 5 : Parler du passé ----------
+insert into units (floor_id, unit_number, title_ko, title_fr, topic, description)
+select id, 5, '과거', 'Parler du passé', 'grammar', '-았/었-, et relier deux noms avec 하고 / (이)랑' from floors where floor_number = 2
+on conflict (floor_id, unit_number) do update set
+  title_ko = excluded.title_ko, title_fr = excluded.title_fr, topic = excluded.topic, description = excluded.description;
+insert into lessons (unit_id, lesson_number, title_ko, title_fr, lesson_type, content_json)
+select u.id, 1, '-았/었어요', 'Dire ce qu''on a fait', 'teach', '{"intro":"Le passé, c''est comme le présent poli, mais avec ㅆ : 았어요 / 었어요 / 했어요. Et pour raconter, un petit outil en plus : relier deux noms.","sections":[{"title":"Le passé poli","body":"Dernière voyelle ㅏ ou ㅗ → 았어요 ; autres voyelles → 었어요 ; verbes en 하다 → 했어요. À l''oral, la voyelle se contracte : 가+았 → 갔, 보+았 → 봤, 사+았 → 샀. Attention : 사요 est le présent, 샀어요 le passé.","examples":[{"ko":"어제 친구를 만났어요.","rom":"eo-je chin-gu-reul man-na-sseo-yo","fr":"Hier, j''ai vu un ami."},{"ko":"저는 커피를 샀어요.","rom":"jeo-neun keo-pi-reul sa-sseo-yo","fr":"J''ai acheté du café."},{"ko":"지난 주말에 영화를 봤어요.","rom":"ji-nan ju-ma-re yeong-hwa-reul bwa-sseo-yo","fr":"Le week-end dernier, j''ai vu un film."},{"ko":"어제 한국어를 공부했어요.","rom":"eo-je han-gu-geo-reul gong-bu-hae-sseo-yo","fr":"Hier, j''ai étudié le coréen."}]},{"title":"Relier deux noms : 하고 / (이)랑","body":"Pour dire « et » ou « avec » entre deux NOMS, on colle 하고, ou (이)랑 (이랑 après une consonne, 랑 après une voyelle). 그리고 ne relie pas des noms : il commence une phrase (« et puis »).","examples":[{"ko":"빵하고 우유를 샀어요.","rom":"ppang-ha-go u-yu-reul sa-sseo-yo","fr":"J''ai acheté du pain et du lait."},{"ko":"친구랑 영화를 봤어요.","rom":"chin-gu-rang yeong-hwa-reul bwa-sseo-yo","fr":"J''ai vu un film avec un ami."},{"ko":"점심에 비빔밥을 먹었어요. 그다음에 커피를 마셨어요.","rom":"jeom-sim-e bi-bim-ba-beul meo-geo-sseo-yo. geu-da-eu-me keo-pi-reul ma-syeo-sseo-yo","fr":"À midi, j''ai mangé un bibimbap. Ensuite, j''ai bu un café."}]}],"tip":"Deux outils, deux rôles : 하고 / (이)랑 relient des NOMS (빵하고 우유) ; 그리고 / 그다음에 relient des PHRASES."}'::jsonb
+from units u join floors f on f.id = u.floor_id where f.floor_number = 2 and u.unit_number = 5
+on conflict (unit_id, lesson_number) do update set
+  title_ko = excluded.title_ko, title_fr = excluded.title_fr, lesson_type = excluded.lesson_type, content_json = excluded.content_json;
+delete from exercises where is_llm_generated = false and lesson_id in (select l.id from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 1);
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '어제 친구를 ___.', 'Hier, j''ai vu un ami.', '만났어요', '["만났어요","만나았어요","만나었어요","만낫어요"]'::jsonb, '만나다 : ㅏ → 았어요, contracté : 만났어요.', 1, ARRAY['past']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '저는 커피를 ___.', 'J''ai acheté du café.', '샀어요', '["샀어요","사았어요","사었어요","사요"]'::jsonb, '사다 → 샀어요 (passé). 사요 est le présent.', 1, ARRAY['past']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '지난 주말에 영화를 ___.', 'Le week-end dernier, j''ai vu un film.', '봤어요', '["봤어요","보요","봐요","보었어요"]'::jsonb, '보다 : ㅗ → 았어요, contracté : 봤어요. 봐요 est le présent.', 2, ARRAY['past']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '어제 한국어를 ___.', 'Hier, j''ai étudié le coréen.', '공부했어요', '["공부했어요","공부하았어요","공부하었어요","공부해요"]'::jsonb, '공부하다 → 공부했어요 (passé). 공부해요 est le présent.', 1, ARRAY['past']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'multiple_choice', NULL, 'Quelle terminaison pour le passé poli des verbes en -하다 ?', '했어요', '["했어요","했요","하었요","한어요"]'::jsonb, '하다 → 했어요.', 1, ARRAY['past']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'multiple_choice', NULL, 'Que signifie 어제 ?', 'hier', '["hier","demain","aujourd''hui","ce soir"]'::jsonb, '어제 = hier ; 내일 = demain.', 1, ARRAY['temporal']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_ko', NULL, 'J''ai mangé du bibimbap à midi.', '점심에 비빔밥을 먹었어요 | 저는 점심에 비빔밥을 먹었어요', NULL, '먹다 : ㅓ → 었어요 ; 점심에 = à midi.', 3, ARRAY['past', 'time_particle']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'reorder', NULL, 'Hier, j''ai étudié le coréen.', '어제 한국어를 공부했어요', '["어제","한국어를","공부했어요"]'::jsonb, 'Temps → objet → verbe au passé.', 2, ARRAY['past', 'word_order']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 1;
+
+insert into lessons (unit_id, lesson_number, title_ko, title_fr, lesson_type, content_json)
+select u.id, 2, '과거 연습', 'Entraînement : passé et liaison de noms', 'practice', NULL
+from units u join floors f on f.id = u.floor_id where f.floor_number = 2 and u.unit_number = 5
+on conflict (unit_id, lesson_number) do update set
+  title_ko = excluded.title_ko, title_fr = excluded.title_fr, lesson_type = excluded.lesson_type, content_json = excluded.content_json;
+delete from exercises where is_llm_generated = false and lesson_id in (select l.id from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 2);
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '저는 어제 학교에 ___.', 'Hier, je suis allé(e) à l''école.', '갔어요', '["갔어요","가었어요","가았어요","갔요"]'::jsonb, '가다 → 갔어요.', 1, ARRAY['past', 'e_vs_eseo']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '어제 커피를 ___.', 'Hier, j''ai bu un café.', '마셨어요', '["마셨어요","마시어요","마셔요","마싰어요"]'::jsonb, '마시다 → 마셨어요 (passé).', 3, ARRAY['past']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '빵___ 우유를 샀어요.', 'J''ai acheté du pain et du lait.', '하고', '["하고","그리고","그래서","하지만"]'::jsonb, '하고 relie deux noms. 그리고, 그래서, 하지만 relient des phrases.', 1, ARRAY['linking', 'past']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '친구___ 영화를 봤어요.', 'J''ai vu un film avec un ami.', '랑', '["랑","이랑","그리고","에서"]'::jsonb, '친구 finit par une voyelle → 랑 (이랑 après une consonne).', 1, ARRAY['linking', 'past']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'multiple_choice', NULL, 'Pour relier deux NOMS (du pain et du lait), on utilise :', '하고 / (이)랑', '["하고 / (이)랑","그리고","그래서","하지만"]'::jsonb, '하고 et (이)랑 relient des noms ; 그리고 relie des phrases.', 1, ARRAY['linking']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'multiple_choice', NULL, 'Que signifie 그다음에 ?', 'ensuite, après ça', '["ensuite, après ça","avant ça","pendant ce temps","à cause de ça"]'::jsonb, '그다음에 = ensuite.', 1, ARRAY['linking']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_ko', NULL, 'J''ai acheté du tofu.', '두부를 샀어요 | 저는 두부를 샀어요', NULL, '사다 → 샀어요 ; 두부를 (objet).', 2, ARRAY['past', 'object_particle']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_ko', NULL, 'Hier, j''ai vu un film avec un ami.', '어제 친구랑 영화를 봤어요 | 어제 친구하고 영화를 봤어요 | 저는 어제 친구랑 영화를 봤어요 | 저는 어제 친구하고 영화를 봤어요', NULL, '친구랑 / 친구하고 = avec un ami ; 봤어요 = j''ai vu.', 3, ARRAY['past', 'linking']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'listening', '어제 친구를 만났어요', 'Écoute et choisis la phrase entendue', '어제 친구를 만났어요', '["어제 친구를 만났어요","내일 친구를 만날 거예요","어제 친구를 샀어요","어제 친구를 먹었어요"]'::jsonb, '만났어요 = passé de 만나다 (rencontrer).', 2, ARRAY['past', 'listening']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_fr', '저는 어제 영화를 봤어요.', NULL, 'Hier, j''ai vu un film | J''ai vu un film hier | Moi, hier, j''ai vu un film', NULL, '어제 = hier ; 봤어요 = j''ai vu.', 2, ARRAY['past']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 2;
+
+-- ---------- Étage 2 · Unité 6 : Boss : une journée au marché ----------
+insert into units (floor_id, unit_number, title_ko, title_fr, topic, description)
+select id, 6, '역할극', 'Boss : une journée au marché', 'grammar', 'Tout l''étage 2 dans un jeu de rôle' from floors where floor_number = 2
+on conflict (floor_id, unit_number) do update set
+  title_ko = excluded.title_ko, title_fr = excluded.title_fr, topic = excluded.topic, description = excluded.description;
+insert into lessons (unit_id, lesson_number, title_ko, title_fr, lesson_type, content_json)
+select u.id, 1, '2층 보스', 'Boss de l''étage 2', 'boss', NULL
+from units u join floors f on f.id = u.floor_id where f.floor_number = 2 and u.unit_number = 6
+on conflict (unit_id, lesson_number) do update set
+  title_ko = excluded.title_ko, title_fr = excluded.title_fr, lesson_type = excluded.lesson_type, content_json = excluded.content_json;
+delete from exercises where is_llm_generated = false and lesson_id in (select l.id from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 6 and l.lesson_number = 1);
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '저는 프랑스 사람___.', 'Je suis français(e).', '이에요', '["이에요","예요","이요","에요"]'::jsonb, '사람 finit par une consonne (ㅁ) → 이에요.', 2, ARRAY['copula']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 6 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '이 음식은 정말 ___.', 'Ce plat est vraiment délicieux.', '맛있어요', '["맛있어요","맛있아요","맛있해요","맛있요"]'::jsonb, '맛있다 → 맛있어요.', 2, ARRAY['adjectives']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 6 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '시장에서 사과 세 ___ 샀어요.', 'Au marché, j''ai acheté trois pommes.', '개', '["개","명","마리","잔"]'::jsonb, '개 : compteur des objets.', 3, ARRAY['counters', 'past']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 6 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '지하철___ 학교에 가요.', 'Je vais à l''école en métro.', '로', '["로","으로","를","에게"]'::jsonb, '지하철 finit par ㄹ → 로.', 3, ARRAY['direction', 'directions']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 6 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '내일 친구를 ___ 거예요.', 'Demain, je verrai un ami.', '만날', '["만날","만나을","만나서","만나"]'::jsonb, '만나다 → 만날 거예요.', 3, ARRAY['future']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 6 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '어제 영화를 ___.', 'Hier, j''ai vu un film.', '봤어요', '["봤어요","보었어요","보요","봐요"]'::jsonb, '보다 → 봤어요.', 3, ARRAY['past']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 6 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '빵___ 우유를 샀어요.', 'J''ai acheté du pain et du lait.', '하고', '["하고","그리고","그래서","하지만"]'::jsonb, '하고 relie deux noms.', 3, ARRAY['linking', 'past']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 6 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'multiple_choice', NULL, 'Quelle phrase est correcte ? (deux cafés, s''il vous plaît)', '커피 두 잔 주세요', '["커피 두 잔 주세요","두 커피 잔 주세요","커피 잔 두 주세요","주세요 커피 두 잔"]'::jsonb, 'Nom → nombre → compteur → 주세요.', 3, ARRAY['counters', 'requests']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 6 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'reorder', NULL, 'Hier, j''ai acheté du pain et du café.', '어제 빵하고 커피를 샀어요', '["어제","빵하고","커피를","샀어요"]'::jsonb, 'Temps → objets reliés par 하고 → verbe au passé.', 3, ARRAY['linking', 'past', 'word_order']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 6 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_ko', NULL, 'Combien coûte ce tofu ?', '이 두부 얼마예요 | 이거 얼마예요 | 이 두부는 얼마예요', NULL, '이 두부 = ce tofu ; 얼마예요 = combien ?', 3, ARRAY['requests']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 6 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_ko', NULL, 'Allez tout droit, puis à droite.', '똑바로 가세요. 그다음에 오른쪽으로 가세요 | 똑바로 가세요 그다음에 오른쪽으로 가세요', NULL, '똑바로 = tout droit ; 그다음에 = ensuite ; 오른쪽으로 = vers la droite.', 4, ARRAY['directions', 'linking']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 6 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_ko', NULL, 'Ce week-end, j''irai à Séoul en train.', '주말에 기차로 서울에 갈 거예요 | 이번 주말에 기차로 서울에 갈 거예요 | 주말에 서울에 기차로 갈 거예요', NULL, '주말에 (moment) + 기차로 (moyen) + 서울에 (destination) + 갈 거예요.', 4, ARRAY['future', 'direction', 'e_vs_eseo']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 6 and l.lesson_number = 1;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'translate_fr', '어제 시장에서 두부하고 사과를 샀어요.', NULL, 'Hier, j''ai acheté du tofu et des pommes au marché | J''ai acheté du tofu et des pommes au marché hier | Hier, au marché, j''ai acheté du tofu et des pommes', NULL, '시장에서 = au marché (action) ; 두부하고 사과 = du tofu et des pommes.', 4, ARRAY['past', 'linking', 'e_vs_eseo']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 2 and u.unit_number = 6 and l.lesson_number = 1;
+
+-- 202 exercices au total.

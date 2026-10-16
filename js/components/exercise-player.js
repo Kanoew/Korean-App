@@ -9,6 +9,7 @@ import {
 } from '../karina.js';
 import { say, clearBubble } from './karina-bubble.js';
 import { stopSpeaking } from '../utils/tts.js';
+import { reportExercise } from '../api/reports.js';
 
 export function playExercises(root, { exercises, streakActive, label = '', onDone, onExit }) {
   let i = 0;
@@ -83,7 +84,7 @@ export function playExercises(root, { exercises, streakActive, label = '', onDon
         results.push({ ex, result, xp, given: answer });
         view.lock();
         view.reveal(result);
-        showFeedback(ex, result, expected, xp);
+        showFeedback(ex, result, expected, xp, answer);
         main.textContent = i + 1 === exercises.length ? 'Terminer' : 'Continuer';
         main.classList.toggle('wrong-btn', result === 'wrong');
         main.focus();
@@ -103,7 +104,7 @@ export function playExercises(root, { exercises, streakActive, label = '', onDon
     };
   }
 
-  function showFeedback(ex, result, expected, xp) {
+  function showFeedback(ex, result, expected, xp, given) {
     // Séries et points récurrents pour choisir la sous-catégorie du message
     let bubble = null;
     if (result === 'correct') {
@@ -134,8 +135,51 @@ export function playExercises(root, { exercises, streakActive, label = '', onDon
       <div class="fb-head">${esc(headline)}${xp ? `<span class="xp-pop">+${xp} XP</span>` : ''}</div>
       ${result !== 'correct' ? `<div class="fb-answer">Réponse : <strong>${esc(expected)}</strong></div>` : ''}
       ${ex.explanation_fr ? `<div class="fb-expl">${esc(ex.explanation_fr)}</div>` : ''}
-      ${result === 'wrong' && tags ? `<div class="fb-tags">${tags}</div>` : ''}`;
+      ${result === 'wrong' && tags ? `<div class="fb-tags">${tags}</div>` : ''}
+      <div class="report">
+        <button type="button" class="link-btn" id="report-open">⚑ Signaler un problème</button>
+        <form class="report-form" id="report-form" hidden>
+          <textarea id="report-note" rows="2" maxlength="500" placeholder="Qu'est-ce qui te paraît faux ou bizarre ? (facultatif)"></textarea>
+          <div class="row"><button type="submit" class="btn primary small">Envoyer</button><button type="button" class="btn ghost small" id="report-cancel">Annuler</button></div>
+        </form>
+        <p class="msg" id="report-msg" hidden></p>
+      </div>`;
     $('#ex', root).classList.add(result === 'wrong' ? 'shake' : 'pulse');
+    wireReport(ex, given);
+  }
+
+  // Bouton « Signaler » : une phrase te paraît fausse ou bizarre → une note, et le relecteur saura où regarder
+  function wireReport(ex, given) {
+    const open = $('#report-open', root);
+    const form = $('#report-form', root);
+    const msg = $('#report-msg', root);
+    open.onclick = () => {
+      form.hidden = false;
+      open.hidden = true;
+      $('#report-note', root).focus();
+    };
+    $('#report-cancel', root).onclick = () => {
+      form.hidden = true;
+      open.hidden = false;
+    };
+    form.onsubmit = async (e) => {
+      e.preventDefault();
+      const send = form.querySelector('button[type=submit]');
+      send.disabled = true;
+      try {
+        await reportExercise({ exercise: ex, given, note: $('#report-note', root).value });
+        form.hidden = true;
+        msg.hidden = false;
+        msg.className = 'msg ok';
+        msg.textContent = 'Merci, c\'est noté ✓';
+      } catch (err) {
+        console.error(err);
+        send.disabled = false;
+        msg.hidden = false;
+        msg.className = 'msg error';
+        msg.textContent = 'Envoi impossible. As-tu relancé schema.sql dans Supabase ?';
+      }
+    };
   }
 
   show();

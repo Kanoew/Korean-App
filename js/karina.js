@@ -134,14 +134,15 @@ export function floorClearMessage(floorNumber, floorTitle) {
 }
 
 // Jalons franchis pendant cette session : { xpBefore, xpAfter, streakBefore, streak }
-export function milestoneMessages({ xpBefore, xpAfter, streakBefore, streak }) {
+export function crossedMilestones({ xpBefore, xpAfter, streakBefore, streak }) {
   const crossed = [];
   if (xpBefore < 500 && xpAfter >= 500) crossed.push('xp_500');
   if (xpBefore < 1000 && xpAfter >= 1000) crossed.push('xp_1000');
   if (streakBefore < 7 && streak >= 7) crossed.push('streak_7');
   if (streakBefore < 30 && streak >= 30) crossed.push('streak_30');
-  return crossed.map((sub) => pickKarinaMessage('milestone', [sub])).filter(Boolean);
+  return crossed;
 }
+export const milestoneMessages = (s) => crossedMilestones(s).map((sub) => pickKarinaMessage('milestone', [sub])).filter(Boolean);
 
 // ---------- Révisions (SRS, V1) ----------
 // Prêt pour l'accueil / la page Réviser dès que les cartes existeront.

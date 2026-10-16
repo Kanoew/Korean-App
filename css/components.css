@@ -167,8 +167,9 @@
 .sprite { height: 120px; width: auto; max-width: 100%; user-select: none; }
 @media (min-width: 768px) { .sprite { height: 180px; } }
 .loading { padding-top: 14vh; }
+.sprite.couple { height: 220px; }
 .results-hero { position: relative; display: flex; justify-content: center; min-height: 120px; width: 100%; }
-.results-hero .trophy { position: absolute; top: 26px; right: calc(50% - 70px); font-size: 2.2rem; z-index: 1; }
+.results-hero .trophy { position: absolute; top: 26px; right: calc(50% - 110px); font-size: 2.2rem; z-index: 1; }
 
 /* Carte des étages (tour) */
 .fm { position: relative; padding: 4px 12px; overflow: hidden; }
@@ -215,3 +216,12 @@
 }
 .results-hero.has-bubble { margin-top: 112px; }
 @keyframes kbIn { from { opacity: 0; transform: translateY(10px) scale(0.96); } to { opacity: 1; transform: none; } }
+
+/* Bouton « Signaler » */
+.report { margin-top: 10px; border-top: 1px dashed var(--border); padding-top: 8px; }
+.link-btn { background: none; border: 0; padding: 4px 0; color: var(--muted); font: inherit; font-size: 0.82rem; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.report-form textarea { width: 100%; font: inherit; color: var(--text); background: var(--bg); border: 2px solid var(--border); border-radius: 10px; padding: 8px 10px; resize: vertical; }
+.report-form textarea:focus { outline: none; border-color: var(--coral); }
+.report-form .row { margin-top: 8px; }
+.btn.small { padding: 8px 14px; font-size: 0.9rem; }
+.report .msg { margin-top: 6px; }

@@ -1,18 +1,11 @@
-// Génère supabase/seed.sql à partir du contenu de l'étage 1.
+// Génère supabase/seed.sql (étages 1 et 2) et un document de relecture par étage (docs/relecture-etage<N>.md).
 // Usage : node supabase/seed/build-seed.mjs
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
-// ---------- Constructeurs d'exercices ----------
-// mc : question de cours · fb : phrase à trou (___) · ro : remettre dans l'ordre
-// tk : traduire vers le coréen · tf : traduire vers le français · ls : écoute
-const mc = (fr, ko, options, answer, expl, tags, d = 1) => ({ type: 'multiple_choice', fr, ko, options, answer, expl, tags, d });
-const fb = (ko, fr, options, answer, expl, tags, d = 1) => ({ type: 'fill_blank', ko, fr, options, answer, expl, tags, d });
-const ro = (fr, words, answer, expl, tags, d = 2) => ({ type: 'reorder', fr, options: words, answer, expl, tags: [...tags, 'word_order'], d });
-const tk = (fr, answer, expl, tags, d = 2) => ({ type: 'translate_ko', fr, answer, expl, tags, d });
-const tf = (ko, answer, expl, tags, d = 2) => ({ type: 'translate_fr', ko, answer, expl, tags, d });
-const ls = (ko, options, answer, expl, tags, d = 2) => ({ type: 'listening', ko, fr: 'Écoute et choisis la phrase entendue', options, answer, expl, tags: [...tags, 'listening'], d });
+import { mc, fb, ro, tk, tf, ls } from './helpers.mjs';
+import { floor2 } from './floor2.mjs';
 
 const floor1 = {
   floor_number: 1,
@@ -440,130 +433,137 @@ const q = (s) => (s === null || s === undefined ? 'NULL' : `'${String(s).replace
 const json = (v) => (v === null || v === undefined ? 'NULL' : `'${JSON.stringify(v).replaceAll("'", "''")}'::jsonb`);
 const arr = (a) => (a && a.length ? `ARRAY[${[...new Set(a)].map(q).join(', ')}]::text[]` : 'NULL');
 
+const FLOORS = [floor1, floor2];
+const here = dirname(fileURLToPath(import.meta.url));
+
 const out = [];
 out.push('-- ============================================================');
-out.push('-- 한글 with Karina — Seed : étage 1 (consolidation A2)');
+out.push('-- 한글 with Karina — Seed : étages 1 et 2');
 out.push('-- Fichier GÉNÉRÉ par supabase/seed/build-seed.mjs — ne pas éditer à la main.');
-out.push('-- À exécuter APRÈS schema.sql. Rejouable : remplace le contenu statique de l\'étage 1.');
+out.push("-- À exécuter APRÈS schema.sql. Rejouable : remplace le contenu statique de chaque étage.");
 out.push('-- ============================================================');
 out.push('');
 
-const f = floor1;
-out.push(
-  `insert into floors (floor_number, title_ko, title_fr, cefr_level, description, unlock_xp)
+let exCount = 0;
+let lessonCount = 0;
+for (const f of FLOORS) {
+  out.push(`-- ################ Étage ${f.floor_number} : ${f.title_fr} ################`);
+  out.push(
+    `insert into floors (floor_number, title_ko, title_fr, cefr_level, description, unlock_xp)
 values (${f.floor_number}, ${q(f.title_ko)}, ${q(f.title_fr)}, ${q(f.cefr_level)}, ${q(f.description)}, 0)
 on conflict (floor_number) do update set
   title_ko = excluded.title_ko, title_fr = excluded.title_fr,
   cefr_level = excluded.cefr_level, description = excluded.description;`,
-);
-out.push('');
+  );
+  out.push('');
 
-let exCount = 0;
-for (const u of f.units) {
-  out.push(`-- ---------- Unité ${u.unit_number} : ${u.title_fr} ----------`);
-  out.push(
-    `insert into units (floor_id, unit_number, title_ko, title_fr, topic, description)
+  for (const u of f.units) {
+    out.push(`-- ---------- Étage ${f.floor_number} · Unité ${u.unit_number} : ${u.title_fr} ----------`);
+    out.push(
+      `insert into units (floor_id, unit_number, title_ko, title_fr, topic, description)
 select id, ${u.unit_number}, ${q(u.title_ko)}, ${q(u.title_fr)}, ${q(u.topic)}, ${q(u.description)} from floors where floor_number = ${f.floor_number}
 on conflict (floor_id, unit_number) do update set
   title_ko = excluded.title_ko, title_fr = excluded.title_fr, topic = excluded.topic, description = excluded.description;`,
-  );
+    );
 
-  for (const l of u.lessons) {
-    const where = `from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+    for (const l of u.lessons) {
+      lessonCount++;
+      const where = `from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = ${f.floor_number} and u.unit_number = ${u.unit_number} and l.lesson_number = ${l.lesson_number}`;
-    out.push(
-      `insert into lessons (unit_id, lesson_number, title_ko, title_fr, lesson_type, content_json)
+      out.push(
+        `insert into lessons (unit_id, lesson_number, title_ko, title_fr, lesson_type, content_json)
 select u.id, ${l.lesson_number}, ${q(l.title_ko)}, ${q(l.title_fr)}, ${q(l.type)}, ${json(l.content ?? null)}
 from units u join floors f on f.id = u.floor_id where f.floor_number = ${f.floor_number} and u.unit_number = ${u.unit_number}
 on conflict (unit_id, lesson_number) do update set
   title_ko = excluded.title_ko, title_fr = excluded.title_fr, lesson_type = excluded.lesson_type, content_json = excluded.content_json;`,
-    );
-    out.push(`delete from exercises where is_llm_generated = false and lesson_id in (select l.id ${where});`);
-    for (const e of l.exercises) {
-      exCount++;
-      out.push(
-        `insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+      );
+      out.push(`delete from exercises where is_llm_generated = false and lesson_id in (select l.id ${where});`);
+      for (const e of l.exercises) {
+        exCount++;
+        out.push(
+          `insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
 select l.id, ${q(e.type)}, ${q(e.ko ?? null)}, ${q(e.fr ?? null)}, ${q(e.answer)}, ${json(e.options ?? null)}, ${q(e.expl)}, ${e.d}, ${arr(e.tags)}, false
 ${where};`,
-      );
+        );
+      }
+      out.push('');
     }
-    out.push('');
   }
 }
 out.push(`-- ${exCount} exercices au total.`);
+writeFileSync(join(here, '..', 'seed.sql'), out.join('\n') + '\n');
+console.log(`seed.sql écrit : ${exCount} exercices, ${lessonCount} leçons, ${FLOORS.length} étages.`);
 
-const target = join(dirname(fileURLToPath(import.meta.url)), '..', 'seed.sql');
-writeFileSync(target, out.join('\n') + '\n');
-console.log(`seed.sql écrit : ${exCount} exercices, ${f.units.reduce((n, u) => n + u.lessons.length, 0)} leçons.`);
-
-// ---------- Document de relecture pour un humain (docs/relecture-etage1.md) ----------
-const md = [];
-md.push('# Relecture du coréen — étage 1');
-md.push('');
-md.push('Document généré depuis le contenu de l\'application (`supabase/seed/build-seed.mjs`). Les phrases ont été écrites par une IA, **sans relecteur humain**.');
-md.push('');
-md.push('## Consigne pour la personne qui relit');
-md.push('');
-md.push('Pour chaque ligne, répondre **OK**, ou **à corriger** avec la version correcte. Merci de vérifier :');
-md.push('');
-md.push('1. **La justesse** : la phrase coréenne est-elle grammaticalement correcte ?');
-md.push('2. **Le naturel** : est-ce ce qu\'un natif dirait ? (une phrase peut être correcte mais bizarre)');
-md.push('3. **Les mauvaises options** : sont-elles bien fausses ? (une option « fausse » qui serait en fait acceptable est un vrai problème)');
-md.push('4. **La traduction française** correspond-elle ?');
-md.push('5. **Les romanisations** des cours (romanisation simplifiée : syllabes séparées par des tirets, liaison à l\'intérieur d\'un mot, pas de liaison entre deux mots).');
-md.push('');
-md.push('Le niveau visé est A2 → B1. Les phrases sont volontairement simples.');
-md.push('');
-let n = 0;
-for (const u of f.units) {
-  md.push(`## Unité ${u.unit_number} — ${u.title_fr} (${u.title_ko})`);
-  md.push('');
-  for (const l of u.lessons) {
-    md.push(`### ${l.title_fr} (${l.title_ko}) — ${l.type}`);
-    md.push('');
-    if (l.content) {
-      md.push('**Cours (texte affiché dans l\'application)**');
-      md.push('');
-      for (const sec of l.content.sections) {
-        md.push(`- *${sec.title}* — ${sec.body}`);
-        for (const ex of sec.examples || []) md.push(`  - ${ex.ko} (${ex.rom}) — ${ex.fr}`);
-      }
-      if (l.content.tip) md.push(`- Astuce : ${l.content.tip}`);
-      md.push('');
-    }
-    md.push('**Exercices**');
-    md.push('');
-    md.push('| # | Phrase / question | Réponse attendue | Options fausses | Traduction / consigne | Avis |');
-    md.push('| --- | --- | --- | --- | --- | --- |');
-    for (const e of l.exercises) {
-      n++;
-      const answers = e.answer.split('|').map((x) => x.trim());
-      const cell = (t) => String(t ?? '').replaceAll('|', '\\|').replaceAll('\n', ' ');
-      let sentence;
-      let wrong = '';
-      if (e.type === 'fill_blank') {
-        sentence = e.ko.replace('___', `**${answers[0]}**`);
-        wrong = e.options.filter((o) => !answers.includes(o)).join(' · ');
-      } else if (e.type === 'multiple_choice') {
-        sentence = e.fr + (e.ko ? ` — ${e.ko}` : '');
-        wrong = e.options.filter((o) => !answers.includes(o)).join(' · ');
-      } else if (e.type === 'listening') {
-        sentence = `(écoute) ${e.ko}`;
-        wrong = e.options.filter((o) => !answers.includes(o)).join(' · ');
-      } else if (e.type === 'reorder') {
-        sentence = `(remettre en ordre) ${e.options.join(' / ')}`;
-      } else if (e.type === 'translate_fr') {
-        sentence = `(traduire en français) ${e.ko}`;
-      } else {
-        sentence = `(traduire en coréen) ${e.fr}`;
-      }
-      const shown = e.type === 'fill_blank' ? answers.join(' / ') : answers.join('  ·  ');
-      md.push(`| ${n} | ${cell(sentence)} | ${cell(shown)} | ${cell(wrong)} | ${cell(e.type === 'fill_blank' ? e.fr : e.type === 'multiple_choice' ? '' : e.type === 'translate_ko' ? '' : e.fr || '')} | |`);
-    }
-    md.push('');
-  }
-}
-const docsDir = join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'docs');
+// ---------- Documents de relecture pour un humain (docs/relecture-etage<N>.md) ----------
+const docsDir = join(here, '..', '..', 'docs');
 mkdirSync(docsDir, { recursive: true });
-writeFileSync(join(docsDir, 'relecture-etage1.md'), md.join('\n') + '\n');
-console.log(`docs/relecture-etage1.md écrit : ${n} exercices à relire.`);
+for (const f of FLOORS) {
+  const md = [];
+  md.push(`# Relecture du coréen — étage ${f.floor_number} : ${f.title_fr} (${f.title_ko})`);
+  md.push('');
+  md.push("Document généré depuis le contenu de l'application (`supabase/seed/build-seed.mjs`). Les phrases ont été écrites par une IA, **sans relecteur humain**.");
+  md.push('');
+  md.push('## Consigne pour la personne qui relit');
+  md.push('');
+  md.push('Pour chaque ligne, répondre **OK**, ou **à corriger** avec la version correcte. Merci de vérifier :');
+  md.push('');
+  md.push('1. **La justesse** : la phrase coréenne est-elle grammaticalement correcte ?');
+  md.push("2. **Le naturel** : est-ce ce qu'un natif dirait ? (une phrase peut être correcte mais bizarre)");
+  md.push('3. **Les mauvaises options** : sont-elles bien fausses ? (une option « fausse » qui serait en fait acceptable est un vrai problème)');
+  md.push('4. **La traduction française** correspond-elle ?');
+  md.push("5. **Les romanisations** des cours (romanisation simplifiée : syllabes séparées par des tirets, liaison à l'intérieur d'un mot, pas de liaison entre deux mots).");
+  md.push('');
+  md.push('Le niveau visé est A2 → B1. Les phrases sont volontairement simples.');
+  md.push('');
+  let n = 0;
+  for (const u of f.units) {
+    md.push(`## Unité ${u.unit_number} — ${u.title_fr} (${u.title_ko})`);
+    md.push('');
+    for (const l of u.lessons) {
+      md.push(`### ${l.title_fr} (${l.title_ko}) — ${l.type}`);
+      md.push('');
+      if (l.content) {
+        md.push("**Cours (texte affiché dans l'application)**");
+        md.push('');
+        for (const sec of l.content.sections) {
+          md.push(`- *${sec.title}* — ${sec.body}`);
+          for (const ex of sec.examples || []) md.push(`  - ${ex.ko} (${ex.rom}) — ${ex.fr}`);
+        }
+        if (l.content.tip) md.push(`- Astuce : ${l.content.tip}`);
+        md.push('');
+      }
+      md.push('**Exercices**');
+      md.push('');
+      md.push('| # | Phrase / question | Réponse attendue | Options fausses | Traduction / consigne | Avis |');
+      md.push('| --- | --- | --- | --- | --- | --- |');
+      for (const e of l.exercises) {
+        n++;
+        const answers = e.answer.split('|').map((x) => x.trim());
+        const cell = (t) => String(t ?? '').replaceAll('|', '\\|').replaceAll('\n', ' ');
+        let sentence;
+        let wrong = '';
+        if (e.type === 'fill_blank') {
+          sentence = e.ko.replace('___', `**${answers[0]}**`);
+          wrong = e.options.filter((o) => !answers.includes(o)).join(' · ');
+        } else if (e.type === 'multiple_choice') {
+          sentence = e.fr + (e.ko ? ` — ${e.ko}` : '');
+          wrong = e.options.filter((o) => !answers.includes(o)).join(' · ');
+        } else if (e.type === 'listening') {
+          sentence = `(écoute) ${e.ko}`;
+          wrong = e.options.filter((o) => !answers.includes(o)).join(' · ');
+        } else if (e.type === 'reorder') {
+          sentence = `(remettre en ordre) ${e.options.join(' / ')}`;
+        } else if (e.type === 'translate_fr') {
+          sentence = `(traduire en français) ${e.ko}`;
+        } else {
+          sentence = `(traduire en coréen) ${e.fr}`;
+        }
+        const shown = e.type === 'fill_blank' ? answers.join(' / ') : answers.join('  ·  ');
+        md.push(`| ${n} | ${cell(sentence)} | ${cell(shown)} | ${cell(wrong)} | ${cell(e.type === 'fill_blank' ? e.fr : e.type === 'multiple_choice' || e.type === 'translate_ko' ? '' : e.fr || '')} | |`);
+      }
+      md.push('');
+    }
+  }
+  writeFileSync(join(docsDir, `relecture-etage${f.floor_number}.md`), md.join('\n') + '\n');
+  console.log(`docs/relecture-etage${f.floor_number}.md écrit : ${n} exercices à relire.`);
+}

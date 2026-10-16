@@ -52,7 +52,7 @@ select l.id, 'reorder', NULL, 'Je bois du café.', '저는 커피를 마셔요',
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 1 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'translate_ko', NULL, 'Je suis étudiant(e).', '저는 학생이에요 | 학생이에요', NULL, '저(moi) + 는 + 학생(étudiant) + 이에요(être, poli).', 2, ARRAY['topic_particle', 'particles']::text[], false
+select l.id, 'translate_ko', NULL, 'Je suis professeur.', '저는 선생님이에요 | 선생님이에요', NULL, '저(moi) + 는 + 선생님(professeur) + 이에요(être, poli).', 2, ARRAY['topic_particle', 'particles']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 1 and l.lesson_number = 1;
 
@@ -137,7 +137,7 @@ select l.id, 'multiple_choice', NULL, 'Quelle particule avec 가다 / 오다 (de
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'translate_ko', NULL, 'Je vais à l''école.', '학교에 가요 | 저는 학교에 가요', NULL, '학교(école) + 에 + 가요(aller).', 2, ARRAY['e_vs_eseo', 'particles']::text[], false
+select l.id, 'translate_ko', NULL, 'Je vais à la bibliothèque.', '도서관에 가요 | 저는 도서관에 가요', NULL, '도서관(bibliothèque) + 에 + 가요(aller) : destination → 에.', 2, ARRAY['e_vs_eseo', 'particles']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
@@ -554,7 +554,7 @@ select id, 1, '자기소개', 'Se présenter et décrire', 'grammar', '이에요
 on conflict (floor_id, unit_number) do update set
   title_ko = excluded.title_ko, title_fr = excluded.title_fr, topic = excluded.topic, description = excluded.description;
 insert into lessons (unit_id, lesson_number, title_ko, title_fr, lesson_type, content_json)
-select u.id, 1, '이에요 / 예요 · 형용사', 'Être, et décrire avec les adjectifs', 'teach', '{"intro":"Deux outils pour parler de toi et de ce qui t''entoure : le verbe « être » et les adjectifs. Rien de nouveau dans la logique : voyelle ou consonne, et c''est réglé.","sections":[{"title":"이에요 / 예요 — « être » (poli)","body":"Après un nom qui finit par une consonne : 이에요. Après une voyelle : 예요. C''est la même logique que 은/는.","examples":[{"ko":"저는 프랑스 사람이에요.","rom":"jeo-neun peu-rang-seu sa-ra-mi-e-yo","fr":"Je suis français(e)."},{"ko":"제 이름은 조던이에요.","rom":"je i-reu-meun jo-deo-ni-e-yo","fr":"Mon nom est Jordan."},{"ko":"저는 의사예요.","rom":"jeo-neun ui-sa-ye-yo","fr":"Je suis médecin."}]},{"title":"Les adjectifs : radical + 아요 / 어요","body":"En coréen, l''adjectif se conjugue comme un verbe. Dernière voyelle du radical ㅏ ou ㅗ → 아요 ; sinon → 어요 ; les adjectifs en 하다 → 해요. Si le radical finit par ㅡ, il tombe (크다 → 커요).","examples":[{"ko":"날씨가 좋아요.","rom":"nal-ssi-ga jo-a-yo","fr":"Il fait beau."},{"ko":"방이 커요.","rom":"bang-i keo-yo","fr":"La chambre est grande."},{"ko":"저는 바빠요.","rom":"jeo-neun ba-ppa-yo","fr":"Je suis occupé(e)."},{"ko":"이 음식은 맛있어요.","rom":"i eum-si-geun ma-si-sseo-yo","fr":"Ce plat est délicieux."},{"ko":"오늘은 피곤해요.","rom":"o-neu-reun pi-gon-hae-yo","fr":"Aujourd''hui, je suis fatigué(e)."}]}],"tip":"Pas de verbe « être » devant un adjectif : on dit « La chambre grande-est » → 방이 커요, jamais 방이 이에요 커요."}'::jsonb
+select u.id, 1, '이에요 / 예요 · 형용사', 'Être, et décrire avec les adjectifs', 'teach', '{"intro":"Deux outils pour parler de toi et de ce qui t''entoure : le verbe « être » et les adjectifs. Rien de nouveau dans la logique : voyelle ou consonne, et c''est réglé.","sections":[{"title":"이에요 / 예요 — « être » (poli)","body":"Après un nom qui finit par une consonne : 이에요. Après une voyelle : 예요. C''est la même logique que 은/는.","examples":[{"ko":"저는 프랑스 사람이에요.","rom":"jeo-neun peu-rang-seu sa-ra-mi-e-yo","fr":"Je suis français(e)."},{"ko":"제 이름은 조던이에요.","rom":"je i-reu-meun jo-deo-ni-e-yo","fr":"Mon nom est Jordan."},{"ko":"저는 의사예요.","rom":"jeo-neun ui-sa-ye-yo","fr":"Je suis médecin."}]},{"title":"Les adjectifs : radical + 아요 / 어요","body":"En coréen, l''adjectif se conjugue comme un verbe. Dernière voyelle du radical ㅏ ou ㅗ → 아요 ; sinon → 어요 ; les adjectifs en 하다 → 해요. Si le radical finit par ㅡ, il tombe. Radical d''une syllabe → 어요 (크다 → 커요). Plusieurs syllabes → on regarde la voyelle de la syllabe d''avant : ㅏ/ㅗ → 아요 (바쁘다 → 바빠요), sinon → 어요 (예쁘다 → 예뻐요).","examples":[{"ko":"날씨가 좋아요.","rom":"nal-ssi-ga jo-a-yo","fr":"Il fait beau."},{"ko":"방이 커요.","rom":"bang-i keo-yo","fr":"La chambre est grande."},{"ko":"저는 바빠요.","rom":"jeo-neun ba-ppa-yo","fr":"Je suis occupé(e)."},{"ko":"이 음식은 맛있어요.","rom":"i eum-si-geun ma-si-sseo-yo","fr":"Ce plat est délicieux."},{"ko":"오늘은 피곤해요.","rom":"o-neu-reun pi-gon-hae-yo","fr":"Aujourd''hui, je suis fatigué(e)."}]}],"tip":"Pas de verbe « être » devant un adjectif : on dit « La chambre grande-est » → 방이 커요, jamais 방이 이에요 커요."}'::jsonb
 from units u join floors f on f.id = u.floor_id where f.floor_number = 2 and u.unit_number = 1
 on conflict (unit_id, lesson_number) do update set
   title_ko = excluded.title_ko, title_fr = excluded.title_fr, lesson_type = excluded.lesson_type, content_json = excluded.content_json;
@@ -621,7 +621,7 @@ select l.id, 'multiple_choice', NULL, 'Quelle est la forme polie de 작다 (peti
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 1 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'multiple_choice', NULL, 'Quelle est la forme polie de 많다 (beaucoup) ?', '많아요', '["많아요","많어요","많해요","만아요"]'::jsonb, '많다 : dernière voyelle ㅏ → 아요.', 1, ARRAY['adjectives']::text[], false
+select l.id, 'multiple_choice', NULL, 'Quelle est la forme polie de 많다 (être nombreux, il y a beaucoup) ?', '많아요', '["많아요","많어요","많해요","만아요"]'::jsonb, '많다 : dernière voyelle ㅏ → 아요.', 1, ARRAY['adjectives']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 1 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
@@ -643,7 +643,7 @@ select id, 2, '쇼핑과 주문', 'Acheter et commander', 'vocabulary', '주세�
 on conflict (floor_id, unit_number) do update set
   title_ko = excluded.title_ko, title_fr = excluded.title_fr, topic = excluded.topic, description = excluded.description;
 insert into lessons (unit_id, lesson_number, title_ko, title_fr, lesson_type, content_json)
-select u.id, 1, '주세요', '« S''il vous plaît » : demander quelque chose', 'teach', '{"intro":"Au marché, au café, au restaurant : une seule structure te suffit pour presque tout demander. Et elle réutilise ce que tu sais déjà sur les compteurs.","sections":[{"title":"N + 주세요 — « donnez-moi… »","body":"On dit l''objet puis 주세요, sans particule. Pour la quantité : nom + nombre natif + compteur + 주세요. L''ordre est toujours nom → nombre → compteur.","examples":[{"ko":"커피 한 잔 주세요.","rom":"keo-pi han jan ju-se-yo","fr":"Un café, s''il vous plaît."},{"ko":"물 한 병 주세요.","rom":"mul han byeong ju-se-yo","fr":"Une bouteille d''eau, s''il vous plaît."},{"ko":"사과 세 개 주세요.","rom":"sa-gwa se gae ju-se-yo","fr":"Trois pommes, s''il vous plaît."},{"ko":"두부 한 모 주세요.","rom":"du-bu han mo ju-se-yo","fr":"Un bloc de tofu, s''il vous plaît."}]},{"title":"얼마예요 ? — le prix","body":"얼마예요 ? = « combien ça coûte ? ». La réponse utilise les nombres sino-coréens + 원, avec 이에요 / 예요.","examples":[{"ko":"이거 얼마예요?","rom":"i-geo eol-ma-ye-yo","fr":"Combien ça coûte ?"},{"ko":"삼천 원이에요.","rom":"sam-cheon wo-ni-e-yo","fr":"C''est 3 000 wons."}]}],"tip":"Compteurs utiles : 잔 (tasses, verres), 병 (bouteilles), 개 (objets), 명 (personnes), 모 (blocs de tofu). Le tofu a son propre compteur !"}'::jsonb
+select u.id, 1, '주세요', '« S''il vous plaît » : demander quelque chose', 'teach', '{"intro":"Au marché, au café, au restaurant : une seule structure te suffit pour presque tout demander. Et elle réutilise ce que tu sais déjà sur les compteurs.","sections":[{"title":"N + 주세요 — « donnez-moi… »","body":"On dit l''objet puis 주세요, en général sans particule (커피를 주세요 se dit aussi). Pour la quantité : nom + nombre natif + compteur + 주세요. L''ordre est toujours nom → nombre → compteur.","examples":[{"ko":"커피 한 잔 주세요.","rom":"keo-pi han jan ju-se-yo","fr":"Un café, s''il vous plaît."},{"ko":"물 한 병 주세요.","rom":"mul han byeong ju-se-yo","fr":"Une bouteille d''eau, s''il vous plaît."},{"ko":"사과 세 개 주세요.","rom":"sa-gwa se gae ju-se-yo","fr":"Trois pommes, s''il vous plaît."},{"ko":"두부 한 모 주세요.","rom":"du-bu han mo ju-se-yo","fr":"Un bloc de tofu, s''il vous plaît."}]},{"title":"얼마예요 ? — le prix","body":"얼마예요 ? = « combien ça coûte ? ». La réponse utilise les nombres sino-coréens + 원, avec 이에요 / 예요.","examples":[{"ko":"이거 얼마예요?","rom":"i-geo eol-ma-ye-yo","fr":"Combien ça coûte ?"},{"ko":"삼천 원이에요.","rom":"sam-cheon wo-ni-e-yo","fr":"C''est 3 000 wons."}]}],"tip":"Compteurs utiles : 잔 (tasses, verres), 병 (bouteilles), 개 (objets), 명 (personnes), 모 (blocs de tofu). Le tofu a son propre compteur !"}'::jsonb
 from units u join floors f on f.id = u.floor_id where f.floor_number = 2 and u.unit_number = 2
 on conflict (unit_id, lesson_number) do update set
   title_ko = excluded.title_ko, title_fr = excluded.title_fr, lesson_type = excluded.lesson_type, content_json = excluded.content_json;
@@ -658,7 +658,7 @@ select l.id, 'translate_ko', NULL, 'Deux bouteilles d''eau, s''il vous plaît.',
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'fill_blank', '커피 ___ 잔 주세요.', 'Un café, s''il vous plaît.', '한', '["한","하나","일","첫"]'::jsonb, '하나 → 한 devant le compteur 잔.', 1, ARRAY['numbers_native', 'counters']::text[], false
+select l.id, 'fill_blank', '사과 ___ 개 주세요.', 'Une pomme, s''il vous plaît.', '한', '["한","하나","일","첫"]'::jsonb, '하나 → 한 devant le compteur 개.', 1, ARRAY['numbers_native', 'counters']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
@@ -674,7 +674,7 @@ select l.id, 'multiple_choice', NULL, 'Quelle phrase est correcte ? (deux cafés
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'reorder', NULL, 'Un café, s''il vous plaît.', '커피 한 잔 주세요', '["커피","한","잔","주세요"]'::jsonb, 'Nom → nombre → compteur → 주세요.', 2, ARRAY['counters', 'requests', 'word_order']::text[], false
+select l.id, 'reorder', NULL, 'Une bouteille d''eau, s''il vous plaît.', '물 한 병 주세요', '["물","한","병","주세요"]'::jsonb, 'Nom → nombre → compteur → 주세요.', 2, ARRAY['counters', 'requests', 'word_order']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
@@ -698,11 +698,11 @@ select l.id, 'fill_blank', '사과 세 ___ 주세요.', 'Trois pommes, s''il vou
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'fill_blank', '친구 두 ___ 있어요.', 'J''ai deux amis.', '명', '["명","개","마리","잔"]'::jsonb, '명 : compteur des personnes.', 1, ARRAY['counters']::text[], false
+select l.id, 'fill_blank', '친구가 두 ___ 있어요.', 'J''ai deux amis.', '명', '["명","개","마리","잔"]'::jsonb, '명 : compteur des personnes.', 1, ARRAY['counters']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'translate_ko', NULL, 'Trois pommes, s''il vous plaît.', '사과 세 개 주세요', NULL, '사과 + 세 (셋 devant un compteur) + 개 + 주세요.', 2, ARRAY['requests', 'counters', 'numbers_native']::text[], false
+select l.id, 'translate_ko', NULL, 'Deux cafés, s''il vous plaît.', '커피 두 잔 주세요', NULL, '커피 + 두 (둘 devant un compteur) + 잔 + 주세요.', 2, ARRAY['requests', 'counters', 'numbers_native']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
@@ -710,7 +710,7 @@ select l.id, 'translate_ko', NULL, 'Un bloc de tofu, s''il vous plaît.', '두�
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'translate_ko', NULL, 'Combien coûte ceci ?', '이거 얼마예요 | 이것 얼마예요 | 이거 얼마예요?', NULL, '이거 + 얼마예요.', 2, ARRAY['requests']::text[], false
+select l.id, 'translate_ko', NULL, 'Combien coûte ceci ?', '이거 얼마예요 | 이것 얼마예요 | 이건 얼마예요', NULL, '이거 + 얼마예요.', 2, ARRAY['requests']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 2 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
@@ -821,7 +821,7 @@ select id, 4, '계획', 'Faire des projets : le futur', 'grammar', '-(으)ㄹ �
 on conflict (floor_id, unit_number) do update set
   title_ko = excluded.title_ko, title_fr = excluded.title_fr, topic = excluded.topic, description = excluded.description;
 insert into lessons (unit_id, lesson_number, title_ko, title_fr, lesson_type, content_json)
-select u.id, 1, '-(으)ㄹ 거예요', 'Dire ce que tu feras', 'teach', '{"intro":"Pour parler de demain, de ce week-end ou de l''année prochaine, une seule forme : radical + (으)ㄹ 거예요. Là encore : voyelle ou consonne.","sections":[{"title":"La forme","body":"Radical qui finit par une voyelle (ou ㄹ) → ㄹ 거예요 : 가다 → 갈 거예요. Radical qui finit par une consonne → 을 거예요 : 먹다 → 먹을 거예요. Verbes en ㄹ (살다) : le ㄹ ne se double pas : 살 거예요.","examples":[{"ko":"내일 친구를 만날 거예요.","rom":"nae-il chin-gu-reul man-nal geo-ye-yo","fr":"Demain, je verrai un ami."},{"ko":"저녁에 밥을 먹을 거예요.","rom":"jeo-nyeo-ge ba-beul meo-geul geo-ye-yo","fr":"Ce soir, je mangerai."},{"ko":"저는 서울에 살 거예요.","rom":"jeo-neun seo-u-re sal geo-ye-yo","fr":"J''habiterai à Séoul."}]},{"title":"Les repères de temps","body":"내일 (demain), 주말 (le week-end), 다음 주 (la semaine prochaine). Souvenir de l''étage 1 : 에 avec 주말 et 다음 주, mais pas avec 내일.","examples":[{"ko":"주말에 영화를 볼 거예요.","rom":"ju-ma-re yeong-hwa-reul bol geo-ye-yo","fr":"Ce week-end, je verrai un film."},{"ko":"다음 주에 한국에 갈 거예요.","rom":"da-eum ju-e han-gu-ge gal geo-ye-yo","fr":"La semaine prochaine, j''irai en Corée."}]}],"tip":"Pas de 에 après 내일, 오늘, 어제. Avec 주말, 다음 주, 3시 : oui."}'::jsonb
+select u.id, 1, '-(으)ㄹ 거예요', 'Dire ce que tu feras', 'teach', '{"intro":"Pour parler de demain, de ce week-end ou de l''année prochaine, une seule forme : radical + (으)ㄹ 거예요. Là encore : voyelle ou consonne.","sections":[{"title":"La forme","body":"Radical qui finit par une voyelle (ou ㄹ) → ㄹ 거예요 : 가다 → 갈 거예요. Radical qui finit par une consonne → 을 거예요 : 먹다 → 먹을 거예요. Verbes en ㄹ (살다) : le ㄹ ne se double pas : 살 거예요. Prononciation : 거예요 se dit [꺼예요].","examples":[{"ko":"내일 친구를 만날 거예요.","rom":"nae-il chin-gu-reul man-nal geo-ye-yo","fr":"Demain, je verrai un ami."},{"ko":"저녁에 밥을 먹을 거예요.","rom":"jeo-nyeo-ge ba-beul meo-geul geo-ye-yo","fr":"Ce soir, je mangerai."},{"ko":"저는 서울에 살 거예요.","rom":"jeo-neun seo-u-re sal geo-ye-yo","fr":"J''habiterai à Séoul."}]},{"title":"Les repères de temps","body":"내일 (demain), 주말 (le week-end), 다음 주 (la semaine prochaine). Souvenir de l''étage 1 : 에 avec 주말 et 다음 주, mais pas avec 내일.","examples":[{"ko":"주말에 영화를 볼 거예요.","rom":"ju-ma-re yeong-hwa-reul bol geo-ye-yo","fr":"Ce week-end, je verrai un film."},{"ko":"다음 주에 한국에 갈 거예요.","rom":"da-eum ju-e han-gu-ge gal geo-ye-yo","fr":"La semaine prochaine, j''irai en Corée."}]}],"tip":"Pas de 에 après 내일, 오늘, 어제. Avec 주말, 다음 주, 3시 : oui."}'::jsonb
 from units u join floors f on f.id = u.floor_id where f.floor_number = 2 and u.unit_number = 4
 on conflict (unit_id, lesson_number) do update set
   title_ko = excluded.title_ko, title_fr = excluded.title_fr, lesson_type = excluded.lesson_type, content_json = excluded.content_json;
@@ -892,7 +892,7 @@ select l.id, 'translate_ko', NULL, 'Demain, je mangerai du bibimbap.', '내일 �
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 4 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'listening', '내일 친구를 만날 거예요', 'Écoute et choisis la phrase entendue', '내일 친구를 만날 거예요', '["내일 친구를 만날 거예요","내일 친구를 먹을 거예요","내일 친구를 갈 거예요","내일 친구를 읽을 거예요"]'::jsonb, '만나다 (rencontrer) est le seul verbe cohérent avec 친구를.', 2, ARRAY['future', 'object_particle', 'listening']::text[], false
+select l.id, 'listening', '내일 친구를 만날 거예요', 'Écoute et choisis la phrase entendue', '내일 친구를 만날 거예요', '["내일 친구를 만날 거예요","내일 친구를 만났어요","내일 친구를 만나요","주말에 친구를 만날 거예요"]'::jsonb, '만날 거예요 = futur ; 내일 = demain. Écoute bien le temps du verbe et le mot de temps.', 2, ARRAY['future', 'object_particle', 'listening']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 4 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
@@ -910,7 +910,7 @@ select id, 5, '과거', 'Parler du passé', 'grammar', '-았/었-, et relier deu
 on conflict (floor_id, unit_number) do update set
   title_ko = excluded.title_ko, title_fr = excluded.title_fr, topic = excluded.topic, description = excluded.description;
 insert into lessons (unit_id, lesson_number, title_ko, title_fr, lesson_type, content_json)
-select u.id, 1, '-았/었어요', 'Dire ce qu''on a fait', 'teach', '{"intro":"Le passé, c''est comme le présent poli, mais avec ㅆ : 았어요 / 었어요 / 했어요. Et pour raconter, un petit outil en plus : relier deux noms.","sections":[{"title":"Le passé poli","body":"Dernière voyelle ㅏ ou ㅗ → 았어요 ; autres voyelles → 었어요 ; verbes en 하다 → 했어요. À l''oral, la voyelle se contracte : 가+았 → 갔, 보+았 → 봤, 사+았 → 샀. Attention : 사요 est le présent, 샀어요 le passé.","examples":[{"ko":"어제 친구를 만났어요.","rom":"eo-je chin-gu-reul man-na-sseo-yo","fr":"Hier, j''ai vu un ami."},{"ko":"저는 커피를 샀어요.","rom":"jeo-neun keo-pi-reul sa-sseo-yo","fr":"J''ai acheté du café."},{"ko":"지난 주말에 영화를 봤어요.","rom":"ji-nan ju-ma-re yeong-hwa-reul bwa-sseo-yo","fr":"Le week-end dernier, j''ai vu un film."},{"ko":"어제 한국어를 공부했어요.","rom":"eo-je han-gu-geo-reul gong-bu-hae-sseo-yo","fr":"Hier, j''ai étudié le coréen."}]},{"title":"Relier deux noms : 하고 / (이)랑","body":"Pour dire « et » ou « avec » entre deux NOMS, on colle 하고, ou (이)랑 (이랑 après une consonne, 랑 après une voyelle). 그리고 ne relie pas des noms : il commence une phrase (« et puis »).","examples":[{"ko":"빵하고 우유를 샀어요.","rom":"ppang-ha-go u-yu-reul sa-sseo-yo","fr":"J''ai acheté du pain et du lait."},{"ko":"친구랑 영화를 봤어요.","rom":"chin-gu-rang yeong-hwa-reul bwa-sseo-yo","fr":"J''ai vu un film avec un ami."},{"ko":"점심에 비빔밥을 먹었어요. 그다음에 커피를 마셨어요.","rom":"jeom-sim-e bi-bim-ba-beul meo-geo-sseo-yo. geu-da-eu-me keo-pi-reul ma-syeo-sseo-yo","fr":"À midi, j''ai mangé un bibimbap. Ensuite, j''ai bu un café."}]}],"tip":"Deux outils, deux rôles : 하고 / (이)랑 relient des NOMS (빵하고 우유) ; 그리고 / 그다음에 relient des PHRASES."}'::jsonb
+select u.id, 1, '-았/었어요', 'Dire ce qu''on a fait', 'teach', '{"intro":"Le passé, c''est comme le présent poli, mais avec ㅆ : 았어요 / 었어요 / 했어요. Et pour raconter, un petit outil en plus : relier deux noms.","sections":[{"title":"Le passé poli","body":"Dernière voyelle ㅏ ou ㅗ → 았어요 ; autres voyelles → 었어요 ; verbes en 하다 → 했어요. La voyelle fusionne : 가+았 → 갔, 사+았 → 샀 (obligatoire, même à l''écrit : 가았어요 n''existe pas). 보+았 → 봤 (보았어요 existe aussi à l''écrit soutenu, mais 봤어요 est la forme courante). Attention : 사요 est le présent, 샀어요 le passé.","examples":[{"ko":"어제 친구를 만났어요.","rom":"eo-je chin-gu-reul man-na-sseo-yo","fr":"Hier, j''ai vu un ami."},{"ko":"저는 커피를 샀어요.","rom":"jeo-neun keo-pi-reul sa-sseo-yo","fr":"J''ai acheté du café."},{"ko":"지난 주말에 영화를 봤어요.","rom":"ji-nan ju-ma-re yeong-hwa-reul bwa-sseo-yo","fr":"Le week-end dernier, j''ai vu un film."},{"ko":"어제 한국어를 공부했어요.","rom":"eo-je han-gu-geo-reul gong-bu-hae-sseo-yo","fr":"Hier, j''ai étudié le coréen."}]},{"title":"Relier deux noms : 하고 / (이)랑","body":"Pour dire « et » ou « avec » entre deux NOMS, on colle 하고, ou (이)랑 (이랑 après une consonne, 랑 après une voyelle). 그리고 ne relie pas des noms : il commence une phrase (« et puis »).","examples":[{"ko":"빵하고 우유를 샀어요.","rom":"ppang-ha-go u-yu-reul sa-sseo-yo","fr":"J''ai acheté du pain et du lait."},{"ko":"친구랑 영화를 봤어요.","rom":"chin-gu-rang yeong-hwa-reul bwa-sseo-yo","fr":"J''ai vu un film avec un ami."},{"ko":"점심에 비빔밥을 먹었어요. 그다음에 커피를 마셨어요.","rom":"jeom-si-me bi-bim-ba-beul meo-geo-sseo-yo. geu-da-eu-me keo-pi-reul ma-syeo-sseo-yo","fr":"À midi, j''ai mangé un bibimbap. Ensuite, j''ai bu un café."}]}],"tip":"Deux outils, deux rôles : 하고 / (이)랑 relient des NOMS (빵하고 우유) ; 그리고 / 그다음에 relient des PHRASES."}'::jsonb
 from units u join floors f on f.id = u.floor_id where f.floor_number = 2 and u.unit_number = 5
 on conflict (unit_id, lesson_number) do update set
   title_ko = excluded.title_ko, title_fr = excluded.title_fr, lesson_type = excluded.lesson_type, content_json = excluded.content_json;
@@ -921,7 +921,7 @@ select l.id, 'fill_blank', '어제 친구를 ___.', 'Hier, j''ai vu un ami.', '�
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'fill_blank', '저는 커피를 ___.', 'J''ai acheté du café.', '샀어요', '["샀어요","사았어요","사었어요","사요"]'::jsonb, '사다 → 샀어요 (passé). 사요 est le présent.', 1, ARRAY['past']::text[], false
+select l.id, 'fill_blank', '어제 커피를 ___.', 'Hier, j''ai acheté du café.', '샀어요', '["샀어요","사았어요","사었어요","사요"]'::jsonb, '사다 → 샀어요 (passé). 사요 est le présent.', 1, ARRAY['past']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
@@ -945,7 +945,7 @@ select l.id, 'translate_ko', NULL, 'J''ai mangé du bibimbap à midi.', '점심�
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'reorder', NULL, 'Hier, j''ai étudié le coréen.', '어제 한국어를 공부했어요', '["어제","한국어를","공부했어요"]'::jsonb, 'Temps → objet → verbe au passé.', 2, ARRAY['past', 'word_order']::text[], false
+select l.id, 'reorder', NULL, 'Hier, j''ai lu un livre.', '어제 책을 읽었어요', '["어제","책을","읽었어요"]'::jsonb, 'Temps → objet → verbe au passé.', 2, ARRAY['past', 'word_order']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 1;
 
@@ -989,7 +989,7 @@ select l.id, 'translate_ko', NULL, 'Hier, j''ai vu un film avec un ami.', '어�
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'listening', '어제 친구를 만났어요', 'Écoute et choisis la phrase entendue', '어제 친구를 만났어요', '["어제 친구를 만났어요","내일 친구를 만날 거예요","어제 친구를 샀어요","어제 친구를 먹었어요"]'::jsonb, '만났어요 = passé de 만나다 (rencontrer).', 2, ARRAY['past', 'listening']::text[], false
+select l.id, 'listening', '어제 친구를 만났어요', 'Écoute et choisis la phrase entendue', '어제 친구를 만났어요', '["어제 친구를 만났어요","어제 친구를 만나요","오늘 친구를 만났어요","어제 친구랑 만났어요"]'::jsonb, '만났어요 = passé ; 어제 = hier. Écoute bien le temps du verbe et le mot de temps.', 2, ARRAY['past', 'listening']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 5 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
@@ -1034,11 +1034,11 @@ select l.id, 'fill_blank', '어제 영화를 ___.', 'Hier, j''ai vu un film.', '
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 6 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'fill_blank', '빵___ 우유를 샀어요.', 'J''ai acheté du pain et du lait.', '하고', '["하고","그리고","그래서","하지만"]'::jsonb, '하고 relie deux noms.', 3, ARRAY['linking', 'past']::text[], false
+select l.id, 'fill_blank', '사과___ 두부를 샀어요.', 'J''ai acheté des pommes et du tofu.', '하고', '["하고","그리고","그래서","하지만"]'::jsonb, '하고 relie deux noms.', 3, ARRAY['linking', 'past']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 6 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'multiple_choice', NULL, 'Quelle phrase est correcte ? (deux cafés, s''il vous plaît)', '커피 두 잔 주세요', '["커피 두 잔 주세요","두 커피 잔 주세요","커피 잔 두 주세요","주세요 커피 두 잔"]'::jsonb, 'Nom → nombre → compteur → 주세요.', 3, ARRAY['counters', 'requests']::text[], false
+select l.id, 'multiple_choice', NULL, 'Quelle phrase est correcte ? (trois bouteilles d''eau, s''il vous plaît)', '물 세 병 주세요', '["물 세 병 주세요","세 물 병 주세요","물 병 세 주세요","주세요 물 세 병"]'::jsonb, 'Nom → nombre → compteur → 주세요.', 3, ARRAY['counters', 'requests']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 6 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
@@ -1050,7 +1050,7 @@ select l.id, 'translate_ko', NULL, 'Combien coûte ce tofu ?', '이 두부 얼�
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 6 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'translate_ko', NULL, 'Allez tout droit, puis à droite.', '똑바로 가세요. 그다음에 오른쪽으로 가세요 | 똑바로 가세요 그다음에 오른쪽으로 가세요', NULL, '똑바로 = tout droit ; 그다음에 = ensuite ; 오른쪽으로 = vers la droite.', 4, ARRAY['directions', 'linking']::text[], false
+select l.id, 'translate_ko', NULL, 'Allez tout droit, puis à droite.', '똑바로 가세요. 그다음에 오른쪽으로 가세요 | 쭉 가세요. 그다음에 오른쪽으로 가세요 | 똑바로 가세요. 그리고 오른쪽으로 가세요 | 쭉 가세요. 그리고 오른쪽으로 가세요', NULL, '똑바로 = tout droit ; 그다음에 = ensuite ; 오른쪽으로 = vers la droite.', 4, ARRAY['directions', 'linking']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 2 and u.unit_number = 6 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)

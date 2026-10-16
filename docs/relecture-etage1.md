@@ -43,7 +43,7 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 | 5 | 이것**은** 뭐예요? | 은 | 는 · 을 · 를 | Qu'est-ce que c'est ? | |
 | 6 | Quelle particule marque le thème ("quant à moi…") ? | 은/는 | 이/가 · 을/를 · 에 |  | |
 | 7 | (remettre en ordre) 저는 / 커피를 / 마셔요 | 저는 커피를 마셔요 |  | Je bois du café. | |
-| 8 | (traduire en coréen) Je suis étudiant(e). | 저는 학생이에요  ·  학생이에요 |  |  | |
+| 8 | (traduire en coréen) Je suis professeur. | 저는 선생님이에요  ·  선생님이에요 |  |  | |
 
 ### Entraînement : particules (조사 연습) — practice
 
@@ -88,7 +88,7 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 | 21 | 카페**에서** 커피를 마셔요. | 에서 | 에 · 으로 · 가 | Je bois un café dans un café. | |
 | 22 | Quelle particule avec une action (manger, étudier, travailler) ? | 에서 | 에 · 으로 · 도 |  | |
 | 23 | Quelle particule avec 가다 / 오다 (destination) ? | 에 | 에서 · 이 · 는 |  | |
-| 24 | (traduire en coréen) Je vais à l'école. | 학교에 가요  ·  저는 학교에 가요 |  |  | |
+| 24 | (traduire en coréen) Je vais à la bibliothèque. | 도서관에 가요  ·  저는 도서관에 가요 |  |  | |
 | 25 | (traduire en coréen) Je travaille au café. | 카페에서 일해요  ·  저는 카페에서 일해요 |  |  | |
 
 ### Entraînement : 에 / 에서 / 으로 (장소 조사 연습) — practice

@@ -66,7 +66,7 @@ const floor1 = {
             fb('이것___ 뭐예요?', 'Qu\'est-ce que c\'est ?', ['은', '는', '을', '를'], '은', '이것 finit par ㅅ, une consonne → 은 (thème).', ['topic_particle', 'particles']),
             mc('Quelle particule marque le thème ("quant à moi…") ?', null, ['은/는', '이/가', '을/를', '에'], '은/는', '은/는 pose le thème ; 이/가 marque le sujet ; 을/를 l\'objet.', ['topic_particle', 'particles']),
             ro('Je bois du café.', ['저는', '커피를', '마셔요'], '저는 커피를 마셔요', 'Ordre coréen : thème → objet → verbe (le verbe est toujours à la fin).', ['object_particle', 'particles'], 1),
-            tk('Je suis étudiant(e).', '저는 학생이에요 | 학생이에요', '저(moi) + 는 + 학생(étudiant) + 이에요(être, poli).', ['topic_particle', 'particles']),
+            tk('Je suis professeur.', '저는 선생님이에요 | 선생님이에요', '저(moi) + 는 + 선생님(professeur) + 이에요(être, poli).', ['topic_particle', 'particles']),
           ],
         },
         {
@@ -139,7 +139,7 @@ const floor1 = {
             fb('카페___ 커피를 마셔요.', 'Je bois un café dans un café.', ['에', '에서', '으로', '가'], '에서', '마시다 est une action → 에서.', ['e_vs_eseo', 'particles']),
             mc('Quelle particule avec une action (manger, étudier, travailler) ?', null, ['에서', '에', '으로', '도'], '에서', 'Action → 에서. Mouvement / existence → 에.', ['e_vs_eseo', 'particles']),
             mc('Quelle particule avec 가다 / 오다 (destination) ?', null, ['에', '에서', '이', '는'], '에', '가다 / 오다 + lieu d\'arrivée → 에.', ['e_vs_eseo', 'particles']),
-            tk('Je vais à l\'école.', '학교에 가요 | 저는 학교에 가요', '학교(école) + 에 + 가요(aller).', ['e_vs_eseo', 'particles']),
+            tk('Je vais à la bibliothèque.', '도서관에 가요 | 저는 도서관에 가요', '도서관(bibliothèque) + 에 + 가요(aller) : destination → 에.', ['e_vs_eseo', 'particles']),
             tk('Je travaille au café.', '카페에서 일해요 | 저는 카페에서 일해요', '일하다 est une action → 에서.', ['e_vs_eseo', 'particles'], 3),
           ],
         },

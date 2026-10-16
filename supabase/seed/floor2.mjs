@@ -36,7 +36,7 @@ export const floor2 = {
               },
               {
                 title: 'Les adjectifs : radical + 아요 / 어요',
-                body: "En coréen, l'adjectif se conjugue comme un verbe. Dernière voyelle du radical ㅏ ou ㅗ → 아요 ; sinon → 어요 ; les adjectifs en 하다 → 해요. Si le radical finit par ㅡ, il tombe (크다 → 커요).",
+                body: "En coréen, l'adjectif se conjugue comme un verbe. Dernière voyelle du radical ㅏ ou ㅗ → 아요 ; sinon → 어요 ; les adjectifs en 하다 → 해요. Si le radical finit par ㅡ, il tombe. Radical d'une syllabe → 어요 (크다 → 커요). Plusieurs syllabes → on regarde la voyelle de la syllabe d'avant : ㅏ/ㅗ → 아요 (바쁘다 → 바빠요), sinon → 어요 (예쁘다 → 예뻐요).",
                 examples: [
                   { ko: '날씨가 좋아요.', rom: 'nal-ssi-ga jo-a-yo', fr: 'Il fait beau.' },
                   { ko: '방이 커요.', rom: 'bang-i keo-yo', fr: 'La chambre est grande.' },
@@ -70,7 +70,7 @@ export const floor2 = {
             fb('이 옷은 ___.', 'Ce vêtement est joli.', ['예뻐요', '예쁘어요', '예뻐어요', '예쁘요'], '예뻐요', '예쁘다 : ㅡ tombe, la voyelle précédente est ㅖ → 어요 : 예뻐요.', ['adjectives'], 3),
             fb('오늘은 정말 ___.', "Aujourd'hui, je suis vraiment fatigué(e).", ['피곤해요', '피곤아요', '피곤어요', '피곤요'], '피곤해요', "피곤하다 : les adjectifs en 하다 font 해요.", ['adjectives']),
             mc('Quelle est la forme polie de 작다 (petit) ?', null, ['작아요', '작어요', '작해요', '작요'], '작아요', '작다 : dernière voyelle ㅏ → 아요.', ['adjectives']),
-            mc('Quelle est la forme polie de 많다 (beaucoup) ?', null, ['많아요', '많어요', '많해요', '만아요'], '많아요', '많다 : dernière voyelle ㅏ → 아요.', ['adjectives']),
+            mc('Quelle est la forme polie de 많다 (être nombreux, il y a beaucoup) ?', null, ['많아요', '많어요', '많해요', '만아요'], '많아요', '많다 : dernière voyelle ㅏ → 아요.', ['adjectives']),
             ls('저는 의사예요', ['저는 의사예요', '저는 학생이에요', '저는 의사가 아니에요', '저는 의사이에요'], '저는 의사예요', '의사 + 예요 (voyelle).', ['copula']),
             tf('날씨가 좋아요.', 'Il fait beau | Le temps est bon | La météo est bonne | Il fait bon', '좋아요 : « c\'est bien / agréable ».', ['adjectives']),
             tk('Mon nom est Jordan.', '제 이름은 조던이에요 | 이름은 조던이에요', '조던 + 이에요 (consonne finale ㄴ).', ['copula'], 2),
@@ -97,7 +97,7 @@ export const floor2 = {
             sections: [
               {
                 title: 'N + 주세요 — « donnez-moi… »',
-                body: "On dit l'objet puis 주세요, sans particule. Pour la quantité : nom + nombre natif + compteur + 주세요. L'ordre est toujours nom → nombre → compteur.",
+                body: "On dit l'objet puis 주세요, en général sans particule (커피를 주세요 se dit aussi). Pour la quantité : nom + nombre natif + compteur + 주세요. L'ordre est toujours nom → nombre → compteur.",
                 examples: [
                   { ko: '커피 한 잔 주세요.', rom: 'keo-pi han jan ju-se-yo', fr: "Un café, s'il vous plaît." },
                   { ko: '물 한 병 주세요.', rom: 'mul han byeong ju-se-yo', fr: "Une bouteille d'eau, s'il vous plaît." },
@@ -119,11 +119,11 @@ export const floor2 = {
           exercises: [
             tk("Un café, s'il vous plaît.", '커피 한 잔 주세요', '커피 + 한 (하나 devant un compteur) + 잔 + 주세요.', ['requests', 'counters', 'numbers_native']),
             tk("Deux bouteilles d'eau, s'il vous plaît.", '물 두 병 주세요', '물 + 두 (둘 devant un compteur) + 병 + 주세요.', ['requests', 'counters', 'numbers_native']),
-            fb('커피 ___ 잔 주세요.', "Un café, s'il vous plaît.", ['한', '하나', '일', '첫'], '한', '하나 → 한 devant le compteur 잔.', ['numbers_native', 'counters']),
+            fb('사과 ___ 개 주세요.', "Une pomme, s'il vous plaît.", ['한', '하나', '일', '첫'], '한', '하나 → 한 devant le compteur 개.', ['numbers_native', 'counters']),
             mc('Quel compteur pour un bloc de tofu ?', null, ['모', '마리', '권', '명'], '모', '모 est le compteur des blocs de tofu : 두부 한 모.', ['counters']),
             mc('Comment demande-t-on le prix ?', null, ['얼마예요?', '뭐예요?', '어디예요?', '누구예요?'], '얼마예요?', '얼마 = combien. 뭐 = quoi, 어디 = où, 누구 = qui.', ['requests']),
             mc('Quelle phrase est correcte ? (deux cafés, s\'il vous plaît)', null, ['커피 두 잔 주세요', '두 커피 잔 주세요', '커피 잔 두 주세요', '주세요 커피 두 잔'], '커피 두 잔 주세요', 'Ordre : nom + nombre + compteur, puis 주세요.', ['counters', 'requests'], 2),
-            ro("Un café, s'il vous plaît.", ['커피', '한', '잔', '주세요'], '커피 한 잔 주세요', 'Nom → nombre → compteur → 주세요.', ['counters', 'requests'], 2),
+            ro("Une bouteille d'eau, s'il vous plaît.", ['물', '한', '병', '주세요'], '물 한 병 주세요', 'Nom → nombre → compteur → 주세요.', ['counters', 'requests'], 2),
             tf('이거 얼마예요?', "Combien ça coûte | Ça coûte combien | C'est combien | Combien ça fait", '이거 = ceci ; 얼마예요 = combien ça coûte.', ['requests']),
           ],
         },
@@ -135,10 +135,10 @@ export const floor2 = {
           exercises: [
             fb('삼천 원___.', "C'est 3 000 wons.", ['이에요', '예요', '이요', '에요'], '이에요', '원 finit par ㄴ, une consonne → 이에요.', ['copula', 'numbers_sino']),
             fb('사과 세 ___ 주세요.', "Trois pommes, s'il vous plaît.", ['개', '명', '마리', '권'], '개', '개 : compteur des objets (et des fruits).', ['counters']),
-            fb('친구 두 ___ 있어요.', "J'ai deux amis.", ['명', '개', '마리', '잔'], '명', '명 : compteur des personnes.', ['counters']),
-            tk("Trois pommes, s'il vous plaît.", '사과 세 개 주세요', '사과 + 세 (셋 devant un compteur) + 개 + 주세요.', ['requests', 'counters', 'numbers_native']),
+            fb('친구가 두 ___ 있어요.', "J'ai deux amis.", ['명', '개', '마리', '잔'], '명', '명 : compteur des personnes.', ['counters']),
+            tk("Deux cafés, s'il vous plaît.", '커피 두 잔 주세요', '커피 + 두 (둘 devant un compteur) + 잔 + 주세요.', ['requests', 'counters', 'numbers_native']),
             tk("Un bloc de tofu, s'il vous plaît.", '두부 한 모 주세요', '두부 + 한 + 모 (compteur du tofu) + 주세요.', ['requests', 'counters', 'numbers_native']),
-            tk('Combien coûte ceci ?', '이거 얼마예요 | 이것 얼마예요 | 이거 얼마예요?', '이거 + 얼마예요.', ['requests']),
+            tk('Combien coûte ceci ?', '이거 얼마예요 | 이것 얼마예요 | 이건 얼마예요', '이거 + 얼마예요.', ['requests']),
             ls('물 한 병 주세요', ['물 한 병 주세요', '물 두 병 주세요', '물 세 병 주세요', '물 네 병 주세요'], '물 한 병 주세요', '한 = un. Écoute bien 한 / 두 / 세 / 네.', ['numbers_native', 'counters']),
             tf('두부 한 모 주세요.', "Un bloc de tofu, s'il vous plaît | Un tofu, s'il vous plaît | Donnez-moi un bloc de tofu | Je voudrais un bloc de tofu", '모 = bloc de tofu.', ['requests', 'counters']),
             ro("Deux pommes, s'il vous plaît.", ['사과', '두', '개', '주세요'], '사과 두 개 주세요', 'Nom → nombre → compteur → 주세요.', ['counters', 'requests'], 2),
@@ -239,7 +239,7 @@ export const floor2 = {
             sections: [
               {
                 title: 'La forme',
-                body: "Radical qui finit par une voyelle (ou ㄹ) → ㄹ 거예요 : 가다 → 갈 거예요. Radical qui finit par une consonne → 을 거예요 : 먹다 → 먹을 거예요. Verbes en ㄹ (살다) : le ㄹ ne se double pas : 살 거예요.",
+                body: "Radical qui finit par une voyelle (ou ㄹ) → ㄹ 거예요 : 가다 → 갈 거예요. Radical qui finit par une consonne → 을 거예요 : 먹다 → 먹을 거예요. Verbes en ㄹ (살다) : le ㄹ ne se double pas : 살 거예요. Prononciation : 거예요 se dit [꺼예요].",
                 examples: [
                   { ko: '내일 친구를 만날 거예요.', rom: 'nae-il chin-gu-reul man-nal geo-ye-yo', fr: 'Demain, je verrai un ami.' },
                   { ko: '저녁에 밥을 먹을 거예요.', rom: 'jeo-nyeo-ge ba-beul meo-geul geo-ye-yo', fr: 'Ce soir, je mangerai.' },
@@ -280,7 +280,7 @@ export const floor2 = {
             fb('내일 뭐 ___ 거예요?', 'Que feras-tu demain ?', ['할', '하을', '해서', '해'], '할', '하다 : radical 하 (voyelle) → 할 거예요.', ['future']),
             fb('다음 주___ 한국에 갈 거예요.', "La semaine prochaine, j'irai en Corée.", ['에', '에서', '를', '가'], '에', '다음 주 est un moment précis → 에.', ['time_particle', 'temporal']),
             tk('Demain, je mangerai du bibimbap.', '내일 비빔밥을 먹을 거예요 | 저는 내일 비빔밥을 먹을 거예요', '먹다 → 먹을 거예요 ; 비빔밥을 (objet).', ['future', 'object_particle']),
-            ls('내일 친구를 만날 거예요', ['내일 친구를 만날 거예요', '내일 친구를 먹을 거예요', '내일 친구를 갈 거예요', '내일 친구를 읽을 거예요'], '내일 친구를 만날 거예요', '만나다 (rencontrer) est le seul verbe cohérent avec 친구를.', ['future', 'object_particle']),
+            ls('내일 친구를 만날 거예요', ['내일 친구를 만날 거예요', '내일 친구를 만났어요', '내일 친구를 만나요', '주말에 친구를 만날 거예요'], '내일 친구를 만날 거예요', '만날 거예요 = futur ; 내일 = demain. Écoute bien le temps du verbe et le mot de temps.', ['future', 'object_particle']),
             tf('저는 주말에 영화를 볼 거예요.', 'Ce week-end, je verrai un film | Je verrai un film ce week-end | Moi, ce week-end, je verrai un film', '주말에 = ce week-end ; 볼 거예요 = je verrai.', ['future']),
             ro("Ce week-end, j'irai au parc.", ['주말에', '공원에', '갈', '거예요'], '주말에 공원에 갈 거예요', 'Moment → destination (에) → verbe au futur.', ['future', 'e_vs_eseo'], 2),
           ],
@@ -306,7 +306,7 @@ export const floor2 = {
             sections: [
               {
                 title: 'Le passé poli',
-                body: "Dernière voyelle ㅏ ou ㅗ → 았어요 ; autres voyelles → 었어요 ; verbes en 하다 → 했어요. À l'oral, la voyelle se contracte : 가+았 → 갔, 보+았 → 봤, 사+았 → 샀. Attention : 사요 est le présent, 샀어요 le passé.",
+                body: "Dernière voyelle ㅏ ou ㅗ → 았어요 ; autres voyelles → 었어요 ; verbes en 하다 → 했어요. La voyelle fusionne : 가+았 → 갔, 사+았 → 샀 (obligatoire, même à l'écrit : 가았어요 n'existe pas). 보+았 → 봤 (보았어요 existe aussi à l'écrit soutenu, mais 봤어요 est la forme courante). Attention : 사요 est le présent, 샀어요 le passé.",
                 examples: [
                   { ko: '어제 친구를 만났어요.', rom: 'eo-je chin-gu-reul man-na-sseo-yo', fr: "Hier, j'ai vu un ami." },
                   { ko: '저는 커피를 샀어요.', rom: 'jeo-neun keo-pi-reul sa-sseo-yo', fr: "J'ai acheté du café." },
@@ -320,7 +320,7 @@ export const floor2 = {
                 examples: [
                   { ko: '빵하고 우유를 샀어요.', rom: 'ppang-ha-go u-yu-reul sa-sseo-yo', fr: "J'ai acheté du pain et du lait." },
                   { ko: '친구랑 영화를 봤어요.', rom: 'chin-gu-rang yeong-hwa-reul bwa-sseo-yo', fr: "J'ai vu un film avec un ami." },
-                  { ko: '점심에 비빔밥을 먹었어요. 그다음에 커피를 마셨어요.', rom: 'jeom-sim-e bi-bim-ba-beul meo-geo-sseo-yo. geu-da-eu-me keo-pi-reul ma-syeo-sseo-yo', fr: "À midi, j'ai mangé un bibimbap. Ensuite, j'ai bu un café." },
+                  { ko: '점심에 비빔밥을 먹었어요. 그다음에 커피를 마셨어요.', rom: 'jeom-si-me bi-bim-ba-beul meo-geo-sseo-yo. geu-da-eu-me keo-pi-reul ma-syeo-sseo-yo', fr: "À midi, j'ai mangé un bibimbap. Ensuite, j'ai bu un café." },
                 ],
               },
             ],
@@ -328,13 +328,13 @@ export const floor2 = {
           },
           exercises: [
             fb('어제 친구를 ___.', "Hier, j'ai vu un ami.", ['만났어요', '만나았어요', '만나었어요', '만낫어요'], '만났어요', '만나다 : ㅏ → 았어요, contracté : 만났어요.', ['past']),
-            fb('저는 커피를 ___.', "J'ai acheté du café.", ['샀어요', '사았어요', '사었어요', '사요'], '샀어요', '사다 → 샀어요 (passé). 사요 est le présent.', ['past']),
+            fb('어제 커피를 ___.', "Hier, j'ai acheté du café.", ['샀어요', '사았어요', '사었어요', '사요'], '샀어요', '사다 → 샀어요 (passé). 사요 est le présent.', ['past']),
             fb('지난 주말에 영화를 ___.', "Le week-end dernier, j'ai vu un film.", ['봤어요', '보요', '봐요', '보었어요'], '봤어요', '보다 : ㅗ → 았어요, contracté : 봤어요. 봐요 est le présent.', ['past'], 2),
             fb('어제 한국어를 ___.', "Hier, j'ai étudié le coréen.", ['공부했어요', '공부하았어요', '공부하었어요', '공부해요'], '공부했어요', '공부하다 → 공부했어요 (passé). 공부해요 est le présent.', ['past']),
             mc('Quelle terminaison pour le passé poli des verbes en -하다 ?', null, ['했어요', '했요', '하었요', '한어요'], '했어요', '하다 → 했어요.', ['past']),
             mc('Que signifie 어제 ?', null, ['hier', 'demain', "aujourd'hui", 'ce soir'], 'hier', '어제 = hier ; 내일 = demain.', ['temporal']),
             tk("J'ai mangé du bibimbap à midi.", '점심에 비빔밥을 먹었어요 | 저는 점심에 비빔밥을 먹었어요', '먹다 : ㅓ → 었어요 ; 점심에 = à midi.', ['past', 'time_particle'], 3),
-            ro("Hier, j'ai étudié le coréen.", ['어제', '한국어를', '공부했어요'], '어제 한국어를 공부했어요', 'Temps → objet → verbe au passé.', ['past'], 2),
+            ro("Hier, j'ai lu un livre.", ['어제', '책을', '읽었어요'], '어제 책을 읽었어요', 'Temps → objet → verbe au passé.', ['past'], 2),
           ],
         },
         {
@@ -351,7 +351,7 @@ export const floor2 = {
             mc('Que signifie 그다음에 ?', null, ['ensuite, après ça', 'avant ça', 'pendant ce temps', 'à cause de ça'], 'ensuite, après ça', '그다음에 = ensuite.', ['linking']),
             tk("J'ai acheté du tofu.", '두부를 샀어요 | 저는 두부를 샀어요', '사다 → 샀어요 ; 두부를 (objet).', ['past', 'object_particle']),
             tk("Hier, j'ai vu un film avec un ami.", '어제 친구랑 영화를 봤어요 | 어제 친구하고 영화를 봤어요 | 저는 어제 친구랑 영화를 봤어요 | 저는 어제 친구하고 영화를 봤어요', '친구랑 / 친구하고 = avec un ami ; 봤어요 = j\'ai vu.', ['past', 'linking'], 3),
-            ls('어제 친구를 만났어요', ['어제 친구를 만났어요', '내일 친구를 만날 거예요', '어제 친구를 샀어요', '어제 친구를 먹었어요'], '어제 친구를 만났어요', '만났어요 = passé de 만나다 (rencontrer).', ['past']),
+            ls('어제 친구를 만났어요', ['어제 친구를 만났어요', '어제 친구를 만나요', '오늘 친구를 만났어요', '어제 친구랑 만났어요'], '어제 친구를 만났어요', '만났어요 = passé ; 어제 = hier. Écoute bien le temps du verbe et le mot de temps.', ['past']),
             tf('저는 어제 영화를 봤어요.', "Hier, j'ai vu un film | J'ai vu un film hier | Moi, hier, j'ai vu un film", '어제 = hier ; 봤어요 = j\'ai vu.', ['past']),
           ],
         },
@@ -378,11 +378,11 @@ export const floor2 = {
             fb('지하철___ 학교에 가요.', "Je vais à l'école en métro.", ['로', '으로', '를', '에게'], '로', '지하철 finit par ㄹ → 로.', ['direction', 'directions'], 3),
             fb('내일 친구를 ___ 거예요.', 'Demain, je verrai un ami.', ['만날', '만나을', '만나서', '만나'], '만날', '만나다 → 만날 거예요.', ['future'], 3),
             fb('어제 영화를 ___.', "Hier, j'ai vu un film.", ['봤어요', '보었어요', '보요', '봐요'], '봤어요', '보다 → 봤어요.', ['past'], 3),
-            fb('빵___ 우유를 샀어요.', "J'ai acheté du pain et du lait.", ['하고', '그리고', '그래서', '하지만'], '하고', '하고 relie deux noms.', ['linking', 'past'], 3),
-            mc("Quelle phrase est correcte ? (deux cafés, s'il vous plaît)", null, ['커피 두 잔 주세요', '두 커피 잔 주세요', '커피 잔 두 주세요', '주세요 커피 두 잔'], '커피 두 잔 주세요', 'Nom → nombre → compteur → 주세요.', ['counters', 'requests'], 3),
+            fb('사과___ 두부를 샀어요.', "J'ai acheté des pommes et du tofu.", ['하고', '그리고', '그래서', '하지만'], '하고', '하고 relie deux noms.', ['linking', 'past'], 3),
+            mc("Quelle phrase est correcte ? (trois bouteilles d'eau, s'il vous plaît)", null, ['물 세 병 주세요', '세 물 병 주세요', '물 병 세 주세요', '주세요 물 세 병'], '물 세 병 주세요', 'Nom → nombre → compteur → 주세요.', ['counters', 'requests'], 3),
             ro("Hier, j'ai acheté du pain et du café.", ['어제', '빵하고', '커피를', '샀어요'], '어제 빵하고 커피를 샀어요', 'Temps → objets reliés par 하고 → verbe au passé.', ['linking', 'past'], 3),
             tk('Combien coûte ce tofu ?', '이 두부 얼마예요 | 이거 얼마예요 | 이 두부는 얼마예요', '이 두부 = ce tofu ; 얼마예요 = combien ?', ['requests'], 3),
-            tk('Allez tout droit, puis à droite.', '똑바로 가세요. 그다음에 오른쪽으로 가세요 | 똑바로 가세요 그다음에 오른쪽으로 가세요', '똑바로 = tout droit ; 그다음에 = ensuite ; 오른쪽으로 = vers la droite.', ['directions', 'linking'], 4),
+            tk('Allez tout droit, puis à droite.', '똑바로 가세요. 그다음에 오른쪽으로 가세요 | 쭉 가세요. 그다음에 오른쪽으로 가세요 | 똑바로 가세요. 그리고 오른쪽으로 가세요 | 쭉 가세요. 그리고 오른쪽으로 가세요', '똑바로 = tout droit ; 그다음에 = ensuite ; 오른쪽으로 = vers la droite.', ['directions', 'linking'], 4),
             tk("Ce week-end, j'irai à Séoul en train.", '주말에 기차로 서울에 갈 거예요 | 이번 주말에 기차로 서울에 갈 거예요 | 주말에 서울에 기차로 갈 거예요', '주말에 (moment) + 기차로 (moyen) + 서울에 (destination) + 갈 거예요.', ['future', 'direction', 'e_vs_eseo'], 4),
             tf('어제 시장에서 두부하고 사과를 샀어요.', "Hier, j'ai acheté du tofu et des pommes au marché | J'ai acheté du tofu et des pommes au marché hier | Hier, au marché, j'ai acheté du tofu et des pommes", '시장에서 = au marché (action) ; 두부하고 사과 = du tofu et des pommes.', ['past', 'linking', 'e_vs_eseo'], 4),
           ],

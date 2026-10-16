@@ -8,6 +8,8 @@ import * as lessonView from './components/lesson-view.js';
 import * as stats from './components/stats.js';
 import { review, rewards } from './components/soon.js';
 import { preloadSprites, showLoading } from './utils/sprites.js';
+import { clearBubble } from './components/karina-bubble.js';
+import { resetShownMessages } from './karina.js';
 
 const root = $('#app');
 const nav = $('#nav');
@@ -27,6 +29,7 @@ let token = 0;
 
 async function route() {
   const my = ++token;
+  clearBubble();
   const session = await getSession();
 
   if (!session) {
@@ -74,6 +77,7 @@ window.addEventListener('hashchange', route);
 onAuthChange((event, session) => {
   if (event === 'SIGNED_OUT') {
     resetState();
+    resetShownMessages();
     setTimeout(route, 0);
   } else if (event === 'SIGNED_IN' && state.user?.id !== session?.user?.id) {
     setTimeout(route, 0);

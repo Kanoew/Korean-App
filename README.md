@@ -73,24 +73,40 @@ Ordre de recherche : **bucket → `assets/karina/` → pose de repli (idle)**. L
 
 ### Messages (table `karina_messages`)
 
-Saisis-les dans Supabase → Table Editor → `karina_messages`. L'app les lit au chargement ; s'il n'y en a pas pour un cas, elle utilise ses messages intégrés.
+Saisis-les dans Supabase → Table Editor → `karina_messages`. L'app les lit au chargement (recharge la page pour voir tes ajouts). Colonnes : `category`, `subcategory`, `trigger_context` (note libre, non lue), `message_text`, `min_floor` (pas avant cet étage), `is_active`.
 
-| category | subcategory | Quand |
-| --- | --- | --- |
-| `greeting` | `first_time`, `comeback_long` (≥ 7 j), `comeback` (≥ 3 j), `streak_30`, `streak_7`, `streak` (≥ 2 j), `morning`, `afternoon`, `evening`, `night` | accueil |
-| `feedback` | `correct`, `partial`, `wrong` | après chaque réponse |
-| `result` | `perfect`, `pass`, `fail`, `boss_pass`, `boss_fail` | fin de leçon |
-| `floor_clear` | *(vide)* | étage terminé |
+| category | subcategory | Quand | Affichage |
+| --- | --- | --- | --- |
+| `greeting` | `morning` · `afternoon` · `evening` · `comeback_after_absence` (≥ 3 j) · `streak_active` (≥ 2 j) | accueil | carte de Karina |
+| `correct_answer` | `standard` · `streak_3` · `streak_5` · `perfect_lesson` | bonne réponse | bulle |
+| `wrong_answer` | `standard` · `repeated_mistake` (même point déjà raté) · `encouragement` (2 erreurs d'affilée) | erreur | bulle |
+| `floor_clear` | `standard` · `milestone_floor_5` · `milestone_floor_10` (ou `milestone_floor_<n>`) | étage terminé | bulle sur l'écran de résultats |
+| `review_prompt` | `gentle_reminder` · `overdue` | cartes SRS dues | *prévu pour la V1 (SRS)* |
+| `idle_tease` | `standard` (1re) · `playful` (suivantes) | 30 s sans répondre | bulle |
+| `session_end` | `short_session` (< 3 min) · `good_session` · `long_session` (> 15 min) | fin de leçon | bulle sur l'écran de résultats |
+| `flirty` | `light` · `medium` · `spicy` (jamais avant l'étage 3) | 15 % entre deux exercices | bulle |
+| `milestone` | `xp_500` · `xp_1000` · `streak_7` · `streak_30` | jalon franchi | bulle sur l'écran de résultats |
 
-- `min_floor` : le message n'apparaît pas avant cet étage. `is_active` : décoche pour le désactiver.
-- `trigger_context` : note libre pour toi (non lue par l'app).
-- Une sous-catégorie précise l'emporte sur une ligne sans sous-catégorie ; plusieurs messages possibles → tirage au sort.
+Règles d'affichage :
+
+- Tirage au sort parmi les messages actifs de la catégorie + sous-catégorie (la plus précise d'abord, puis les moins précises, puis les lignes sans sous-catégorie).
+- **Jamais deux fois le même message dans une session** (de la connexion à la déconnexion / au rechargement). Quand tout un lot a été vu, il repart de zéro plutôt que de se taire.
+- La bulle sort de Karina, disparaît après **4 secondes ou au toucher** ; sur l'écran de résultats les bulles s'enchaînent (étage → jalons → fin de session).
+- Si la bulle parle après une réponse, le panneau de correction garde un libellé neutre et la bonne réponse ; sans message en base, c'est la ligne intégrée qui s'affiche dans le panneau (comme avant).
 - Variables dans `message_text` : `{name}` `{streak}` `{xp}` `{floor}` `{level}` `{gap}` `{floor_title}`.
+
+**Objectif : au moins 5 messages par sous-catégorie.** Pour voir ce qui manque :
+
+```sql
+select * from karina_messages_coverage where statut <> 'ok';
+```
+
+Exemple :
 
 ```sql
 insert into karina_messages (category, subcategory, trigger_context, message_text) values
-  ('greeting', 'streak_7', 'accueil, série ≥ 7 jours', '{streak} jours de suite, {name}. Je ne dis rien… mais je suis fière 😏'),
-  ('feedback', 'wrong', 'mauvaise réponse', 'Non, mon chou. Relis l''explication, c''est rapide.');
+  ('greeting', 'streak_active', 'accueil, série ≥ 2 jours', '{streak} jours de suite, {name}. Je ne dis rien… mais je suis fière 😏'),
+  ('wrong_answer', 'standard', 'mauvaise réponse', 'Non, mon chou. Relis l''explication, c''est rapide.');
 ```
 
 ## Structure
@@ -102,7 +118,7 @@ js/
   app.js            routeur (hash) + garde d'authentification
   auth.js · supabase.js · config.js · state.js · karina.js
   api/              lessons · exercises · progress · messages
-  components/       dashboard · floor-map · learn · lesson-view · exercise-player · exercise-types · stats · soon
+  components/       dashboard · floor-map · karina-bubble · learn · lesson-view · exercise-player · exercise-types · stats · soon
   utils/            helpers (correction, dates, XP) · tts · sprites
 assets/karina/      avatar.webp · karina-idle.png · karina-walk-right.png
 supabase/

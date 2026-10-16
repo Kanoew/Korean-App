@@ -142,23 +142,54 @@ create table if not exists weakness_log (
 );
 
 -- ---------- Messages de Karina (saisis à la main dans le Table Editor) ----------
--- Catégories lues par l'app :
---   greeting     : first_time, comeback_long, comeback, streak_30, streak_7, streak, morning, afternoon, evening, night
---   feedback     : correct, partial, wrong
---   result       : perfect, pass, fail, boss_pass, boss_fail
---   floor_clear  : (subcategory vide)
+-- Catégories / sous-catégories lues par l'app :
+--   greeting        morning, afternoon, evening, comeback_after_absence, streak_active
+--   correct_answer  standard, streak_3, streak_5, perfect_lesson
+--   wrong_answer    standard, repeated_mistake, encouragement
+--   floor_clear     standard, milestone_floor_5, milestone_floor_10  (ou milestone_floor_<n>)
+--   review_prompt   gentle_reminder, overdue                          (actif avec le SRS, V1)
+--   idle_tease      standard, playful                                 (30 s d'inactivité)
+--   session_end     short_session, good_session, long_session
+--   flirty          light, medium, spicy                              (15 % entre deux exercices ; spicy jamais avant l'étage 3)
+--   milestone       xp_500, xp_1000, streak_7, streak_30
 -- Variables dans message_text : {name} {streak} {xp} {floor} {level} {gap} {floor_title}
 create table if not exists karina_messages (
   id SERIAL primary key,
-  category TEXT not null,
-  subcategory TEXT,
+  category TEXT not null,         -- catégorie du message (voir ci-dessus)
+  subcategory TEXT,               -- affinement facultatif
   trigger_context TEXT,           -- note libre : quand ce message apparaît
-  message_text TEXT not null,
+  message_text TEXT not null,     -- le message
   min_floor INT default 1,        -- n'apparaît pas avant cet étage
   is_active BOOLEAN default true,
   created_at TIMESTAMPTZ default now()
 );
 create index if not exists karina_messages_lookup_idx on karina_messages (category, subcategory) where is_active;
+
+-- Combien de messages actifs par emplacement ? (objectif : au moins 5 pour éviter les répétitions)
+-- Utilisation : select * from karina_messages_coverage where statut <> 'ok';
+create or replace view karina_messages_coverage with (security_invoker = true) as
+with slots (category, subcategory) as (
+  values
+    ('greeting', 'morning'), ('greeting', 'afternoon'), ('greeting', 'evening'),
+    ('greeting', 'comeback_after_absence'), ('greeting', 'streak_active'),
+    ('correct_answer', 'standard'), ('correct_answer', 'streak_3'), ('correct_answer', 'streak_5'), ('correct_answer', 'perfect_lesson'),
+    ('wrong_answer', 'standard'), ('wrong_answer', 'repeated_mistake'), ('wrong_answer', 'encouragement'),
+    ('floor_clear', 'standard'), ('floor_clear', 'milestone_floor_5'), ('floor_clear', 'milestone_floor_10'),
+    ('review_prompt', 'gentle_reminder'), ('review_prompt', 'overdue'),
+    ('idle_tease', 'standard'), ('idle_tease', 'playful'),
+    ('session_end', 'short_session'), ('session_end', 'good_session'), ('session_end', 'long_session'),
+    ('flirty', 'light'), ('flirty', 'medium'), ('flirty', 'spicy'),
+    ('milestone', 'xp_500'), ('milestone', 'xp_1000'), ('milestone', 'streak_7'), ('milestone', 'streak_30')
+)
+select s.category,
+       s.subcategory,
+       count(m.id) filter (where m.is_active) as actifs,
+       5 as objectif,
+       case when count(m.id) filter (where m.is_active) >= 5 then 'ok'
+            else 'manque ' || (5 - count(m.id) filter (where m.is_active)) end as statut
+from slots s
+left join karina_messages m on m.category = s.category and m.subcategory = s.subcategory
+group by s.category, s.subcategory;
 
 -- ---------- Bucket public pour les sprites de Karina ----------
 -- (ignoré si le schéma storage n'existe pas, ex. Postgres de test)

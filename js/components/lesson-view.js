@@ -4,7 +4,8 @@ import { loadExercises, loadWeakExercises } from '../api/exercises.js';
 import { loadWeaknesses, finishSession } from '../api/progress.js';
 import { playExercises } from './exercise-player.js';
 import { esc, $, spreadTypes, shuffle, tagLabel } from '../utils/helpers.js';
-import { resultLine, floorClearLine } from '../karina.js';
+import { resultLine, floorClearLine, floorClearMessage, milestoneMessages, sessionEndMessage } from '../karina.js';
+import { sayAll, clearBubble } from './karina-bubble.js';
 import { speak, ttsSupported } from '../utils/tts.js';
 import { spriteImg, hydrateSprites, showLoading } from '../utils/sprites.js';
 
@@ -111,9 +112,15 @@ function showResults(root, lesson, s) {
   const pct = Math.round(s.score * 100);
   const next = lesson ? state.lessons[lesson.index + 1] : null;
   const pose = s.passed ? 'celebrate' : 'idle';
+  // Bulles de Karina : étage terminé → jalons → fin de session (chacune 4 s, ou au toucher)
+  const talk = [
+    s.floorCleared && floorClearMessage(s.floorCleared.floor_number, s.floorCleared.title_fr),
+    ...milestoneMessages(s),
+    sessionEndMessage(s.durationSeconds),
+  ].filter(Boolean);
   root.innerHTML = `
     <div class="results center stack fade-in">
-      <div class="results-hero ${s.floorCleared ? 'cleared' : ''}">${s.floorCleared ? '<span class="trophy pop">🏆</span>' : ''}${spriteImg(pose, s.passed ? 'cheer' : '')}</div>
+      <div class="results-hero ${s.floorCleared ? 'cleared' : ''} ${talk.length ? 'has-bubble' : ''}">${s.floorCleared ? '<span class="trophy pop">🏆</span>' : ''}${spriteImg(pose, s.passed ? 'cheer' : '')}</div>
       <h1>${s.weak ? 'Entraînement terminé' : s.passed ? 'Leçon validée !' : 'Pas encore…'}</h1>
       <div class="score-ring"><strong>${pct}%</strong><span>${s.correct}/${s.attempted} justes${s.partial ? ` · ${s.partial} presque` : ''}</span></div>
       <div class="stat-row">
@@ -128,6 +135,8 @@ function showResults(root, lesson, s) {
       </div>
     </div>`;
   hydrateSprites(root);
+  clearBubble();
+  if (talk.length) sayAll(talk, { anchor: $('.results-hero', root) });
   // Même route → forcer le rechargement quand on rejoue la même leçon
   const retry = $('#retry', root);
   if (retry) retry.onclick = (e) => { e.preventDefault(); window.dispatchEvent(new HashChangeEvent('hashchange')); };

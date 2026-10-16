@@ -85,6 +85,8 @@ export async function finishSession({ lesson, results, startedAt }) {
 
   // Série : +1 si la dernière session était hier, 1 si interruption, inchangée si déjà faite aujourd'hui.
   const streak = streakForToday(profile);
+  const xpBefore = profile.xp || 0;
+  const streakBefore = profile.streak_days || 0;
 
   // Progression de la leçon
   let floorCleared = null;
@@ -148,7 +150,10 @@ export async function finishSession({ lesson, results, startedAt }) {
     console.warn('weakness_log non mis à jour', e);
   }
 
-  return { attempted, correct, partial, score, passed, boss, xpEarned, bonus, streak, floorCleared, weak };
+  return {
+    attempted, correct, partial, score, passed, boss, xpEarned, bonus, streak, floorCleared, weak,
+    xpBefore, xpAfter: xpBefore + xpEarned, streakBefore, durationSeconds: Math.round((now - startedAt) / 1000),
+  };
 }
 
 export async function loadSessions(userId, limit = 50) {

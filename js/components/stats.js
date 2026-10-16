@@ -61,6 +61,5 @@ export async function render(root) {
         }
       </div>
       <p class="muted small center">${sessions.length} session${sessions.length > 1 ? 's' : ''} · ${Math.round(seconds / 60)} min au total</p>
-      <p class="center"><a class="link-btn" href="#/lab">🧪 Atelier IA</a></p>
     </div>`;
 }

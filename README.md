@@ -68,7 +68,7 @@ La clé ne passe **jamais** par le front ni par GitHub : elle vit dans les secre
    - `LLM_MODEL` : l'identifiant **exact** du modèle, recopié depuis AI Studio (par ex. celui de Flash que tu vois dans le sélecteur) ;
    - (optionnel) `LLM_BASE_URL` : autre fournisseur compatible OpenAI ; par défaut `https://generativelanguage.googleapis.com/v1beta/openai`.
 3. **Déploie la fonction** `llm` : Edge Functions → Deploy a new function → colle `supabase/functions/llm/index.ts`, nom **`llm`**, et **désactive « Verify JWT »** (la fonction vérifie elle-même ton jeton). En CLI : `supabase functions deploy llm --no-verify-jwt`.
-4. **Teste** : dans l'appli, Statistiques → **🧪 Atelier IA** → « Tester la clé ». Les erreurs sont lisibles (clé refusée, modèle introuvable, quota atteint…).
+4. **Teste** : dans l'appli, onglet **🧪 Atelier** → « Tester la clé ». Les erreurs sont lisibles (clé refusée, modèle introuvable, quota atteint…).
 
 Les quotas gratuits de Google changent : vérifie les limites actuelles dans AI Studio (elles dépendent aussi du modèle et de ta région). Le plafond de l'appli est volontairement bas pour ne jamais les dépasser.
 

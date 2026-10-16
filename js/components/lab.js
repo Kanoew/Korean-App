@@ -28,7 +28,6 @@ export async function render(root) {
 
   root.innerHTML = `
     <div class="fade-in lab stack">
-      <a class="back" href="#/stats">← Statistiques</a>
       <h1>🧪 Atelier IA</h1>
       <div class="card">
         <strong>Connexion</strong>

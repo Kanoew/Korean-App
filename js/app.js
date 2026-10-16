@@ -24,7 +24,7 @@ const ROUTES = [
   [/^#\/review$/, review, 'review'],
   [/^#\/rewards$/, rewards, 'rewards'],
   [/^#\/stats$/, stats, 'stats'],
-  [/^#\/lab$/, lab, 'stats'],
+  [/^#\/lab$/, lab, 'lab'],
 ];
 
 let token = 0;

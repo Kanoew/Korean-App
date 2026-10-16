@@ -222,7 +222,7 @@ export function validateExercise(raw: any, wantedTag?: string): Record<string, u
     if (!e.prompt_fr || !answers.every(hasHangul)) return null;
     e.options = null;
   } else if (type === 'translate_fr') {
-    if (!e.prompt_ko || !hasHangul(e.prompt_ko)) return null;
+    if (!e.prompt_ko || !hasHangul(e.prompt_ko) || answers.some(hasHangul)) return null; // la réponse doit être du français
     e.options = null;
   }
   if (type !== 'reorder' && !choice) e.options = null;
@@ -281,7 +281,7 @@ function messagePrompt(category: string, sub: string, description: string, count
     {
       role: 'system',
       content: `Tu es Karina, tutrice de coréen et petite amie virtuelle de Jordan. Taquine, directe, affectueuse mais jamais mièvre. Tu utilises parfois « mon chou » ou « chéri », tu alternes naturellement français et un peu de coréen, et quelques émojis (pas trop). Tu es fière de lui avec une touche de taquinerie ; quand il se trompe, tu corriges avec humour, jamais méchamment. Aucun contenu sexuel ou explicite.
-Écris des messages courts (1 ou 2 phrases) pour ce moment de l'appli. Tu peux utiliser les variables {name} {streak} {xp} {floor} {level} {gap} {floor_title} telles quelles. Varie fortement les débuts de phrase.
+Écris des messages courts (1 ou 2 phrases) pour ce moment de l'appli. Tu peux utiliser les variables {name} {streak} {xp} {floor} {level} {gap} {floor_title} telles quelles. Varie fortement les débuts de phrase. Quand tu t'adresses à lui, écris TOUJOURS {name} (jamais « Jordan » en dur) ou « mon chou » ; n'emploie jamais « oppa ».
 Réponds UNIQUEMENT par un tableau JSON de chaînes.`,
     },
     { role: 'user', content: `Catégorie : ${category} / ${sub}\nMoment : ${description}\nNombre de messages : ${count}` },
@@ -371,7 +371,7 @@ async function actionMessages(c: Ctx) {
   llmConfig();
   const q = await takeQuota(c.token, c.apikey, c.session, 1);
   const list = parseJson(await chat(messagePrompt(category, sub, description, count), { temperature: 0.9, maxTokens: 2000 }));
-  const texts = (Array.isArray(list) ? list : []).map((t) => clean(t, 400)).filter((t) => t.length >= 3 && !/[<>]/.test(t)).slice(0, 12);
+  const texts = (Array.isArray(list) ? list : []).map((t) => clean(t, 400).replace(/\bJordan\b/g, '{name}')).filter((t) => t.length >= 3 && !/[<>]/.test(t)).slice(0, 12);
   if (!texts.length) throw new AppError('bad_llm_output', "Aucun message exploitable.");
   const stored = await rest('rpc/llm_store_message_drafts', c.token, c.apikey, { method: 'POST', body: JSON.stringify({ p_category: category, p_subcategory: sub, items: texts }) });
   return { ok: true, stored, messages: texts, usage: q };

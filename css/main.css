@@ -59,7 +59,7 @@ small, .small { font-size: 0.8rem; }
   backdrop-filter: blur(10px);
   border-top: 1px solid var(--border);
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   z-index: 10;
 }
 #nav[hidden] { display: none; }

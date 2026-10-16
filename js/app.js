@@ -7,6 +7,7 @@ import * as learn from './components/learn.js';
 import * as lessonView from './components/lesson-view.js';
 import * as stats from './components/stats.js';
 import { review, rewards } from './components/soon.js';
+import { preloadSprites, showLoading } from './utils/sprites.js';
 
 const root = $('#app');
 const nav = $('#nav');
@@ -36,7 +37,7 @@ async function route() {
 
   try {
     if (!state.profile || state.user?.id !== session.user.id) {
-      root.innerHTML = '<div class="center muted splash">한글 …</div>';
+      showLoading(root, '한글 …');
       await loadAll(session.user);
     }
   } catch (e) {
@@ -66,6 +67,7 @@ async function route() {
   await match.view.render(root, match.m.slice(1));
 }
 
+preloadSprites();
 window.addEventListener('hashchange', route);
 
 // Connexion / déconnexion. (Pas d'appel Supabase async directement dans le callback.)

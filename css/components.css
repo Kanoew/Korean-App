@@ -59,7 +59,14 @@
 .progress-bar { display: block; height: 100%; background: linear-gradient(90deg, var(--coral), var(--gold)); border-radius: 99px; transition: width 0.4s ease; }
 
 /* Accueil */
-.dash-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.dash-top { display: flex; align-items: center; gap: 12px; }
+.dash-title { flex: 1; min-width: 0; }
+.dash-title h1 { margin: 0; }
+.avatar-img {
+  flex: none; width: 64px; height: 64px; border-radius: 50%; object-fit: cover;
+  border: 2px solid var(--coral); background: var(--surface); box-shadow: 0 0 0 3px rgba(232, 133, 122, 0.18);
+}
+.avatar-img.sm { width: 44px; height: 44px; border-width: 2px; box-shadow: none; }
 .card.karina { display: flex; gap: 12px; align-items: center; border-color: rgba(232, 133, 122, 0.4); }
 .card.karina p { margin: 0; }
 .avatar {
@@ -155,3 +162,32 @@
 .bar-col { flex: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 4px; }
 .bar { width: 100%; min-height: 3px; background: linear-gradient(0deg, var(--coral), var(--gold)); border-radius: 6px 6px 0 0; }
 .bar-col span { font-size: 0.7rem; color: var(--muted); }
+
+/* Sprites de Karina : 120 px de haut sur mobile, 180 px sur grand écran (ratio conservé) */
+.sprite { height: 120px; width: auto; max-width: 100%; user-select: none; }
+@media (min-width: 768px) { .sprite { height: 180px; } }
+.loading { padding-top: 14vh; }
+.results-hero { position: relative; display: flex; justify-content: center; min-height: 120px; }
+.results-hero .trophy { position: absolute; top: -18px; right: calc(50% - 70px); font-size: 2.2rem; z-index: 1; }
+
+/* Carte des étages (tour) */
+.fm { position: relative; padding: 4px 12px; overflow: hidden; }
+.fm-row { display: flex; align-items: flex-end; gap: 12px; height: 58px; padding-bottom: 8px; border-bottom: 1px dashed var(--border); }
+.fm-row:last-of-type { border-bottom: 0; }
+.fm-row.current { height: 156px; }
+.fm-row.locked { opacity: 0.45; }
+.fm-label { width: 84px; flex: none; display: flex; flex-direction: column; line-height: 1.2; padding-bottom: 2px; }
+.fm-label strong { color: var(--gold); font-size: 1.05rem; }
+.fm-label small { color: var(--muted); font-size: 0.7rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fm-label .fm-meta { color: var(--text); }
+.fm-track { position: relative; flex: 1; display: flex; justify-content: space-between; align-items: center; height: 14px; margin: 0 6px 4px; padding: 0 14px; }
+.fm-track::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 2px; background: var(--surface-2); transform: translateY(-50%); }
+.fm-dot { position: relative; z-index: 1; width: 10px; height: 10px; border-radius: 50%; background: var(--surface-2); }
+.fm-dot.done { background: var(--green); }
+.fm-dot.next { background: var(--coral); box-shadow: 0 0 0 4px rgba(232, 133, 122, 0.25); }
+.fm-karina { position: absolute; left: 0; top: 0; z-index: 2; pointer-events: none; opacity: 0; will-change: transform; }
+.fm-karina.ready { opacity: 1; }
+.fm-karina img { display: block; transform-origin: bottom center; animation: floaty 3.2s ease-in-out infinite; }
+.fm-karina.walking img { animation: bob 0.45s ease-in-out infinite; }
+.fm-karina.flip img { scale: -1 1; }
+@media (min-width: 768px) { .fm-row.current { height: 216px; } }

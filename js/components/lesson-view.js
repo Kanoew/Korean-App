@@ -6,6 +6,7 @@ import { playExercises } from './exercise-player.js';
 import { esc, $, spreadTypes, shuffle, tagLabel } from '../utils/helpers.js';
 import { resultLine, floorClearLine } from '../karina.js';
 import { speak, ttsSupported } from '../utils/tts.js';
+import { spriteImg, hydrateSprites, showLoading } from '../utils/sprites.js';
 
 const message = (root, html) => {
   root.innerHTML = `<div class="center stack fade-in">${html}<a class="btn ghost" href="#/">Retour</a></div>`;
@@ -24,7 +25,7 @@ export async function render(root, params) {
     }
   }
 
-  root.innerHTML = '<div class="center muted">Chargement…</div>';
+  showLoading(root, 'Karina prépare tes exercices…');
   let pool;
   try {
     if (weakMode) {
@@ -60,7 +61,7 @@ export async function render(root, params) {
       label,
       onExit: () => (location.hash = weakMode ? '#/' : '#/learn'),
       onDone: async (results) => {
-        root.innerHTML = '<div class="center muted">On compte tes points…</div>';
+        showLoading(root, 'Karina compte tes points…');
         try {
           const summary = await finishSession({ lesson, results, startedAt });
           showResults(root, lesson, summary);
@@ -109,10 +110,10 @@ function showIntro(root, lesson, content, start) {
 function showResults(root, lesson, s) {
   const pct = Math.round(s.score * 100);
   const next = lesson ? state.lessons[lesson.index + 1] : null;
-  const emoji = s.passed ? (s.score === 1 ? '🌟' : '✅') : '💪';
+  const pose = s.passed ? 'celebrate' : 'idle';
   root.innerHTML = `
     <div class="results center stack fade-in">
-      <div class="results-emoji pop">${s.floorCleared ? '🏆' : emoji}</div>
+      <div class="results-hero ${s.floorCleared ? 'cleared' : ''}">${s.floorCleared ? '<span class="trophy pop">🏆</span>' : ''}${spriteImg(pose, s.passed ? 'cheer' : '')}</div>
       <h1>${s.weak ? 'Entraînement terminé' : s.passed ? 'Leçon validée !' : 'Pas encore…'}</h1>
       <div class="score-ring"><strong>${pct}%</strong><span>${s.correct}/${s.attempted} justes${s.partial ? ` · ${s.partial} presque` : ''}</span></div>
       <div class="stat-row">
@@ -126,6 +127,7 @@ function showResults(root, lesson, s) {
         <a class="btn ghost block" href="#/${s.weak ? '' : 'learn'}">Retour</a>
       </div>
     </div>`;
+  hydrateSprites(root);
   // Même route → forcer le rechargement quand on rejoue la même leçon
   const retry = $('#retry', root);
   if (retry) retry.onclick = (e) => { e.preventDefault(); window.dispatchEvent(new HashChangeEvent('hashchange')); };

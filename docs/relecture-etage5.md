@@ -67,7 +67,7 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 
 **Cours (texte affiché dans l'application)**
 
-- *Radical + 고 있어요 — « être en train de »* — Même construction que -고 싶어요, avec 있어요 à la place de 싶어요. 지금 + -고 있어요 : ce que je fais en ce moment. Attention à ne pas confondre : 먹고 싶어요 (je veux manger) et 먹고 있어요 (je suis en train de manger). Avec certains verbes d'état comme 살다, -고 있어요 décrit une situation durable : 한국에 살고 있어요 (j'habite en Corée).
+- *Radical + 고 있어요 — « être en train de »* — Même construction que -고 싶어요, avec 있어요 à la place de 싶어요. 지금 + -고 있어요 : ce que je fais en ce moment. Attention à ne pas confondre : 먹고 싶어요 (je veux manger) et 먹고 있어요 (je suis en train de manger). Avec certains verbes de situation comme 살다 (habiter) ou 다니다 (fréquenter), -고 있어요 décrit une situation durable : 한국에 살고 있어요 (j'habite en Corée).
   - 지금 공부하고 있어요. (ji-geum gong-bu-ha-go i-sseo-yo) — En ce moment, je suis en train d'étudier.
   - 친구를 기다리고 있어요. (chin-gu-reul gi-da-ri-go i-sseo-yo) — J'attends un ami.
   - 한국에 살고 있어요. (han-gu-ge sal-go i-sseo-yo) — J'habite en Corée.
@@ -84,12 +84,12 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 | --- | --- | --- | --- | --- | --- |
 | 20 | 지금 공부하**고** 있어요. | 고 | 러 · 면 · 서 | En ce moment, je suis en train d'étudier. | |
 | 21 | 친구를 기다리**고** 있어요. | 고 | 러 · 으러 · 면 | J'attends un ami. | |
-| 22 | 점심을 먹**으러** 가요. | 으러 | 러 · 으면 · 으고 | Je vais déjeuner. | |
+| 22 | 점심을 먹**으러** 가요. | 으러 | 러 · 을러 · 으고 | Je vais déjeuner. | |
 | 23 | 영화를 **보러** 극장에 가요. | 보러 | 보으러 · 봐러 · 볼러 | Je vais au cinéma voir un film. | |
 | 24 | Quelle est la différence entre « 먹고 싶어요 » et « 먹고 있어요 » ? | Je veux manger / Je suis en train de manger | Je suis en train de manger / Je veux manger · J'ai mangé / Je mangerai · Je ne mange pas / Je mange |  | |
 | 25 | Quelle phrase veut dire « Je vais voir un ami » ? | 친구를 만나러 가요 | 친구를 만나고 가요 · 친구를 만나면 가요 · 친구를 만나서 가요 |  | |
 | 26 | (traduire en coréen) Je suis en train de manger. | 밥을 먹고 있어요  ·  지금 밥을 먹고 있어요  ·  저는 지금 밥을 먹고 있어요  ·  먹고 있어요 |  |  | |
-| 27 | (remettre en ordre) 빵을 / 사러 / 시장에 / 가요 | 빵을 사러 시장에 가요 |  | Je vais au marché pour acheter du pain. | |
+| 27 | (remettre en ordre) 빵을 / 사러 / 시장에 / 가요 | 빵을 사러 시장에 가요  ·  시장에 빵을 사러 가요 |  | Je vais au marché pour acheter du pain. | |
 
 ### Entraînement : en train de, aller pour (-고 있어요 · -(으)러 연습) — practice
 
@@ -145,7 +145,7 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 | 47 | 저는 커피**보다** 차를 더 좋아해요. | 보다 | 에서 · 까지 · 부터 | Je préfère le thé au café. | |
 | 48 | 이 옷이 저 옷보다 **더** 싸요. | 더 | 제일 · 가장 · 같이 | Ce vêtement est moins cher que celui-là. | |
 | 49 | 서울에서 이 식당이 **제일** 맛있어요. | 제일 | 보다 · 도 · 밖에 | C'est ce restaurant qui est le meilleur de Séoul. | |
-| 50 | 우리 집은 학교**보다** 멀어요. | 보다 | 하고 · 를 · 가 | Ma maison est plus loin que l'école. | |
+| 50 | 우리 집은 친구 집**보다** 커요. | 보다 | 하고 · 를 · 가 | Ma maison est plus grande que celle de mon ami. | |
 | 51 | Que signifie « 제일 » ? | le plus | plus que · un peu · jamais |  | |
 | 52 | Que signifie « 뭐가 더 좋아요? » ? | Lequel est le mieux (que tu préfères) ? | Que veux-tu ? · Quand aimes-tu ? · Qu'as-tu acheté ? |  | |
 | 53 | (écoute) 커피보다 차를 더 좋아해요 | 커피보다 차를 더 좋아해요 | 차보다 커피를 더 좋아해요 · 커피하고 차를 좋아해요 · 커피를 제일 좋아해요 | Écoute et choisis la phrase entendue | |
@@ -212,8 +212,8 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 | 79 | 지금 친구를 기다리**고** 있어요. | 고 | 러 · 면 · 서 | En ce moment, j'attends un ami. | |
 | 80 | 내일 친구를 만나**러** 시내에 가요. | 러 | 으러 · 는 · 어서 | Demain, je vais en ville voir un ami. | |
 | 81 | 버스가 택시**보다** 더 싸요. | 보다 | 하고 · 까지 · 부터 | Le bus est moins cher que le taxi. | |
-| 82 | 한국 가수 중에서 누구를 **제일** 좋아해요? | 제일 | 보다 · 도 · 밖에 | Parmi les chanteurs coréens, lequel préfères-tu le plus ? | |
-| 83 | 저는 **단** 음식을 좋아해요. | 단 | 달은 · 다는 · 달는 | J'aime les plats sucrés. | |
+| 82 | 한국 가수 중에서 누구를 **제일** 좋아해요? | 제일 | 보다 · 도 · 밖에 | Parmi les chanteurs coréens, qui préfères-tu ? | |
+| 83 | 저는 **작은** 집에 살아요. | 작은 | 작 · 작는 · 작어 | J'habite dans une petite maison. | |
 | 84 | Quelle phrase veut dire « Je veux goûter ça ! » ? | 이거 먹어 보고 싶어요 | 이거 먹고 있어요 · 이거 먹어 본 적이 없어요 · 이거 먹으러 가요 |  | |
 | 85 | Que signifie « 점심을 먹으러 가고 있어요 » ? | Je suis en route pour déjeuner | Je veux déjeuner · J'ai déjà déjeuné · Je déjeunerai si j'y vais |  | |
 | 86 | (remettre en ordre) 한국 / 영화를 / 본 / 적이 / 있어요 | 한국 영화를 본 적이 있어요 |  | J'ai déjà vu un film coréen. | |

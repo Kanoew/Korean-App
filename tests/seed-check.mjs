@@ -6,11 +6,29 @@ import { floor4 } from '../supabase/seed/floor4.mjs';
 import { floor5 } from '../supabase/seed/floor5.mjs';
 import { TAG_LABELS } from '../js/utils/helpers.js';
 
+// Phrases acceptées (toutes réponses correctes) d'un étage, sans ponctuation ni espaces
+const squash = (t) => String(t).normalize('NFC').replace(/[\s.,!?;:'"“”«»…~()\-]/g, '');
+function acceptedOf(floor) {
+  const set = new Map();
+  for (const u of floor.units) for (const l of u.lessons) {
+    l.exercises.forEach((e, i) => {
+      const alts = String(e.answer ?? '').split('|').map((x) => x.trim()).filter(Boolean);
+      const where = `U${u.unit_number}L${l.lesson_number}#${i + 1}`;
+      if (e.type === 'fill_blank') for (const a of alts) set.set(squash(e.ko.replace('___', a)), where);
+      else if (['translate_ko', 'reorder', 'listening'].includes(e.type)) for (const a of alts) set.set(squash(a), where);
+      else if (e.type === 'translate_fr' && e.ko) set.set(squash(e.ko), where);
+      for (const sec of l.content?.sections || []) for (const ex of sec.examples || []) set.set(squash(ex.ko), `cours U${u.unit_number}`);
+    });
+  }
+  return set;
+}
+
 const problems = [];
 const bad = (where, msg) => problems.push(`${where} : ${msg}`);
 let total = 0;
 
 for (const floor of [floor2, floor3, floor4, floor5]) {
+  const accepted = acceptedOf(floor);
   for (const unit of floor.units) {
     for (const lesson of unit.lessons) {
       const seen = new Map();
@@ -34,7 +52,13 @@ for (const floor of [floor2, floor3, floor4, floor5]) {
             if (e.options.filter((o) => answers.includes(o)).length !== 1) bad(w, 'plusieurs bonnes réponses dans les options');
           }
         }
+        if (['multiple_choice', 'fill_blank', 'listening'].includes(e.type) && Array.isArray(e.options) && e.options.length !== 4) bad(w, `${e.options.length} options au lieu de 4 (3 fausses + la bonne)`);
         if (e.type === 'fill_blank') {
+          // Une option fausse ne doit pas donner une phrase acceptée ailleurs dans l'étage
+          for (const o of e.options.filter((x) => !answers.includes(x))) {
+            const hit = accepted.get(squash(e.ko.replace('___', o)));
+            if (hit) bad(w, `l'option fausse « ${o} » donne une phrase acceptée ailleurs (${hit})`);
+          }
           if ((e.ko.match(/___/g) || []).length !== 1) bad(w, 'il faut exactement un ___');
           // La phrase complète ne doit pas se retrouver telle quelle parmi les autres choix
           const full = e.options.map((o) => e.ko.replace('___', o).replace(/\s+/g, ' ').trim());
@@ -44,6 +68,12 @@ for (const floor of [floor2, floor3, floor4, floor5]) {
           const joined = [...e.options].sort().join('|');
           const target = answers[0].split(' ').sort().join('|');
           if (joined !== target) bad(w, `les mots (${e.options.join(' ')}) ne reconstituent pas « ${answers[0]} »`);
+        }
+        if (e.type === 'multiple_choice' && Array.isArray(e.options)) {
+          for (const o of e.options.filter((x) => !answers.includes(x))) {
+            const hit = accepted.get(squash(o));
+            if (hit) bad(w, `l'option fausse « ${o} » est une phrase acceptée ailleurs (${hit})`);
+          }
         }
         if (e.type === 'listening' && !e.ko) bad(w, 'phrase à écouter manquante');
         if (e.type === 'translate_fr' && !e.ko) bad(w, 'phrase coréenne manquante');

@@ -64,7 +64,7 @@ export const floor3 = {
           title_fr: 'Entraînement : vouloir',
           exercises: [
             fb('내일은 집에서 ___.', 'Demain, je veux me reposer à la maison.', ['쉬고 싶어요', '쉬어 싶어요', '쉬고 싶요', '쉬으고 싶어요'], '쉬고 싶어요', '쉬다 + 고 싶어요, le radical ne change pas.', ['want_to']),
-            fb('저는 한국 음식을 ___.', 'Je veux cuisiner de la cuisine coréenne.', ['만들고 싶어요', '만드고 싶어요', '만들어 싶어요', '만들으고 싶어요'], '만들고 싶어요', 'Le radical en ㄹ garde son ㄹ devant 고 : 만들고.', ['want_to'], 3),
+            fb('저는 한국 음식을 ___.', 'Je veux faire de la cuisine coréenne.', ['만들고 싶어요', '만드고 싶어요', '만들어 싶어요', '만들으고 싶어요'], '만들고 싶어요', 'Le radical en ㄹ garde son ㄹ devant 고 : 만들고.', ['want_to'], 3),
             mc('Comment dit-on « Je ne veux pas manger » ?', null, ['먹고 싶지 않아요', '먹고 싶지 않요', '먹고 싶 않아요', '먹고지 싶어요'], '먹고 싶지 않아요', 'Radical + 고 싶지 않아요.', ['want_to'], 2),
             mc('Que signifie « 뭐 하고 싶어요? » ?', null, ['Que veux-tu faire ?', 'Que fais-tu ?', "Qu'as-tu fait ?", 'Que feras-tu ?'], 'Que veux-tu faire ?', '뭐 = quoi ; 하고 싶어요 = vouloir faire.', ['want_to']),
             ls('저는 한국에 가고 싶어요', ['저는 한국에 가고 싶어요', '저는 한국에 갈 거예요', '저는 한국에 갔어요', '저는 한국에서 살고 싶어요'], '저는 한국에 가고 싶어요', '가고 싶어요 = je veux aller. Écoute bien la fin du verbe.', ['want_to']),
@@ -105,7 +105,7 @@ export const floor3 = {
               },
               {
                 title: '안 et 못 — deux négations',
-                body: "안 + verbe = « ne pas » : un choix ou une simple négation (안 가요 : je ne vais pas). 못 + verbe = « ne pas pouvoir » : incapacité ou empêchement (못 가요 : je ne peux pas y aller). Ils se placent juste avant le verbe. Avec un verbe en 하다, on les met entre le nom et 하다 : 운동 안 해요, 수영 못 해요.",
+                body: "안 + verbe = « ne pas » : un choix ou une simple négation (안 가요 : je ne vais pas). 못 + verbe = « ne pas pouvoir » : incapacité ou empêchement (못 가요 : je ne peux pas y aller). Ils se placent juste avant le verbe. Avec un verbe en 하다, on les met entre le nom et 하다 : 운동 안 해요, 수영 못 해요. Pour un verbe qui n'est pas un nom + 하다 (좋아하다), 안 et 못 se placent devant le verbe entier : 안 좋아해요 (et non 좋아 안 해요).",
                 examples: [
                   { ko: '저는 고기를 안 먹어요.', rom: 'jeo-neun go-gi-reul an meo-geo-yo', fr: 'Je ne mange pas de viande.' },
                   { ko: '오늘은 못 가요.', rom: 'o-neu-reun mot ga-yo', fr: "Aujourd'hui, je ne peux pas y aller." },
@@ -124,7 +124,7 @@ export const floor3 = {
             mc('Comment dit-on « Je ne fais pas de sport » ?', null, ['운동 안 해요', '안 운동해요', '운동해 안요', '운동하 안요'], '운동 안 해요', 'Avec un verbe en 하다 : nom + 안 + 해요.', ['negation']),
             tk('Je ne mange pas de viande.', '고기를 안 먹어요 | 저는 고기를 안 먹어요', '안 + verbe ; 고기를 (objet).', ['negation', 'object_particle']),
             ro('Je sais nager.', ['저는', '수영할', '수', '있어요'], '저는 수영할 수 있어요', 'Sujet → verbe + ㄹ → 수 있어요.', ['can'], 2),
-            tf('오늘은 못 가요.', "Aujourd'hui, je ne peux pas y aller | Je ne peux pas y aller aujourd'hui | Aujourd'hui, je ne peux pas aller", '못 가요 = je ne peux pas y aller.', ['negation']),
+            tf('오늘은 못 가요.', "Aujourd'hui, je ne peux pas y aller | Je ne peux pas y aller aujourd'hui", '못 가요 = je ne peux pas y aller.', ['negation']),
           ],
         },
         {
@@ -263,7 +263,7 @@ export const floor3 = {
             fb('내일 영화 ___?', 'On va voir un film demain ?', ['볼까요', '보을까요', '보까요', '봐요까요'], '볼까요', '보다 finit par une voyelle → ㄹ까요 : 볼까요.', ['suggest']),
             fb('제가 문을 ___?', "J'ouvre la porte ?", ['열까요', '열을까요', '여을까요', '열어까요'], '열까요', '열다 : radical en ㄹ → on ajoute seulement 까요.', ['suggest'], 3),
             mc('Que signifie « 같이 갈까요? » ?', null, ["Et si on y allait ensemble ?", "Je suis allé(e) ensemble", "Allez-y tout seul", "Où allons-nous ?"], "Et si on y allait ensemble ?", '같이 = ensemble ; -(으)ㄹ까요 = proposition.', ['suggest']),
-            mc('Quelle phrase refuse poliment une invitation ?', null, ['미안해요. 오늘은 좀 바빠요', '네, 좋아요! 같이 가요', '같이 갈까요', '어디에서 만날까요'], '미안해요. 오늘은 좀 바빠요', 'Un refus poli : excuse + raison.', ['suggest']),
+            mc('Quelle phrase refuse poliment une invitation ?', null, ['미안해요. 오늘은 좀 바빠요', '네, 좋아요! 같이 가요', '같이 갈까요', '언제 만날까요'], '미안해요. 오늘은 좀 바빠요', 'Un refus poli : excuse + raison.', ['suggest']),
             tk('On mange ensemble ?', '같이 먹을까요 | 우리 같이 먹을까요', '먹다 → 먹을까요.', ['suggest']),
             ro('On va voir un film ensemble ?', ['같이', '영화', '볼까요'], '같이 영화 볼까요', "Ensemble → objet → verbe en -(으)ㄹ까요.", ['suggest'], 2),
             tf('내일 커피 마실까요?', 'On prend un café demain ? | Et si on buvait un café demain ? | On boit un café demain ?', '마시다 → 마실까요.', ['suggest']),
@@ -307,7 +307,7 @@ export const floor3 = {
             fb('저는 한국에 여행 가___ 싶어요.', 'Je veux voyager en Corée.', ['고', '어', '면', '서'], '고', '가다 + 고 싶어요.', ['want_to'], 2),
             fb('저는 한국어를 조금 할 ___ 있어요.', 'Je peux parler un peu coréen.', ['수', '번', '데', '곳'], '수', '할 수 있어요 = je peux / je sais.', ['can'], 2),
             fb('저는 운전을 ___ 해요.', 'Je ne sais pas conduire.', ['못', '않', '아니', '말'], '못', '못 + verbe = ne pas pouvoir. Avec 하다 : 운전 못 해요.', ['negation'], 3),
-            fb('여기에서 담배를 피우지 ___.', 'Ne fumez pas ici.', ['마세요', '않세요', '말세요', '안 세요'], '마세요', '-지 마세요 = interdiction polie.', ['honorific'], 3),
+            fb('수업 시간에 전화하지 ___.', 'Ne téléphonez pas pendant le cours.', ['마세요', '않세요', '말세요', '안 세요'], '마세요', '-지 마세요 = interdiction polie.', ['honorific'], 3),
             fb('같이 공항에 ___?', "On va à l'aéroport ensemble ?", ['갈까요', '가을까요', '가까요', '가ㄹ까요'], '갈까요', '가다 + ㄹ까요 : 갈까요.', ['suggest'], 3),
             fb('호텔 이름을 ___ 주세요.', "Écrivez le nom de l'hôtel, s'il vous plaît.", ['써', '쓰어', '쓰', '쓰아'], '써', '쓰다 : ㅡ tombe → 써 주세요.', ['request_verb'], 4),
             mc('Quelle phrase veut dire « Je ne peux pas y aller (je suis empêché(e)) » ?', null, ['못 가요', '안 가요', '가고 싶어요', '갈까요'], '못 가요', '못 = empêchement.', ['negation'], 3),

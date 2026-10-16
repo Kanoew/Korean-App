@@ -50,7 +50,7 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 | # | Phrase / question | Réponse attendue | Options fausses | Traduction / consigne | Avis |
 | --- | --- | --- | --- | --- | --- |
 | 9 | 내일은 집에서 **쉬고 싶어요**. | 쉬고 싶어요 | 쉬어 싶어요 · 쉬고 싶요 · 쉬으고 싶어요 | Demain, je veux me reposer à la maison. | |
-| 10 | 저는 한국 음식을 **만들고 싶어요**. | 만들고 싶어요 | 만드고 싶어요 · 만들어 싶어요 · 만들으고 싶어요 | Je veux cuisiner de la cuisine coréenne. | |
+| 10 | 저는 한국 음식을 **만들고 싶어요**. | 만들고 싶어요 | 만드고 싶어요 · 만들어 싶어요 · 만들으고 싶어요 | Je veux faire de la cuisine coréenne. | |
 | 11 | Comment dit-on « Je ne veux pas manger » ? | 먹고 싶지 않아요 | 먹고 싶지 않요 · 먹고 싶 않아요 · 먹고지 싶어요 |  | |
 | 12 | Que signifie « 뭐 하고 싶어요? » ? | Que veux-tu faire ? | Que fais-tu ? · Qu'as-tu fait ? · Que feras-tu ? |  | |
 | 13 | (écoute) 저는 한국에 가고 싶어요 | 저는 한국에 가고 싶어요 | 저는 한국에 갈 거예요 · 저는 한국에 갔어요 · 저는 한국에서 살고 싶어요 | Écoute et choisis la phrase entendue | |
@@ -70,7 +70,7 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
   - 저는 수영할 수 있어요. (jeo-neun su-yeong-hal su i-sseo-yo) — Je sais nager.
   - 한국어를 읽을 수 있어요. (han-gu-geo-reul il-geul su i-sseo-yo) — Je peux lire le coréen.
   - 오늘은 갈 수 없어요. (o-neu-reun gal su eop-sseo-yo) — Aujourd'hui, je ne peux pas y aller.
-- *안 et 못 — deux négations* — 안 + verbe = « ne pas » : un choix ou une simple négation (안 가요 : je ne vais pas). 못 + verbe = « ne pas pouvoir » : incapacité ou empêchement (못 가요 : je ne peux pas y aller). Ils se placent juste avant le verbe. Avec un verbe en 하다, on les met entre le nom et 하다 : 운동 안 해요, 수영 못 해요.
+- *안 et 못 — deux négations* — 안 + verbe = « ne pas » : un choix ou une simple négation (안 가요 : je ne vais pas). 못 + verbe = « ne pas pouvoir » : incapacité ou empêchement (못 가요 : je ne peux pas y aller). Ils se placent juste avant le verbe. Avec un verbe en 하다, on les met entre le nom et 하다 : 운동 안 해요, 수영 못 해요. Pour un verbe qui n'est pas un nom + 하다 (좋아하다), 안 et 못 se placent devant le verbe entier : 안 좋아해요 (et non 좋아 안 해요).
   - 저는 고기를 안 먹어요. (jeo-neun go-gi-reul an meo-geo-yo) — Je ne mange pas de viande.
   - 오늘은 못 가요. (o-neu-reun mot ga-yo) — Aujourd'hui, je ne peux pas y aller.
   - 운동 안 해요. (un-dong an hae-yo) — Je ne fais pas de sport.
@@ -88,7 +88,7 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 | 23 | Comment dit-on « Je ne fais pas de sport » ? | 운동 안 해요 | 안 운동해요 · 운동해 안요 · 운동하 안요 |  | |
 | 24 | (traduire en coréen) Je ne mange pas de viande. | 고기를 안 먹어요  ·  저는 고기를 안 먹어요 |  |  | |
 | 25 | (remettre en ordre) 저는 / 수영할 / 수 / 있어요 | 저는 수영할 수 있어요 |  | Je sais nager. | |
-| 26 | (traduire en français) 오늘은 못 가요. | Aujourd'hui, je ne peux pas y aller  ·  Je ne peux pas y aller aujourd'hui  ·  Aujourd'hui, je ne peux pas aller |  |  | |
+| 26 | (traduire en français) 오늘은 못 가요. | Aujourd'hui, je ne peux pas y aller  ·  Je ne peux pas y aller aujourd'hui |  |  | |
 
 ### Entraînement : pouvoir et négations (수 · 안 · 못 연습) — practice
 
@@ -181,7 +181,7 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 | 57 | 내일 영화 **볼까요**? | 볼까요 | 보을까요 · 보까요 · 봐요까요 | On va voir un film demain ? | |
 | 58 | 제가 문을 **열까요**? | 열까요 | 열을까요 · 여을까요 · 열어까요 | J'ouvre la porte ? | |
 | 59 | Que signifie « 같이 갈까요? » ? | Et si on y allait ensemble ? | Je suis allé(e) ensemble · Allez-y tout seul · Où allons-nous ? |  | |
-| 60 | Quelle phrase refuse poliment une invitation ? | 미안해요. 오늘은 좀 바빠요 | 네, 좋아요! 같이 가요 · 같이 갈까요 · 어디에서 만날까요 |  | |
+| 60 | Quelle phrase refuse poliment une invitation ? | 미안해요. 오늘은 좀 바빠요 | 네, 좋아요! 같이 가요 · 같이 갈까요 · 언제 만날까요 |  | |
 | 61 | (traduire en coréen) On mange ensemble ? | 같이 먹을까요  ·  우리 같이 먹을까요 |  |  | |
 | 62 | (remettre en ordre) 같이 / 영화 / 볼까요 | 같이 영화 볼까요 |  | On va voir un film ensemble ? | |
 | 63 | (traduire en français) 내일 커피 마실까요? | On prend un café demain ?  ·  Et si on buvait un café demain ?  ·  On boit un café demain ? |  |  | |
@@ -214,7 +214,7 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 | 74 | 저는 한국에 여행 가**고** 싶어요. | 고 | 어 · 면 · 서 | Je veux voyager en Corée. | |
 | 75 | 저는 한국어를 조금 할 **수** 있어요. | 수 | 번 · 데 · 곳 | Je peux parler un peu coréen. | |
 | 76 | 저는 운전을 **못** 해요. | 못 | 않 · 아니 · 말 | Je ne sais pas conduire. | |
-| 77 | 여기에서 담배를 피우지 **마세요**. | 마세요 | 않세요 · 말세요 · 안 세요 | Ne fumez pas ici. | |
+| 77 | 수업 시간에 전화하지 **마세요**. | 마세요 | 않세요 · 말세요 · 안 세요 | Ne téléphonez pas pendant le cours. | |
 | 78 | 같이 공항에 **갈까요**? | 갈까요 | 가을까요 · 가까요 · 가ㄹ까요 | On va à l'aéroport ensemble ? | |
 | 79 | 호텔 이름을 **써** 주세요. | 써 | 쓰어 · 쓰 · 쓰아 | Écrivez le nom de l'hôtel, s'il vous plaît. | |
 | 80 | Quelle phrase veut dire « Je ne peux pas y aller (je suis empêché(e)) » ? | 못 가요 | 안 가요 · 가고 싶어요 · 갈까요 |  | |

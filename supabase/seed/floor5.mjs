@@ -97,7 +97,7 @@ export const floor5 = {
             sections: [
               {
                 title: 'Radical + 고 있어요 — « être en train de »',
-                body: "Même construction que -고 싶어요, avec 있어요 à la place de 싶어요. 지금 + -고 있어요 : ce que je fais en ce moment. Attention à ne pas confondre : 먹고 싶어요 (je veux manger) et 먹고 있어요 (je suis en train de manger). Avec certains verbes d'état comme 살다, -고 있어요 décrit une situation durable : 한국에 살고 있어요 (j'habite en Corée).",
+                body: "Même construction que -고 싶어요, avec 있어요 à la place de 싶어요. 지금 + -고 있어요 : ce que je fais en ce moment. Attention à ne pas confondre : 먹고 싶어요 (je veux manger) et 먹고 있어요 (je suis en train de manger). Avec certains verbes de situation comme 살다 (habiter) ou 다니다 (fréquenter), -고 있어요 décrit une situation durable : 한국에 살고 있어요 (j'habite en Corée).",
                 examples: [
                   { ko: '지금 공부하고 있어요.', rom: 'ji-geum gong-bu-ha-go i-sseo-yo', fr: "En ce moment, je suis en train d'étudier." },
                   { ko: '친구를 기다리고 있어요.', rom: 'chin-gu-reul gi-da-ri-go i-sseo-yo', fr: "J'attends un ami." },
@@ -120,12 +120,12 @@ export const floor5 = {
           exercises: [
             fb('지금 공부하___ 있어요.', "En ce moment, je suis en train d'étudier.", ['고', '러', '면', '서'], '고', '-고 있어요 : radical + 고 + 있어요.', ['progressive']),
             fb('친구를 기다리___ 있어요.', "J'attends un ami.", ['고', '러', '으러', '면'], '고', '기다리다 + 고 있어요.', ['progressive']),
-            fb('점심을 먹___ 가요.', 'Je vais déjeuner.', ['으러', '러', '으면', '으고'], '으러', '먹다 finit par une consonne → 으러.', ['purpose']),
+            fb('점심을 먹___ 가요.', 'Je vais déjeuner.', ['으러', '러', '을러', '으고'], '으러', '먹다 finit par une consonne → 으러.', ['purpose']),
             fb('영화를 ___ 극장에 가요.', 'Je vais au cinéma voir un film.', ['보러', '보으러', '봐러', '볼러'], '보러', '보다 finit par une voyelle → 러 : 보러.', ['purpose']),
             mc('Quelle est la différence entre « 먹고 싶어요 » et « 먹고 있어요 » ?', null, ['Je veux manger / Je suis en train de manger', 'Je suis en train de manger / Je veux manger', "J'ai mangé / Je mangerai", 'Je ne mange pas / Je mange'], 'Je veux manger / Je suis en train de manger', '싶어요 = vouloir ; 있어요 (avec -고) = être en train de.', ['progressive', 'want_to'], 2),
             mc('Quelle phrase veut dire « Je vais voir un ami » ?', null, ['친구를 만나러 가요', '친구를 만나고 가요', '친구를 만나면 가요', '친구를 만나서 가요'], '친구를 만나러 가요', '-(으)러 가요 = aller pour faire. Les autres expriment une suite, une condition ou une cause.', ['purpose'], 3),
             tk('Je suis en train de manger.', '밥을 먹고 있어요 | 지금 밥을 먹고 있어요 | 저는 지금 밥을 먹고 있어요 | 먹고 있어요', '먹다 + 고 있어요.', ['progressive']),
-            ro('Je vais au marché pour acheter du pain.', ['빵을', '사러', '시장에', '가요'], '빵을 사러 시장에 가요', 'But (-(으)러) → destination → verbe de déplacement.', ['purpose'], 3),
+            ro('Je vais au marché pour acheter du pain.', ['빵을', '사러', '시장에', '가요'], '빵을 사러 시장에 가요 | 시장에 빵을 사러 가요', 'But (-(으)러) → destination → verbe de déplacement.', ['purpose'], 3),
           ],
         },
         {
@@ -205,7 +205,7 @@ export const floor5 = {
             fb('저는 커피___ 차를 더 좋아해요.', 'Je préfère le thé au café.', ['보다', '에서', '까지', '부터'], '보다', '커피보다 = plus que le café.', ['comparison']),
             fb('이 옷이 저 옷보다 ___ 싸요.', 'Ce vêtement est moins cher que celui-là.', ['더', '제일', '가장', '같이'], '더', '보다 va avec 더.', ['comparison']),
             fb('서울에서 이 식당이 ___ 맛있어요.', "C'est ce restaurant qui est le meilleur de Séoul.", ['제일', '보다', '도', '밖에'], '제일', '제일 = le plus.', ['comparison']),
-            fb('우리 집은 학교___ 멀어요.', "Ma maison est plus loin que l'école.", ['보다', '하고', '를', '가'], '보다', '학교보다 = que l\'école.', ['comparison'], 2),
+            fb('우리 집은 친구 집___ 커요.', 'Ma maison est plus grande que celle de mon ami.', ['보다', '하고', '를', '가'], '보다', '친구 집보다 = que la maison de mon ami.', ['comparison'], 2),
             mc('Que signifie « 제일 » ?', null, ['le plus', 'plus que', 'un peu', 'jamais'], 'le plus', '제일 = le plus (comme 가장).', ['comparison']),
             mc('Que signifie « 뭐가 더 좋아요? » ?', null, ['Lequel est le mieux (que tu préfères) ?', 'Que veux-tu ?', 'Quand aimes-tu ?', "Qu'as-tu acheté ?"], 'Lequel est le mieux (que tu préfères) ?', '뭐가 더 좋아요 = lequel est le mieux.', ['comparison']),
             ls('커피보다 차를 더 좋아해요', ['커피보다 차를 더 좋아해요', '차보다 커피를 더 좋아해요', '커피하고 차를 좋아해요', '커피를 제일 좋아해요'], '커피보다 차를 더 좋아해요', 'Écoute bien qui est « plus que » qui : 커피보다 → on préfère le thé.', ['comparison'], 3),
@@ -305,8 +305,8 @@ export const floor5 = {
             fb('지금 친구를 기다리___ 있어요.', "En ce moment, j'attends un ami.", ['고', '러', '면', '서'], '고', '-고 있어요 = être en train de.', ['progressive'], 2),
             fb('내일 친구를 만나___ 시내에 가요.', 'Demain, je vais en ville voir un ami.', ['러', '으러', '는', '어서'], '러', '만나다 finit par une voyelle → 러 + 가요.', ['purpose'], 3),
             fb('버스가 택시___ 더 싸요.', 'Le bus est moins cher que le taxi.', ['보다', '하고', '까지', '부터'], '보다', '택시보다 = que le taxi.', ['comparison'], 2),
-            fb('한국 가수 중에서 누구를 ___ 좋아해요?', 'Parmi les chanteurs coréens, lequel préfères-tu le plus ?', ['제일', '보다', '도', '밖에'], '제일', '중에서 + 제일 : superlatif.', ['comparison'], 3),
-            fb('저는 ___ 음식을 좋아해요.', "J'aime les plats sucrés.", ['단', '달은', '다는', '달는'], '단', '달다 : ㄹ tombe devant ㄴ.', ['modifier'], 4),
+            fb('한국 가수 중에서 누구를 ___ 좋아해요?', 'Parmi les chanteurs coréens, qui préfères-tu ?', ['제일', '보다', '도', '밖에'], '제일', '중에서 + 제일 : superlatif.', ['comparison'], 3),
+            fb('저는 ___ 집에 살아요.', "J'habite dans une petite maison.", ['작은', '작', '작는', '작어'], '작은', '작다 finit par une consonne → 은 : 작은 집.', ['modifier'], 3),
             mc('Quelle phrase veut dire « Je veux goûter ça ! » ?', null, ['이거 먹어 보고 싶어요', '이거 먹고 있어요', '이거 먹어 본 적이 없어요', '이거 먹으러 가요'], '이거 먹어 보고 싶어요', '먹어 보다 + 고 싶어요.', ['experience', 'want_to'], 3),
             mc('Que signifie « 점심을 먹으러 가고 있어요 » ?', null, ['Je suis en route pour déjeuner', 'Je veux déjeuner', "J'ai déjà déjeuné", "Je déjeunerai si j'y vais"], 'Je suis en route pour déjeuner', '먹으러 = pour manger ; 가고 있어요 = je suis en train d\'aller.', ['progressive', 'purpose'], 4),
             ro("J'ai déjà vu un film coréen.", ['한국', '영화를', '본', '적이', '있어요'], '한국 영화를 본 적이 있어요', 'Objet → verbe en -(으)ㄴ → 적이 있어요.', ['experience'], 3),

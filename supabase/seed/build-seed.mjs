@@ -1,6 +1,6 @@
 // Génère supabase/seed.sql (étages 1 à 5) et un document de relecture par étage (docs/relecture-etage<N>.md).
 // Usage : node supabase/seed/build-seed.mjs
-import { writeFileSync, mkdirSync } from 'node:fs';
+import { writeFileSync, mkdirSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -501,6 +501,7 @@ console.log(`seed.sql écrit : ${exCount} exercices, ${lessonCount} leçons, ${F
 // ---------- Documents de relecture pour un humain (docs/relecture-etage<N>.md) ----------
 const docsDir = join(here, '..', '..', 'docs');
 mkdirSync(docsDir, { recursive: true });
+const bodies = [];
 for (const f of FLOORS) {
   const md = [];
   md.push(`# Relecture du coréen — étage ${f.floor_number} : ${f.title_fr} (${f.title_ko})`);
@@ -519,27 +520,28 @@ for (const f of FLOORS) {
   md.push('');
   md.push('Le niveau visé est A2 → B1. Les phrases sont volontairement simples.');
   md.push('');
+  const body = [];
   let n = 0;
   for (const u of f.units) {
-    md.push(`## Unité ${u.unit_number} — ${u.title_fr} (${u.title_ko})`);
-    md.push('');
+    body.push(`## Unité ${u.unit_number} — ${u.title_fr} (${u.title_ko})`);
+    body.push('');
     for (const l of u.lessons) {
-      md.push(`### ${l.title_fr} (${l.title_ko}) — ${l.type}`);
-      md.push('');
+      body.push(`### ${l.title_fr} (${l.title_ko}) — ${l.type}`);
+      body.push('');
       if (l.content) {
-        md.push("**Cours (texte affiché dans l'application)**");
-        md.push('');
+        body.push("**Cours (texte affiché dans l'application)**");
+        body.push('');
         for (const sec of l.content.sections) {
-          md.push(`- *${sec.title}* — ${sec.body}`);
-          for (const ex of sec.examples || []) md.push(`  - ${ex.ko} (${ex.rom}) — ${ex.fr}`);
+          body.push(`- *${sec.title}* — ${sec.body}`);
+          for (const ex of sec.examples || []) body.push(`  - ${ex.ko} (${ex.rom}) — ${ex.fr}`);
         }
-        if (l.content.tip) md.push(`- Astuce : ${l.content.tip}`);
-        md.push('');
+        if (l.content.tip) body.push(`- Astuce : ${l.content.tip}`);
+        body.push('');
       }
-      md.push('**Exercices**');
-      md.push('');
-      md.push('| # | Phrase / question | Réponse attendue | Options fausses | Traduction / consigne | Avis |');
-      md.push('| --- | --- | --- | --- | --- | --- |');
+      body.push('**Exercices**');
+      body.push('');
+      body.push('| # | Phrase / question | Réponse attendue | Options fausses | Traduction / consigne | Avis |');
+      body.push('| --- | --- | --- | --- | --- | --- |');
       for (const e of l.exercises) {
         n++;
         const answers = e.answer.split('|').map((x) => x.trim());
@@ -565,11 +567,51 @@ for (const f of FLOORS) {
           sentence = `(traduire en coréen) ${e.fr}`;
         }
         const shown = e.type === 'fill_blank' ? answers.join(' / ') : answers.join('  ·  ');
-        md.push(`| ${n} | ${cell(sentence)} | ${cell(shown)} | ${cell(wrong)} | ${cell(e.type === 'fill_blank' ? e.fr : e.type === 'multiple_choice' || e.type === 'translate_ko' ? '' : e.fr || '')} | |`);
+        body.push(`| ${n} | ${cell(sentence)} | ${cell(shown)} | ${cell(wrong)} | ${cell(e.type === 'fill_blank' ? e.fr : e.type === 'multiple_choice' || e.type === 'translate_ko' ? '' : e.fr || '')} | |`);
       }
-      md.push('');
+      body.push('');
     }
   }
+  md.push(...body);
+  bodies.push({ f, body, n });
   writeFileSync(join(docsDir, `relecture-etage${f.floor_number}.md`), md.join('\n') + '\n');
   console.log(`docs/relecture-etage${f.floor_number}.md écrit : ${n} exercices à relire.`);
+}
+
+// ---------- Document unique étages 1 à 5, avec les corrections déjà prises en charge ----------
+{
+  const all = [];
+  all.push('# Relecture du coréen — étages 1 à 5');
+  all.push('');
+  all.push("Document généré depuis le contenu de l'application (`supabase/seed/build-seed.mjs`). Les phrases ont été écrites par une IA ; les étages 3 à 5 ont déjà reçu une première série de corrections (voir plus bas), les étages 1 et 2 ont été relus par une IA, **aucun par un humain**.");
+  all.push('');
+  all.push('## Consigne pour la personne qui relit');
+  all.push('');
+  all.push('Pour chaque ligne, répondre **OK**, ou **à corriger** avec la version correcte. Merci de vérifier :');
+  all.push('');
+  all.push('1. **La justesse** : la phrase coréenne est-elle grammaticalement correcte ?');
+  all.push("2. **Le naturel** : est-ce ce qu'un natif dirait ? (une phrase peut être correcte mais bizarre)");
+  all.push('3. **Les mauvaises options** : sont-elles bien fausses ? (une option « fausse » qui serait en fait acceptable est un vrai problème, y compris une terminaison qui apparaît ailleurs comme réponse acceptée)');
+  all.push('4. **Les réponses acceptées** des exercices de traduction : en manque-t-il, y en a-t-il de trop ?');
+  all.push('5. **La traduction française** correspond-elle ?');
+  all.push("6. **Les romanisations** des cours (romanisation simplifiée : syllabes séparées par des tirets, liaison à l'intérieur d'un mot, pas de liaison entre deux mots).");
+  all.push('');
+  all.push('Les numéros (#) **recommencent à 1 à chaque étage** : citer toujours « étage + numéro + début de la phrase ». Niveau visé : A2 → B1.');
+  all.push('');
+  try {
+    const log = readFileSync(join(docsDir, 'corrections-opus-etages-3-5.md'), 'utf8').trim();
+    all.push(log.replace(/^# /gm, '## ').replace(/^## (?!Corrections)/gm, '### '));
+    all.push('');
+  } catch {
+    /* pas de journal de corrections */
+  }
+  for (const { f, body, n } of bodies) {
+    all.push('---');
+    all.push('');
+    all.push(`# Étage ${f.floor_number} — ${f.title_fr} (${f.title_ko}) · ${n} exercices`);
+    all.push('');
+    all.push(...body);
+  }
+  writeFileSync(join(docsDir, 'relecture-etages-1-a-5.md'), all.join('\n') + '\n');
+  console.log('docs/relecture-etages-1-a-5.md écrit.');
 }

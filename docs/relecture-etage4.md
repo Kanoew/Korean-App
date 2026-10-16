@@ -20,7 +20,7 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 
 **Cours (texte affiché dans l'application)**
 
-- *Radical + 아/어서 — « parce que, donc »* — On forme -아/어서 comme le présent poli, mais on remplace 요 par 서 : dernière voyelle ㅏ ou ㅗ → 아서 (좋다 → 좋아서) ; autres voyelles → 어서 (늦다 → 늦어서) ; 하다 → 해서. Si le radical finit par ㅡ, il tombe (고프다 → 고파서). Le sens : la première partie est la cause, la seconde la conséquence. Règle importante : on ne met jamais de temps avant 서 (비가 와서, pas 비가 왔어서), et la fin de phrase ne peut être ni un ordre ni une proposition.
+- *Radical + 아/어서 — « parce que, donc »* — On forme -아/어서 comme le présent poli, mais on remplace 요 par 서 : dernière voyelle ㅏ ou ㅗ → 아서 (좋다 → 좋아서) ; autres voyelles → 어서 (늦다 → 늦어서) ; 하다 → 해서. Si le radical finit par ㅡ, il tombe et on regarde la syllabe d'avant, comme au présent : 고프다 → 고파서, 예쁘다 → 예뻐서. Le sens : la première partie est la cause, la seconde la conséquence. Règle importante : on ne met jamais de temps avant 서 (비가 와서, pas 비가 왔어서), et la fin de phrase ne peut être ni un ordre ni une proposition.
   - 비가 와서 집에 있어요. (bi-ga wa-seo ji-be i-sseo-yo) — Il pleut, donc je reste à la maison.
   - 피곤해서 일찍 잤어요. (pi-gon-hae-seo il-jjik ja-sseo-yo) — J'étais fatigué(e), alors j'ai dormi tôt.
   - 배가 고파서 빵을 샀어요. (bae-ga go-pa-seo ppang-eul sa-sseo-yo) — J'avais faim, alors j'ai acheté du pain.
@@ -68,7 +68,7 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 
 **Cours (texte affiché dans l'application)**
 
-- *Radical + (으)니까 — « comme, puisque »* — Radical qui finit par une voyelle : + 니까 (바쁘다 → 바쁘니까). Par une consonne : + 으니까 (없다 → 없으니까). Radical en ㄹ : le ㄹ tombe (살다 → 사니까, 멀다 → 머니까). Contrairement à 서, on peut mettre le passé (늦었으니까), et la fin de la phrase peut être un ordre ou une proposition.
+- *Radical + (으)니까 — « comme, puisque »* — Radical qui finit par une voyelle : + 니까 (바쁘다 → 바쁘니까). Par une consonne : + 으니까 (없다 → 없으니까). Radical en ㄹ : le ㄹ tombe (살다 → 사니까, 멀다 → 머니까). Contrairement à 서, on peut mettre le passé (늦었으니까), et la fin de la phrase peut être un ordre ou une proposition. On rencontre aussi -(으)니, sans 까 : même sens, registre plus écrit (늦었으니 빨리 가요).
   - 비가 오니까 우산을 가져가세요. (bi-ga o-ni-kka u-sa-neul ga-jyeo-ga-se-yo) — Il pleut, prenez un parapluie.
   - 오늘은 바쁘니까 내일 만날까요? (o-neu-reun ba-ppeu-ni-kka nae-il man-nal-kka-yo) — Aujourd'hui, je suis occupé(e) : on se voit demain ?
   - 늦었으니까 빨리 가요. (neu-jeo-sseu-ni-kka ppal-li ga-yo) — Il est tard, partons vite.
@@ -81,8 +81,8 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 
 | # | Phrase / question | Réponse attendue | Options fausses | Traduction / consigne | Avis |
 | --- | --- | --- | --- | --- | --- |
-| 20 | 비가 오**니까** 우산을 가져가세요. | 니까 | 니 · 아서 · 서 | Il pleut, prenez un parapluie. | |
-| 21 | 시간이 없**으니까** 빨리 가요. | 으니까 | 니까 · 어서 · 으니 | On n'a pas le temps, partons vite. | |
+| 20 | 비가 오**니까** 우산을 가져가세요. | 니까 | 러 · 아서 · 서 | Il pleut, prenez un parapluie. | |
+| 21 | 시간이 없**으니까** 빨리 가요. | 으니까 | 니까 · 어서 · 으러 | On n'a pas le temps, partons vite. | |
 | 22 | 오늘은 바쁘**니까** 내일 만날까요? | 니까 | 으니까 · 아서 · 어서 | Aujourd'hui, je suis occupé(e) : on se voit demain ? | |
 | 23 | 저는 서울에 **사니까** 서울을 잘 알아요. | 사니까 | 살니까 · 살으니까 · 사으니까 | J'habite à Séoul, donc je connais bien Séoul. | |
 | 24 | Avec -(으)니까, la fin de la phrase peut être : | un ordre ou une proposition | seulement un verbe au passé · seulement une question · jamais un ordre |  | |
@@ -97,7 +97,7 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 | # | Phrase / question | Réponse attendue | Options fausses | Traduction / consigne | Avis |
 | --- | --- | --- | --- | --- | --- |
 | 28 | 너무 많이 먹었**으니까** 좀 쉬어요. | 으니까 | 니까 · 어서 · 서 | On a trop mangé, reposons-nous un peu. | |
-| 29 | 길이 **머니까** 택시를 타세요. | 머니까 | 멀으니까 · 멀니까 · 머서 | La route est longue, prenez un taxi. | |
+| 29 | 길이 **머니까** 택시를 타세요. | 머니까 | 멀으니까 · 멀니까 · 머서 | C'est loin, prenez un taxi. | |
 | 30 | 피곤하니까 일찍 **쉬세요**. | 쉬세요 | 쉬으세요 · 쉬어세요 · 쉬요세요 | Vous êtes fatigué(e), reposez-vous tôt. | |
 | 31 | Quelle phrase est correcte ? | 시간이 없으니까 택시를 타세요 | 시간이 없어서 택시를 타세요 · 시간이 없었어서 택시를 타세요 · 시간이 없으니 택시까를 타세요 |  | |
 | 32 | Pour donner une raison avant un ordre (« Dépêchez-vous, il est tard ! »), on utilise : | -(으)니까 | -아/어서 · -고 · -지만 |  | |
@@ -142,8 +142,8 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 
 | # | Phrase / question | Réponse attendue | Options fausses | Traduction / consigne | Avis |
 | --- | --- | --- | --- | --- | --- |
-| 46 | 저는 고기를 좋아하**지만** 생선은 안 먹어요. | 지만 | 아서 · 니까 · 면서 | J'aime la viande, mais je ne mange pas de poisson. | |
-| 47 | 저는 수영은 못 하**지만** 운동은 좋아해요. | 지만 | 아서 · 니까 · 면서 | Je ne sais pas nager, mais j'aime le sport. | |
+| 46 | 저는 고기를 좋아하**지만** 생선은 안 먹어요. | 지만 | 아서 · 어서 · 러 | J'aime la viande, mais je ne mange pas de poisson. | |
+| 47 | 저는 수영은 못 하**지만** 운동은 좋아해요. | 지만 | 아서 · 어서 · 러 | Je ne sais pas nager, mais j'aime le sport. | |
 | 48 | 집은 작**지만** 깨끗해요. | 지만 | 면서 · 고서 · 니서 | La maison est petite mais propre. | |
 | 49 | 주말에 쉬고 싶어요. **하지만** 일이 많아요. | 하지만 | 그래서 · 그리고 · 그러니까 | Je veux me reposer ce week-end. Mais j'ai beaucoup de travail. | |
 | 50 | Quelle phrase est correcte ? | 비싸지만 맛있어요 | 비싸지만이 맛있어요 · 비싸지마 맛있어요 · 비싸자만 맛있어요 |  | |
@@ -167,9 +167,9 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 - *Radical + (으)ㄹ 때 — « quand, au moment où »* — Radical qui finit par une voyelle ou par ㄹ : + ㄹ 때 (심심하다 → 심심할 때). Par une consonne : + 을 때 (있다 → 있을 때). 때 est un nom qui veut dire « moment » : on décrit le moment avec le verbe qui précède. C'est la fin de la phrase qui donne le temps.
   - 심심할 때 영화를 봐요. (sim-sim-hal ttae yeong-hwa-reul bwa-yo) — Quand je m'ennuie, je regarde un film.
   - 시간이 있을 때 책을 읽어요. (si-ga-ni i-sseul ttae chae-geul il-geo-yo) — Quand j'ai le temps, je lis.
-  - 한국에 갈 때 김치를 사고 싶어요. (han-gu-ge gal ttae gim-chi-reul sa-go si-peo-yo) — Quand j'irai en Corée, je veux acheter du kimchi.
+  - 한국에 갈 때 비행기를 타요. (han-gu-ge gal ttae bi-haeng-gi-reul ta-yo) — Quand je vais en Corée, je prends l'avion.
   - 피곤할 때 커피를 마셔요. (pi-gon-hal ttae keo-pi-reul ma-syeo-yo) — Quand je suis fatigué(e), je bois un café.
-- Astuce : -(으)면 pose une condition (« si »), -(으)ㄹ 때 un moment (« quand »). Pour un moment passé, on ajoute 았/었 avant : 갔을 때 (quand j'y suis allé(e)).
+- Astuce : -(으)면 pose une condition (« si »), -(으)ㄹ 때 un moment (« quand »). Pour un moment passé, on ajoute 았/었 avant : 갔을 때 (quand j'y suis allé(e)). Attention : 갈 때 = au moment d'y aller (le trajet) ; 갔을 때 = une fois là-bas. Pour « quand je serai en Corée », dis 한국에 가면.
 
 **Exercices**
 
@@ -193,7 +193,7 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 | --- | --- | --- | --- | --- | --- |
 | 65 | 내일 비가 **오면** 뭐 할 거예요? | 오면 | 오으면 · 와면 · 오는면 | S'il pleut demain, que feras-tu ? | |
 | 66 | 주말에 시간이 **있으면** 뭐 하고 싶어요? | 있으면 | 있면 · 있어면 · 있으며 | Si tu as du temps ce week-end, que veux-tu faire ? | |
-| 67 | 한국에 **갈** 때 김치를 사고 싶어요. | 갈 | 가 · 가을 · 갔 | Quand j'irai en Corée, je veux acheter du kimchi. | |
+| 67 | 한국에 **갈** 때 비행기를 타요. | 갈 | 가 · 가을 · 갔 | Quand je vais en Corée, je prends l'avion. | |
 | 68 | 배가 고플 **때** 빵을 먹어요. | 때 | 면 · 서 · 까 | Quand j'ai faim, je mange du pain. | |
 | 69 | Quelle phrase est correcte ? | 시간이 있을 때 전화하세요 | 시간이 있어 때 전화하세요 · 시간이 있을면 전화하세요 · 시간이 있으 때 전화하세요 |  | |
 | 70 | Comment dit-on « S'il fait beau, allons au parc » ? | 날씨가 좋으면 공원에 가요 | 날씨가 좋때 공원에 가요 · 날씨가 좋으니면 공원에 가요 · 날씨가 좋아면 공원에 가요 |  | |
@@ -211,7 +211,7 @@ Le niveau visé est A2 → B1. Les phrases sont volontairement simples.
 | # | Phrase / question | Réponse attendue | Options fausses | Traduction / consigne | Avis |
 | --- | --- | --- | --- | --- | --- |
 | 75 | 비가 와**서** 집에 있었어요. | 서 | 면 · 러 · 까 | Il pleuvait, alors je suis resté(e) à la maison. | |
-| 76 | 길이 막히**니까** 택시를 타지 마세요. | 니까 | 서 · 아서 · 으니까 | La route est embouteillée, ne prenez pas de taxi. | |
+| 76 | 길이 막히**니까** 택시를 타지 마세요. | 니까 | 서 · 아서 · 으니까 | Il y a des bouchons, ne prenez pas de taxi. | |
 | 77 | 이 가방은 예쁘**지만** 비싸요. | 지만 | 아서 · 고서 · 니서 | Ce sac est joli mais cher. | |
 | 78 | 시간이 있**으면** 같이 영화 볼까요? | 으면 | 면 · 어면 · 으니면 | Si tu as le temps, on va voir un film ? | |
 | 79 | **바쁠** 때는 전화하지 마세요. | 바쁠 | 바쁘 · 바빠 · 바쁘을 | Quand je suis occupé(e), ne m'appelez pas. | |

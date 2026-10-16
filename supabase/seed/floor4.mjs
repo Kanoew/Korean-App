@@ -27,7 +27,7 @@ export const floor4 = {
             sections: [
               {
                 title: 'Radical + 아/어서 — « parce que, donc »',
-                body: "On forme -아/어서 comme le présent poli, mais on remplace 요 par 서 : dernière voyelle ㅏ ou ㅗ → 아서 (좋다 → 좋아서) ; autres voyelles → 어서 (늦다 → 늦어서) ; 하다 → 해서. Si le radical finit par ㅡ, il tombe (고프다 → 고파서). Le sens : la première partie est la cause, la seconde la conséquence. Règle importante : on ne met jamais de temps avant 서 (비가 와서, pas 비가 왔어서), et la fin de phrase ne peut être ni un ordre ni une proposition.",
+                body: "On forme -아/어서 comme le présent poli, mais on remplace 요 par 서 : dernière voyelle ㅏ ou ㅗ → 아서 (좋다 → 좋아서) ; autres voyelles → 어서 (늦다 → 늦어서) ; 하다 → 해서. Si le radical finit par ㅡ, il tombe et on regarde la syllabe d'avant, comme au présent : 고프다 → 고파서, 예쁘다 → 예뻐서. Le sens : la première partie est la cause, la seconde la conséquence. Règle importante : on ne met jamais de temps avant 서 (비가 와서, pas 비가 왔어서), et la fin de phrase ne peut être ni un ordre ni une proposition.",
                 examples: [
                   { ko: '비가 와서 집에 있어요.', rom: 'bi-ga wa-seo ji-be i-sseo-yo', fr: "Il pleut, donc je reste à la maison." },
                   { ko: '피곤해서 일찍 잤어요.', rom: 'pi-gon-hae-seo il-jjik ja-sseo-yo', fr: "J'étais fatigué(e), alors j'ai dormi tôt." },
@@ -98,7 +98,7 @@ export const floor4 = {
             sections: [
               {
                 title: 'Radical + (으)니까 — « comme, puisque »',
-                body: "Radical qui finit par une voyelle : + 니까 (바쁘다 → 바쁘니까). Par une consonne : + 으니까 (없다 → 없으니까). Radical en ㄹ : le ㄹ tombe (살다 → 사니까, 멀다 → 머니까). Contrairement à 서, on peut mettre le passé (늦었으니까), et la fin de la phrase peut être un ordre ou une proposition.",
+                body: "Radical qui finit par une voyelle : + 니까 (바쁘다 → 바쁘니까). Par une consonne : + 으니까 (없다 → 없으니까). Radical en ㄹ : le ㄹ tombe (살다 → 사니까, 멀다 → 머니까). Contrairement à 서, on peut mettre le passé (늦었으니까), et la fin de la phrase peut être un ordre ou une proposition. On rencontre aussi -(으)니, sans 까 : même sens, registre plus écrit (늦었으니 빨리 가요).",
                 examples: [
                   { ko: '비가 오니까 우산을 가져가세요.', rom: 'bi-ga o-ni-kka u-sa-neul ga-jyeo-ga-se-yo', fr: 'Il pleut, prenez un parapluie.' },
                   { ko: '오늘은 바쁘니까 내일 만날까요?', rom: 'o-neu-reun ba-ppeu-ni-kka nae-il man-nal-kka-yo', fr: "Aujourd'hui, je suis occupé(e) : on se voit demain ?" },
@@ -117,8 +117,8 @@ export const floor4 = {
             tip: "Test rapide : ta phrase finit par un ordre ou une proposition ? → -(으)니까. Ta phrase finit par une information, une excuse ou un remerciement ? → -아/어서.",
           },
           exercises: [
-            fb('비가 오___ 우산을 가져가세요.', 'Il pleut, prenez un parapluie.', ['니까', '니', '아서', '서'], '니까', '오다 finit par une voyelle → 니까.', ['reason']),
-            fb('시간이 없___ 빨리 가요.', "On n'a pas le temps, partons vite.", ['으니까', '니까', '어서', '으니'], '으니까', '없다 finit par une consonne → 으니까.', ['reason'], 2),
+            fb('비가 오___ 우산을 가져가세요.', 'Il pleut, prenez un parapluie.', ['니까', '러', '아서', '서'], '니까', '오다 finit par une voyelle → 니까.', ['reason']),
+            fb('시간이 없___ 빨리 가요.', "On n'a pas le temps, partons vite.", ['으니까', '니까', '어서', '으러'], '으니까', '없다 finit par une consonne → 으니까.', ['reason'], 2),
             fb('오늘은 바쁘___ 내일 만날까요?', "Aujourd'hui, je suis occupé(e) : on se voit demain ?", ['니까', '으니까', '아서', '어서'], '니까', '바쁘다 finit par une voyelle (ㅡ) → 니까 ; 서 est impossible avant une proposition.', ['reason'], 2),
             fb('저는 서울에 ___ 서울을 잘 알아요.', "J'habite à Séoul, donc je connais bien Séoul.", ['사니까', '살니까', '살으니까', '사으니까'], '사니까', '살다 (radical en ㄹ) : le ㄹ tombe devant 니까.', ['reason'], 3),
             mc('Avec -(으)니까, la fin de la phrase peut être :', null, ['un ordre ou une proposition', 'seulement un verbe au passé', 'seulement une question', 'jamais un ordre'], 'un ordre ou une proposition', 'C\'est justement la différence avec -아/어서.', ['reason']),
@@ -134,7 +134,7 @@ export const floor4 = {
           title_fr: 'Entraînement : raison avant un ordre',
           exercises: [
             fb('너무 많이 먹었___ 좀 쉬어요.', 'On a trop mangé, reposons-nous un peu.', ['으니까', '니까', '어서', '서'], '으니까', '먹었다 finit par une consonne (ㅆ) → 으니까.', ['reason'], 3),
-            fb('길이 ___ 택시를 타세요.', 'La route est longue, prenez un taxi.', ['머니까', '멀으니까', '멀니까', '머서'], '머니까', '멀다 (radical en ㄹ) : le ㄹ tombe devant 니까.', ['reason'], 3),
+            fb('길이 ___ 택시를 타세요.', "C'est loin, prenez un taxi.", ['머니까', '멀으니까', '멀니까', '머서'], '머니까', '멀다 (radical en ㄹ) : le ㄹ tombe devant 니까.', ['reason'], 3),
             fb('피곤하니까 일찍 ___.', 'Vous êtes fatigué(e), reposez-vous tôt.', ['쉬세요', '쉬으세요', '쉬어세요', '쉬요세요'], '쉬세요', '쉬다 finit par une voyelle → 세요.', ['reason', 'honorific']),
             mc('Quelle phrase est correcte ?', null, ['시간이 없으니까 택시를 타세요', '시간이 없어서 택시를 타세요', '시간이 없었어서 택시를 타세요', '시간이 없으니 택시까를 타세요'], '시간이 없으니까 택시를 타세요', 'Ordre à la fin → -(으)니까, pas 서.', ['reason'], 3),
             mc('Pour donner une raison avant un ordre (« Dépêchez-vous, il est tard ! »), on utilise :', null, ['-(으)니까', '-아/어서', '-고', '-지만'], '-(으)니까', '-(으)니까 accepte les ordres et les propositions.', ['reason']),
@@ -202,8 +202,8 @@ export const floor4 = {
           title_ko: '-지만 연습',
           title_fr: 'Entraînement : opposer deux idées',
           exercises: [
-            fb('저는 고기를 좋아하___ 생선은 안 먹어요.', "J'aime la viande, mais je ne mange pas de poisson.", ['지만', '아서', '니까', '면서'], '지만', '좋아하다 + 지만.', ['contrast']),
-            fb('저는 수영은 못 하___ 운동은 좋아해요.', "Je ne sais pas nager, mais j'aime le sport.", ['지만', '아서', '니까', '면서'], '지만', '하다 + 지만.', ['contrast']),
+            fb('저는 고기를 좋아하___ 생선은 안 먹어요.', "J'aime la viande, mais je ne mange pas de poisson.", ['지만', '아서', '어서', '러'], '지만', '좋아하다 + 지만.', ['contrast']),
+            fb('저는 수영은 못 하___ 운동은 좋아해요.', "Je ne sais pas nager, mais j'aime le sport.", ['지만', '아서', '어서', '러'], '지만', '하다 + 지만.', ['contrast']),
             fb('집은 작___ 깨끗해요.', 'La maison est petite mais propre.', ['지만', '면서', '고서', '니서'], '지만', '작다 + 지만, sans changement.', ['contrast']),
             fb('주말에 쉬고 싶어요. ___ 일이 많아요.', "Je veux me reposer ce week-end. Mais j'ai beaucoup de travail.", ['하지만', '그래서', '그리고', '그러니까'], '하지만', '하지만 = mais.', ['contrast']),
             mc('Quelle phrase est correcte ?', null, ['비싸지만 맛있어요', '비싸지만이 맛있어요', '비싸지마 맛있어요', '비싸자만 맛있어요'], '비싸지만 맛있어요', '비싸다 + 지만.', ['contrast']),
@@ -249,12 +249,12 @@ export const floor4 = {
                 examples: [
                   { ko: '심심할 때 영화를 봐요.', rom: 'sim-sim-hal ttae yeong-hwa-reul bwa-yo', fr: "Quand je m'ennuie, je regarde un film." },
                   { ko: '시간이 있을 때 책을 읽어요.', rom: 'si-ga-ni i-sseul ttae chae-geul il-geo-yo', fr: "Quand j'ai le temps, je lis." },
-                  { ko: '한국에 갈 때 김치를 사고 싶어요.', rom: 'han-gu-ge gal ttae gim-chi-reul sa-go si-peo-yo', fr: "Quand j'irai en Corée, je veux acheter du kimchi." },
+                  { ko: '한국에 갈 때 비행기를 타요.', rom: 'han-gu-ge gal ttae bi-haeng-gi-reul ta-yo', fr: "Quand je vais en Corée, je prends l'avion." },
                   { ko: '피곤할 때 커피를 마셔요.', rom: 'pi-gon-hal ttae keo-pi-reul ma-syeo-yo', fr: 'Quand je suis fatigué(e), je bois un café.' },
                 ],
               },
             ],
-            tip: "-(으)면 pose une condition (« si »), -(으)ㄹ 때 un moment (« quand »). Pour un moment passé, on ajoute 았/었 avant : 갔을 때 (quand j'y suis allé(e)).",
+            tip: "-(으)면 pose une condition (« si »), -(으)ㄹ 때 un moment (« quand »). Pour un moment passé, on ajoute 았/었 avant : 갔을 때 (quand j'y suis allé(e)). Attention : 갈 때 = au moment d'y aller (le trajet) ; 갔을 때 = une fois là-bas. Pour « quand je serai en Corée », dis 한국에 가면.",
           },
           exercises: [
             fb('시간이 있___ 같이 가요.', "Si tu as le temps, allons-y ensemble.", ['으면', '면', '어면', '으며'], '으면', '있다 finit par une consonne → 으면.', ['conditional']),
@@ -276,7 +276,7 @@ export const floor4 = {
           exercises: [
             fb('내일 비가 ___ 뭐 할 거예요?', "S'il pleut demain, que feras-tu ?", ['오면', '오으면', '와면', '오는면'], '오면', '오다 + 면.', ['conditional']),
             fb('주말에 시간이 ___ 뭐 하고 싶어요?', "Si tu as du temps ce week-end, que veux-tu faire ?", ['있으면', '있면', '있어면', '있으며'], '있으면', '있다 + 으면.', ['conditional']),
-            fb('한국에 ___ 때 김치를 사고 싶어요.', "Quand j'irai en Corée, je veux acheter du kimchi.", ['갈', '가', '가을', '갔'], '갈', '가다 + ㄹ 때 : 갈 때.', ['when'], 2),
+            fb('한국에 ___ 때 비행기를 타요.', "Quand je vais en Corée, je prends l'avion.", ['갈', '가', '가을', '갔'], '갈', '가다 + ㄹ 때 : 갈 때.', ['when'], 2),
             fb('배가 고플 ___ 빵을 먹어요.', "Quand j'ai faim, je mange du pain.", ['때', '면', '서', '까'], '때', '고플 때 = quand j\'ai faim.', ['when']),
             mc('Quelle phrase est correcte ?', null, ['시간이 있을 때 전화하세요', '시간이 있어 때 전화하세요', '시간이 있을면 전화하세요', '시간이 있으 때 전화하세요'], '시간이 있을 때 전화하세요', '있다 + 을 때.', ['when'], 2),
             mc("Comment dit-on « S'il fait beau, allons au parc » ?", null, ['날씨가 좋으면 공원에 가요', '날씨가 좋때 공원에 가요', '날씨가 좋으니면 공원에 가요', '날씨가 좋아면 공원에 가요'], '날씨가 좋으면 공원에 가요', '좋다 : consonne finale → 으면.', ['conditional'], 2),
@@ -304,7 +304,7 @@ export const floor4 = {
           title_fr: "Boss de l'étage 4",
           exercises: [
             fb('비가 와___ 집에 있었어요.', "Il pleuvait, alors je suis resté(e) à la maison.", ['서', '면', '러', '까'], '서', '와서 : cause ; le passé se met à la fin.', ['reason'], 2),
-            fb('길이 막히___ 택시를 타지 마세요.', "La route est embouteillée, ne prenez pas de taxi.", ['니까', '서', '아서', '으니까'], '니까', '막히다 finit par une voyelle → 니까 ; ordre à la fin → pas de 서.', ['reason'], 3),
+            fb('길이 막히___ 택시를 타지 마세요.', "Il y a des bouchons, ne prenez pas de taxi.", ['니까', '서', '아서', '으니까'], '니까', '막히다 finit par une voyelle → 니까 ; ordre à la fin → pas de 서.', ['reason'], 3),
             fb('이 가방은 예쁘___ 비싸요.', 'Ce sac est joli mais cher.', ['지만', '아서', '고서', '니서'], '지만', '예쁘다 + 지만.', ['contrast'], 2),
             fb('시간이 있___ 같이 영화 볼까요?', "Si tu as le temps, on va voir un film ?", ['으면', '면', '어면', '으니면'], '으면', '있다 + 으면.', ['conditional'], 3),
             fb('___ 때는 전화하지 마세요.', "Quand je suis occupé(e), ne m'appelez pas.", ['바쁠', '바쁘', '바빠', '바쁘을'], '바쁠', '바쁘다 + ㄹ 때 : 바쁠 때.', ['when'], 3),

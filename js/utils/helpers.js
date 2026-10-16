@@ -92,6 +92,21 @@ export const TAG_LABELS = {
   future: 'Futur (-(으)ㄹ 거예요)',
   past: 'Passé (-았 / 었-)',
   linking: 'Relier : 하고 / 랑 / 그리고',
+  want_to: 'Vouloir (-고 싶어요)',
+  can: 'Pouvoir (-(으)ㄹ 수 있어요)',
+  negation: 'Négation (안 / 못)',
+  honorific: 'Consigne polie (-(으)세요)',
+  request_verb: 'Demander (-아/어 주세요)',
+  suggest: 'Proposer (-(으)ㄹ까요)',
+  reason: 'Cause (-아/어서, -(으)니까)',
+  contrast: 'Opposition (-지만, 하지만)',
+  conditional: 'Condition (-(으)면)',
+  when: 'Quand (-(으)ㄹ 때)',
+  experience: 'Expérience (-아/어 보다)',
+  progressive: 'En train de (-고 있어요)',
+  purpose: 'But (-(으)러 가요)',
+  comparison: 'Comparer (보다, 더, 제일)',
+  modifier: 'Décrire un nom (-는 / -(으)ㄴ)',
 };
 export const tagLabel = (t) => TAG_LABELS[t] || t;
 

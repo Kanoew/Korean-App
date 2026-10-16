@@ -1,4 +1,4 @@
-// Génère supabase/seed.sql (étages 1 et 2) et un document de relecture par étage (docs/relecture-etage<N>.md).
+// Génère supabase/seed.sql (étages 1 à 5) et un document de relecture par étage (docs/relecture-etage<N>.md).
 // Usage : node supabase/seed/build-seed.mjs
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -6,6 +6,9 @@ import { dirname, join } from 'node:path';
 
 import { mc, fb, ro, tk, tf, ls, fp } from './helpers.mjs';
 import { floor2 } from './floor2.mjs';
+import { floor3 } from './floor3.mjs';
+import { floor4 } from './floor4.mjs';
+import { floor5 } from './floor5.mjs';
 
 const floor1 = {
   floor_number: 1,
@@ -434,12 +437,12 @@ const q = (s) => (s === null || s === undefined ? 'NULL' : `'${String(s).replace
 const json = (v) => (v === null || v === undefined ? 'NULL' : `'${JSON.stringify(v).replaceAll("'", "''")}'::jsonb`);
 const arr = (a) => (a && a.length ? `ARRAY[${[...new Set(a)].map(q).join(', ')}]::text[]` : 'NULL');
 
-const FLOORS = [floor1, floor2];
+const FLOORS = [floor1, floor2, floor3, floor4, floor5];
 const here = dirname(fileURLToPath(import.meta.url));
 
 const out = [];
 out.push('-- ============================================================');
-out.push('-- 한글 with Karina — Seed : étages 1 et 2');
+out.push('-- 한글 with Karina — Seed : étages 1 à 5');
 out.push('-- Fichier GÉNÉRÉ par supabase/seed/build-seed.mjs — ne pas éditer à la main.');
 out.push("-- À exécuter APRÈS schema.sql. Rejouable : remplace le contenu statique de chaque étage.");
 out.push('-- ============================================================');

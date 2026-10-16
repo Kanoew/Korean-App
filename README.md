@@ -19,6 +19,10 @@ Les révisions espacées (J+1/3/7/16) et une première galerie de récompenses s
 - **Karina à l'écran** : avatar rond dans l'en-tête, carte des étages où elle marche vers sa leçon courante, messages personnalisables (voir plus bas)
 - **Étage 1** (103 exercices) : particules 은/는 이/가 을/를, **에 / 에서 / 으로**, connecteurs temporels, nombres sino-coréens et natifs, boss.
 - **Étage 2** (99 exercices) : se présenter (이에요/예요, adjectifs), commander (주세요, compteurs, prix), chemin et transports, futur (-(으)ㄹ 거예요), passé (-았/었-) et relier des noms (하고 / 랑 contre 그리고), boss « une journée au marché ». ⚠️ Pas encore relu par un humain.
+- **Étages 3, 4 et 5** (≈265 exercices, écrits par une IA, **non relus** : voir `docs/relecture-etage3.md`, `4`, `5`) :
+  - **Étage 3 · Vouloir, pouvoir, demander** : -고 싶어요, -(으)ㄹ 수 있어요, 안 / 못, -아/어 주세요, -(으)세요 / -지 마세요, -(으)ㄹ까요.
+  - **Étage 4 · Raisons et liens** : -아/어서, -(으)니까, -지만 / 하지만 / 그런데, -(으)면, -(으)ㄹ 때.
+  - **Étage 5 · Expériences et comparaisons** : -아/어 보다, -(으)ㄴ 적이 있어요, -고 있어요, -(으)러 가요, 보다 / 더 / 제일, verbe ou adjectif + nom (-는 / -(으)ㄴ).
 - **Bouton « Signaler »** sous chaque correction : une phrase te paraît fausse ou bizarre → une note, enregistrée dans `exercise_reports` (avec une copie du texte, car les identifiants d'exercices changent à chaque `seed.sql`).
 
 ## Révisions espacées (onglet 🔄 Réviser)
@@ -37,6 +41,7 @@ Galerie **temporaire** : la liste est dans `js/components/rewards.js` (images da
 
 ```
 node tests/srs.test.mjs                                   # logique J+1/3/7/16
+node tests/seed-check.mjs                                 # contrôles structurels du contenu des étages 2 à 5
 PLAYWRIGHT_PATH=$(npm root -g)/playwright node tests/ui-srs.mjs   # parcours réel dans Chromium (faux Supabase)
 ```
 

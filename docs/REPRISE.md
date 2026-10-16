@@ -18,7 +18,7 @@ Document de passation : à donner à une nouvelle session pour continuer sans ri
 
 ## Ce qui est fait
 - Connexion, accueil (étage n / 100), carte des étages (Jordan grimpe, Karina l'accompagne), leçons, 7 types d'exercices (choix, trous, ordre, FR→KO, KO→FR, écoute, **production libre**), XP/série (×1,5 dès 2 jours), points faibles, stats.
-- **Étages 1 et 2** (≈206 exercices, relus par une IA « Opus », pas par un humain) ; fichiers de relecture dans `docs/relecture-etage*.md`.
+- **Étages 1 et 2** (≈206 exercices, relus par une IA « Opus », pas par un humain) ; **étages 3, 4 et 5** ajoutés (≈265 exercices, NON relus : à envoyer à Opus et Gemini, voir `docs/relecture-etage3.md` à `5`) ; fichiers de relecture dans `docs/relecture-etage*.md`.
 - Bouton « Signaler » (table `exercise_reports`), messages de Karina (table `karina_messages`, règles d'affichage dans le README), sprites (bucket `karina-sprites` + `assets/karina/`).
 - **Révisions espacées J+1/3/7/16** (onglet Réviser, pastille de cartes dues, cartes créées en fin de leçon) et **galerie de récompenses temporaire** (1 image « Trace sur la vitre » à l'étage 1, 3 badges). Tests dans `tests/`. Détails dans le README.
 - **Couche IA (Gemini)** : Edge Function `supabase/functions/llm/index.ts` (actions : status, ping, evaluate_production, generate_exercises, karina_message, review_exercises), quotas SQL (20/session, 100/jour), retry sur 502/503/504, onglet **🧪 Atelier** (tester la clé, générer, brouillons, relecture IA). Déployée et testée par Jordan avec `gemini-3.5-flash-lite` : « Tester la clé » répond OK.
@@ -33,7 +33,7 @@ Document de passation : à donner à une nouvelle session pour continuer sans ri
 
 ## Reste à faire — côté développement (par priorité)
 1. ~~SRS~~ fait (J+1/3/7/16). À affiner si besoin : cartes d'exercices « écoute » (voix), révision hors-ligne, rattrapage après longue absence.
-2. **Plan des étages 3 à 20** (thèmes, grammaire, vocabulaire) à valider avec Jordan **avant** d'écrire du contenu ; réutiliser le générateur `supabase/seed/` (`mc fb ro tk tf ls fp`).
+2. **Étages 6 à 20** : plan (thèmes, grammaire, vocabulaire) à valider avec Jordan **avant** d'écrire du contenu ; réutiliser le générateur `supabase/seed/` (`mc fb ro tk tf ls fp`), puis `node tests/seed-check.mjs`. Les étages 3 à 5 sont écrits ; prochaines notions possibles : -(으)ㄹ 것 같아요, -아/어도 되다, -아/어야 하다, -는데, formes honorifiques (-시-), irréguliers (ㅂ, ㄷ, ㅅ, 르).
 3. **Module dédié production** (écrit, puis éventuellement oral) : idée de Jordan pour plus tard, s'appuyer sur `evaluate_production`.
 4. **Récompenses** : galerie temporaire en place (`js/components/rewards.js`). Reste : vraies images/légendes (Jordan), déblocages en base (table `rewards` à remodeler en par-utilisateur), un cadeau par étage.
 5. Relecture du coréen par un humain (aucun disponible) : s'appuyer sur « Signaler », la relecture IA et Notion (les deux pages du cours).

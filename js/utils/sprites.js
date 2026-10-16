@@ -1,6 +1,6 @@
 // Sprites de Karina. Source principale : bucket Supabase Storage public `karina-sprites`
 // (Jordan y dépose ses PNG). Repli : fichiers livrés dans assets/karina/.
-// Pose absente partout (celebrate, thinking) → on affiche idle, l'animation CSS fait le reste.
+// Pose absente partout → on affiche idle, l'animation CSS fait le reste.
 import { SUPABASE_URL } from '../config.js';
 
 const FILES = {
@@ -9,10 +9,10 @@ const FILES = {
   celebrate: 'karina-celebrate.png', // célébration (étage terminé, jalon)
   thinking: 'karina-thinking.png', //   main sur le menton (chargement)
 };
-const SHIPPED = new Set(['idle', 'walk']); // présents dans le dépôt
+const SHIPPED = new Set(['idle', 'walk', 'celebrate', 'thinking']); // les quatre poses sont livrées dans le dépôt
 const FALLBACK = { celebrate: 'idle', thinking: 'idle', walk: 'idle' };
 
-export const AVATAR = 'assets/karina/avatar.webp';
+export const AVATAR = 'assets/karina/avatar.webp?v=2'; // ?v= : force le rechargement quand l'image change
 const bucketUrl = (key) => `${SUPABASE_URL}/storage/v1/object/public/karina-sprites/${FILES[key]}`;
 const localUrl = (key) => `assets/karina/${FILES[key]}`;
 

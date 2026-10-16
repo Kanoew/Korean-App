@@ -67,9 +67,9 @@ python3 -m http.server 8000
 | `karina-celebrate.png` | écran de résultats quand la leçon est validée (rebond) |
 | `karina-thinking.png` | écrans d'attente (balancement) |
 
-Ordre de recherche : **bucket → `assets/karina/` → pose de repli (idle)**. Livrés dans le dépôt : `karina-idle.png` et `karina-walk-right.png` (découpés de la planche de poses, fond transparent, contour blanc pour rester lisibles sur le thème sombre). Tant que `celebrate` et `thinking` ne sont pas déposés, c'est `idle` qui s'affiche avec l'animation correspondante. Hauteur : 120 px sur mobile, 180 px sur grand écran.
+Ordre de recherche : **bucket → `assets/karina/` → pose de repli (idle)**. Les quatre poses sont livrées dans le dépôt (`assets/karina/`, fond transparent, fin contour blanc pour rester lisibles sur le thème sombre). Si une pose manque partout, c'est `idle` qui s'affiche avec l'animation correspondante. Hauteur : 120 px sur mobile, 180 px sur grand écran.
 
-`assets/karina/avatar.webp` est l'avatar de l'en-tête (tête cadrée en cercle).
+`assets/karina/avatar.webp` est l'avatar rond de l'en-tête. Quand tu le remplaces, incrémente `?v=` dans `AVATAR` (`js/utils/sprites.js`) pour forcer le rechargement.
 
 ### Messages (table `karina_messages`)
 
@@ -120,7 +120,7 @@ js/
   api/              lessons · exercises · progress · messages
   components/       dashboard · floor-map · karina-bubble · learn · lesson-view · exercise-player · exercise-types · stats · soon
   utils/            helpers (correction, dates, XP) · tts · sprites
-assets/karina/      avatar.webp · karina-idle.png · karina-walk-right.png
+assets/karina/      avatar.webp · karina-idle · karina-walk-right · karina-celebrate · karina-thinking (.png)
 supabase/
   schema.sql        tables + RLS
   seed.sql          GÉNÉRÉ — ne pas éditer à la main

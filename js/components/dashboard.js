@@ -5,6 +5,7 @@ import { esc, $, tagLabel, todayStr, daysBetween } from '../utils/helpers.js';
 import { greeting } from '../karina.js';
 import { renderFloorMap } from './floor-map.js';
 import { AVATAR } from '../utils/sprites.js';
+import { dueCount } from './review.js';
 
 export async function render(root) {
   const p = state.profile;
@@ -12,6 +13,7 @@ export async function render(root) {
   const next = nextLesson();
   const streak = currentStreak(p);
   const gapDays = p.last_session_date ? daysBetween(p.last_session_date, todayStr()) : null;
+  const due = dueCount();
   const hello = greeting({ name: p.display_name || 'Jordan', hour: new Date().getHours(), streak, gapDays });
 
   root.innerHTML = `
@@ -41,7 +43,7 @@ export async function render(root) {
       <div id="floor-map"></div>
 
       <div class="grid-2">
-        <a class="btn ghost block" href="#/review">🔄 Révisions <small>bientôt</small></a>
+        <a class="btn ghost block" href="#/review">🔄 Révisions <small>${due ? `${due} à faire` : 'à jour'}</small></a>
         <a class="btn ghost block" href="#/weak">🎯 Points faibles</a>
       </div>
 

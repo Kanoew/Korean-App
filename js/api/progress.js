@@ -1,6 +1,7 @@
 // XP, séries, étages, points faibles — tout ce qui est écrit à la fin d'une session.
 import { supabase } from '../supabase.js';
 import { state } from '../state.js';
+import { recordLessonCards } from './srs.js';
 import { todayStr, streakForToday, hasXpBoost, XP_LESSON, XP_BOSS, STREAK_MULTIPLIER, PASS_SCORE } from '../utils/helpers.js';
 
 export async function ensureProfile(user) {
@@ -63,8 +64,8 @@ async function updateWeakness(userId, results) {
 }
 
 // Enregistre une session terminée et met à jour profil / progression.
-// results: [{ ex, result, xp }]
-export async function finishSession({ lesson, results, startedAt }) {
+// results: [{ ex, result, xp }] ; review = séance de révision espacée (pas de nouvelles cartes)
+export async function finishSession({ lesson, results, startedAt, review = false }) {
   const user = state.user;
   const profile = state.profile;
   const today = todayStr();
@@ -148,6 +149,16 @@ export async function finishSession({ lesson, results, startedAt }) {
     await updateWeakness(user.id, results);
   } catch (e) {
     console.warn('weakness_log non mis à jour', e);
+  }
+
+  // Révisions espacées : les exercices ratés (et quelques réussis à la 1re validation) deviennent des cartes.
+  // Une séance de révision gère ses cartes elle-même (voir components/review.js).
+  if (!review) {
+    try {
+      await recordLessonCards({ results, firstCompletion });
+    } catch (e) {
+      console.warn('cartes de révision non enregistrées', e);
+    }
   }
 
   return {

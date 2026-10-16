@@ -4,7 +4,7 @@ Application web (PWA) pour apprendre le coréen, de A2 vers B2, avec Karina comm
 Front statique (HTML/CSS/JS, sans build) hébergé sur GitHub Pages · Supabase pour l'auth et la base de données.
 
 **État : V0 terminée** — boucle complète *connexion → leçon → exercices → progression*.
-Les révisions espacées (SRS), les récompenses et la reconnaissance vocale arrivent ensuite. La **couche IA** (Gemini) est prête : il ne manque que ta clé (voir « Couche IA »).
+Les révisions espacées (J+1/3/7/16) et une première galerie de récompenses sont en place ; la reconnaissance vocale arrive ensuite. La **couche IA** (Gemini) est prête : il ne manque que ta clé (voir « Couche IA »).
 
 ## Ce que fait la V0
 
@@ -20,6 +20,25 @@ Les révisions espacées (SRS), les récompenses et la reconnaissance vocale arr
 - **Étage 1** (103 exercices) : particules 은/는 이/가 을/를, **에 / 에서 / 으로**, connecteurs temporels, nombres sino-coréens et natifs, boss.
 - **Étage 2** (99 exercices) : se présenter (이에요/예요, adjectifs), commander (주세요, compteurs, prix), chemin et transports, futur (-(으)ㄹ 거예요), passé (-았/었-) et relier des noms (하고 / 랑 contre 그리고), boss « une journée au marché ». ⚠️ Pas encore relu par un humain.
 - **Bouton « Signaler »** sous chaque correction : une phrase te paraît fausse ou bizarre → une note, enregistrée dans `exercise_reports` (avec une copie du texte, car les identifiants d'exercices changent à chaque `seed.sql`).
+
+## Révisions espacées (onglet 🔄 Réviser)
+
+Échelle **J+1 · J+3 · J+7 · J+16**. Une *carte* est un exercice rejoué tel quel (copie dans `srs_cards.exercise`, donc insensible aux `seed.sql`).
+- **Naissance** : tout exercice raté ou « presque » en leçon / points faibles ; à la **première validation** d'une leçon, des exercices réussis complètent jusqu'à 5 cartes. La production libre n'en crée pas (elle dépend de l'IA).
+- **Échelle** : carte neuve → due demain ; chaque révision réussie la fait monter (J+1 → J+3 → J+7 → J+16), la 4ᵉ la rend *acquise*. « Presque » : même étape, redemandée demain. Raté : retour à J+1. En retard, l'écart suivant part du jour réel (2, 4 puis 9 jours) : pas de révisions collées.
+- **Séance** : jusqu'à 15 cartes (les plus en retard d'abord), XP et série comptés comme une session normale. Pastille rouge sur l'onglet et sur l'accueil = cartes dues.
+- Code : logique pure dans `js/srs.js` (testée), accès base dans `js/api/srs.js`, écran dans `js/components/review.js`. **Rejouer `supabase/schema.sql`** (colonnes ajoutées à `srs_cards`) ; sans ça l'onglet affiche un message clair et le reste de l'app fonctionne.
+
+## Récompenses (onglet 🎖️)
+
+Galerie **temporaire** : la liste est dans `js/components/rewards.js` (images dans `assets/gallery/`). Une image se débloque à la fin d'un étage, des badges à 7 jours de série / 1 000 XP / première carte acquise. Les déblocages sont mémorisés sur l'appareil (`localStorage`) ; plus tard, la liste passera dans la table `rewards`. Image actuelle : « Trace sur la vitre » (étage 1).
+
+## Tests
+
+```
+node tests/srs.test.mjs                                   # logique J+1/3/7/16
+PLAYWRIGHT_PATH=$(npm root -g)/playwright node tests/ui-srs.mjs   # parcours réel dans Chromium (faux Supabase)
+```
 
 ## Mise en route
 
@@ -103,7 +122,7 @@ Saisis-les dans Supabase → Table Editor → `karina_messages`. L'app les lit a
 | `correct_answer` | `standard` · `streak_3` · `streak_5` · `perfect_lesson` | bonne réponse | bulle |
 | `wrong_answer` | `standard` · `repeated_mistake` (même point déjà raté) · `encouragement` (2 erreurs d'affilée) | erreur | bulle |
 | `floor_clear` | `standard` · `milestone_floor_5` · `milestone_floor_10` (ou `milestone_floor_<n>`) | étage terminé | bulle sur l'écran de résultats |
-| `review_prompt` | `gentle_reminder` · `overdue` | cartes SRS dues | *prévu pour la V1 (SRS)* |
+| `review_prompt` | `gentle_reminder` · `overdue` | page Réviser (`overdue` s'il y a des cartes en retard) | actif |
 | `idle_tease` | `standard` (1re) · `playful` (suivantes) | 30 s sans répondre | bulle |
 | `session_end` | `short_session` (< 3 min) · `good_session` · `long_session` (> 15 min) | fin de leçon | bulle sur l'écran de résultats |
 | `flirty` | `light` · `medium` · `spicy` (jamais avant l'étage 3) | 15 % entre deux exercices | bulle |

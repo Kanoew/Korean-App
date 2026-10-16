@@ -7,7 +7,8 @@ import * as learn from './components/learn.js';
 import * as lessonView from './components/lesson-view.js';
 import * as stats from './components/stats.js';
 import * as lab from './components/lab.js';
-import { review, rewards } from './components/soon.js';
+import * as review from './components/review.js';
+import * as rewards from './components/rewards.js';
 import { preloadSprites, showLoading } from './utils/sprites.js';
 import { clearBubble } from './components/karina-bubble.js';
 import { resetShownMessages } from './karina.js';
@@ -28,6 +29,21 @@ const ROUTES = [
 ];
 
 let token = 0;
+
+// Pastille sur l'onglet « Réviser » : nombre de cartes à réviser aujourd'hui
+function updateReviewBadge() {
+  const link = $('#nav a[data-tab="review"]');
+  if (!link) return;
+  const n = review.dueCount();
+  let badge = $('.nav-badge', link);
+  if (!n) return badge?.remove();
+  if (!badge) {
+    badge = document.createElement('b');
+    badge.className = 'nav-badge';
+    link.appendChild(badge);
+  }
+  badge.textContent = n > 99 ? '99+' : n;
+}
 
 async function route() {
   const my = ++token;
@@ -67,6 +83,7 @@ async function route() {
     return;
   }
   nav.hidden = !match.tab;
+  updateReviewBadge();
   $$('#nav a').forEach((a) => a.classList.toggle('active', a.dataset.tab === match.tab));
   window.scrollTo(0, 0);
   await match.view.render(root, match.m.slice(1));
@@ -74,6 +91,7 @@ async function route() {
 
 preloadSprites();
 window.addEventListener('hashchange', route);
+window.addEventListener('srs-changed', updateReviewBadge);
 
 // Connexion / déconnexion. (Pas d'appel Supabase async directement dans le callback.)
 onAuthChange((event, session) => {

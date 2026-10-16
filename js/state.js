@@ -2,6 +2,7 @@
 import { loadCurriculum, loadProgress } from './api/lessons.js';
 import { ensureProfile } from './api/progress.js';
 import { loadKarinaMessages } from './api/messages.js';
+import { loadSrsCards } from './api/srs.js';
 import { loadLlmStatus } from './api/llm.js';
 import { todayStr, yesterdayStr, hasXpBoost } from './utils/helpers.js';
 
@@ -12,6 +13,7 @@ export const state = {
   lessons: [], // liste à plat, ordonnée : { ...lesson, unit, floor, index }
   progress: new Map(), // lesson_id -> ligne lesson_progress
   messages: [], // messages de Karina saisis dans Supabase (table karina_messages)
+  srs: { available: true, cards: [] }, // cartes de révision espacée (table srs_cards)
   llm: { configured: false, model: null }, // couche IA disponible ?
   llmReady: Promise.resolve(), // résolue quand le statut de la couche IA est connu
 };
@@ -23,22 +25,25 @@ export function resetState() {
   state.lessons = [];
   state.progress = new Map();
   state.messages = [];
+  state.srs = { available: true, cards: [] };
   state.llm = { configured: false, model: null };
   state.llmReady = Promise.resolve();
 }
 
 export async function loadAll(user) {
   state.user = user;
-  const [floors, progress, profile, messages] = await Promise.all([
+  const [floors, progress, profile, messages, srs] = await Promise.all([
     loadCurriculum(),
     loadProgress(user.id),
     ensureProfile(user),
     loadKarinaMessages(),
+    loadSrsCards(user.id),
   ]);
   state.floors = floors;
   state.progress = progress;
   state.profile = profile;
   state.messages = messages;
+  state.srs = srs;
   // Statut de l'IA en arrière-plan : ne ralentit pas le démarrage (la fonction peut mettre 1-2 s à se réveiller)
   state.llmReady = loadLlmStatus().then((s) => {
     state.llm = s;

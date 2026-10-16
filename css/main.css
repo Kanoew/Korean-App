@@ -64,6 +64,7 @@ small, .small { font-size: 0.8rem; }
 }
 #nav[hidden] { display: none; }
 #nav a {
+  position: relative;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 2px; font-size: 0.68rem; color: var(--muted);
 }

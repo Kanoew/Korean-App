@@ -70,7 +70,7 @@ create table if not exists exercises (
 create index if not exists exercises_lesson_idx on exercises (lesson_id);
 create index if not exists exercises_tags_idx on exercises using gin (tags);
 
--- ---------- SRS (SM-2) — utilisé à partir de la V1 ----------
+-- ---------- SRS (cartes de révision) ----------
 create table if not exists srs_cards (
   id SERIAL primary key,
   user_id UUID references auth.users(id) on delete cascade,
@@ -88,6 +88,18 @@ create table if not exists srs_cards (
   last_review DATE,
   created_at TIMESTAMPTZ default now()
 );
+
+-- Révisions espacées J+1 / J+3 / J+7 / J+16 : colonnes ajoutées à srs_cards (rejouable).
+--   step = révisions réussies (0..4), status = active | mastered, exercise = copie rejouable de l'exercice,
+--   source_key = identité de la carte (texte de l'exercice, stable malgré les seed.sql).
+alter table srs_cards add column if not exists step INT default 0;
+alter table srs_cards add column if not exists status TEXT default 'active';
+alter table srs_cards add column if not exists lapses INT default 0;
+alter table srs_cards add column if not exists exercise JSONB;
+alter table srs_cards add column if not exists source_key TEXT;
+alter table srs_cards alter column next_review drop not null;
+create unique index if not exists srs_cards_source_idx on srs_cards (user_id, source_key);
+create index if not exists srs_cards_due_idx on srs_cards (user_id, next_review) where status = 'active';
 
 -- ---------- Sessions ----------
 create table if not exists sessions (

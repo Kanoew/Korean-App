@@ -269,7 +269,7 @@ select l.id, 'listening', '식사 후에 커피를 마셔요', 'Écoute et chois
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 3 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'translate_fr', '저는 학교 후에 도서관에 가요.', NULL, 'Après l''école, je vais à la bibliothèque | Je vais à la bibliothèque après l''école | Après l''école je vais à la bibliothèque', NULL, '학교 후에 = après l''école ; 도서관에 가요 = je vais à la bibliothèque.', 3, ARRAY['temporal', 'e_vs_eseo']::text[], false
+select l.id, 'translate_fr', '저는 수업 후에 도서관에 가요.', NULL, 'Après le cours, je vais à la bibliothèque | Je vais à la bibliothèque après le cours | Après le cours je vais à la bibliothèque | Après les cours, je vais à la bibliothèque | Je vais à la bibliothèque après les cours | Après les cours je vais à la bibliothèque', NULL, '수업 후에 = après le cours ; 도서관에 가요 = je vais à la bibliothèque.', 3, ARRAY['temporal', 'e_vs_eseo']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 3 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)

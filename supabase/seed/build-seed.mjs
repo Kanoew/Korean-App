@@ -244,7 +244,7 @@ const floor1 = {
             fb('주말___ 뭐 해요?', 'Que fais-tu le week-end ?', ['에', '에서', '을', '가'], '에', 'Un moment précis (주말) prend 에.', ['time_particle', 'temporal']),
             mc('Quelle phrase est correcte ? (aujourd\'hui, on se voit)', null, ['오늘 만나요', '오늘에 만나요', '오늘에서 만나요', '오늘으로 만나요'], '오늘 만나요', 'Pas de 에 après 오늘.', ['time_particle', 'temporal'], 3),
             ls('식사 후에 커피를 마셔요', ['식사 후에 커피를 마셔요', '식사 전에 커피를 마셔요', '식사 동안 커피를 마셔요', '식사 때 커피를 마셔요'], '식사 후에 커피를 마셔요', '후에 = après. Écoute bien la différence avec 전에 !', ['temporal']),
-            tf('저는 학교 후에 도서관에 가요.', 'Après l\'école, je vais à la bibliothèque | Je vais à la bibliothèque après l\'école | Après l\'école je vais à la bibliothèque', '학교 후에 = après l\'école ; 도서관에 가요 = je vais à la bibliothèque.', ['temporal', 'e_vs_eseo'], 3),
+            tf('저는 수업 후에 도서관에 가요.', 'Après le cours, je vais à la bibliothèque | Je vais à la bibliothèque après le cours | Après le cours je vais à la bibliothèque | Après les cours, je vais à la bibliothèque | Je vais à la bibliothèque après les cours | Après les cours je vais à la bibliothèque', '수업 후에 = après le cours ; 도서관에 가요 = je vais à la bibliothèque.', ['temporal', 'e_vs_eseo'], 3),
             tk('Pendant les vacances, je voyage.', '방학 때 여행해요 | 방학 동안 여행해요 | 저는 방학 때 여행해요 | 저는 방학 동안 여행해요', '방학 때 (au moment des vacances) ou 방학 동안 (durant les vacances).', ['temporal'], 3),
             ro('Avant de dormir, je prends une douche.', ['저는', '자기', '전에', '샤워해요'], '저는 자기 전에 샤워해요', 'Radical + 기 전에 se place avant le verbe principal.', ['temporal'], 2),
           ],

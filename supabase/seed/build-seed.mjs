@@ -1,6 +1,6 @@
 // Génère supabase/seed.sql à partir du contenu de l'étage 1.
 // Usage : node supabase/seed/build-seed.mjs
-import { writeFileSync } from 'node:fs';
+import { writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -85,10 +85,11 @@ const floor1 = {
             fb('학교___ 멀어요.', 'L\'école est loin.', ['가', '이', '을', '를'], '가', '학교 finit par une voyelle → 가.', ['subject_particle', 'particles']),
             fb('영화___ 봐요.', 'Je regarde un film.', ['를', '을', '가', '이'], '를', '영화 finit par une voyelle → 를.', ['object_particle', 'particles']),
             fb('선생님___ 한국 사람이에요.', 'Le professeur, il est coréen. (thème)', ['은', '는', '를', '을'], '은', '선생님 finit par ㅁ, une consonne → 은.', ['topic_particle', 'particles']),
+            fb('우리___ 영화를 봐요.', 'Nous, on regarde un film.', ['는', '를', '에서', '로'], '는', '"우리를" est une erreur fréquente : 를 marque l\'objet (영화를). Pour dire "nous" en thème, on met 는 : 우리는.', ['topic_particle', 'object_particle', 'particles'], 2),
             fb('비___ 와요.', 'Il pleut.', ['가', '이', '를', '는'], '가', '비 finit par une voyelle → 가.', ['subject_particle', 'particles']),
             mc('Forme polie de "moi" + particule de sujet :', null, ['제가', '저가', '내가', '저이'], '제가', 'Avec 이/가, 저 devient 제 : 제가. (저가 n\'existe pas.)', ['subject_particle', 'particles']),
             ro('Mon ami aime la cuisine coréenne.', ['친구가', '한국', '음식을', '좋아해요'], '친구가 한국 음식을 좋아해요', 'Sujet (이/가) → objet (을/를) → verbe.', ['subject_particle', 'object_particle', 'particles'], 2),
-            tf('저는 한국어를 공부해요.', 'J\'étudie le coréen | Je étudie le coréen | J\'apprends le coréen | Moi, j\'étudie le coréen', '한국어(coréen) + 를 + 공부해요(étudier).', ['object_particle', 'particles']),
+            tf('저는 한국어를 공부해요.', 'J\'étudie le coréen | J\'apprends le coréen | Moi, j\'étudie le coréen', '한국어(coréen) + 를 + 공부해요(étudier).', ['object_particle', 'particles']),
             tk('Je bois de l\'eau.', '저는 물을 마셔요 | 물을 마셔요', '물 finit par une consonne → 을.', ['object_particle', 'particles']),
           ],
         },
@@ -156,6 +157,7 @@ const floor1 = {
           title_fr: 'Entraînement : 에 / 에서 / 으로',
           exercises: [
             fb('친구가 서울___ 있어요.', 'Mon ami est à Séoul.', ['에', '에서', '를', '로'], '에', '있다 (existence) → 에.', ['e_vs_eseo', 'particles']),
+            fb('도서관___ 가요.', 'Je vais à la bibliothèque.', ['에', '에서', '를', '가'], '에', '가다 est un verbe de déplacement : il prend 에, jamais 에서. 도서관에 가요.', ['e_vs_eseo', 'particles'], 2),
             fb('식당___ 점심을 먹어요.', 'Je déjeune au restaurant.', ['에서', '에', '로', '를'], '에서', '먹다 est une action → 에서.', ['e_vs_eseo', 'particles']),
             fb('우리는 공원___ 운동해요.', 'Nous faisons du sport au parc.', ['에서', '에', '으로', '가'], '에서', '운동하다 est une action → 에서.', ['e_vs_eseo', 'particles']),
             fb('저는 프랑스___ 왔어요.', 'Je viens de France. (origine)', ['에서', '에', '로', '를'], '에서', 'Origine ("de") → 에서.', ['e_vs_eseo', 'particles'], 3),
@@ -300,7 +302,7 @@ const floor1 = {
             mc('Comment lit-on 10분 ?', null, ['십 분', '열 분', '십 시', '열 시'], '십 분', '10 minutes = 십 분 (sino + 분).', ['numbers_sino', 'counters']),
             mc('Comment lit-on 6월 (juin) ?', null, ['유월', '육월', '여섯월', '륙월'], '유월', 'Exception : 6月 = 유월, 10月 = 시월.', ['numbers_sino'], 3),
             mc('Quel nombre signifie 100 ?', null, ['백', '십', '천', '만'], '백', '백 = 100 ; 천 = 1 000 ; 만 = 10 000.', ['numbers_sino']),
-            tk('Dix mille wons.', '만 원 | 일만 원', 'On dit simplement 만 원 (pas 일만 원).', ['numbers_sino', 'counters'], 3),
+            tk('Dix mille wons.', '만 원', 'On dit simplement 만 원 (pas 일만 원).', ['numbers_sino', 'counters'], 3),
             tk('Le 15 mai.', '오월 십오일 | 오월 십오 일 | 5월 15일', '5月 = 오월 ; 15日 = 십오일.', ['numbers_sino'], 3),
           ],
         },
@@ -391,6 +393,8 @@ const floor1 = {
             mc('Comment lit-on 2시 30분 ?', null, ['두 시 삼십 분', '이 시 삼십 분', '두 시 서른 분', '이 시 서른 분'], '두 시 삼십 분', 'Heures = natif (두 시), minutes = sino (삼십 분).', ['numbers_native', 'numbers_sino', 'counters'], 3),
             ls('커피 두 잔 주세요', ['커피 두 잔 주세요', '커피 세 잔 주세요', '커피 한 잔 주세요', '커피 네 잔 주세요'], '커피 두 잔 주세요', '두 = deux. Écoute bien 두 / 세 / 한 / 네.', ['numbers_native', 'counters']),
             tf('저는 책 두 권을 샀어요.', 'J\'ai acheté deux livres | J\'ai acheté 2 livres | Moi, j\'ai acheté deux livres', '책 두 권 = deux livres ; 샀어요 = j\'ai acheté.', ['numbers_native', 'counters']),
+            mc('Quelle phrase est correcte ? (trois pommes)', null, ['사과 세 개', '세 사과 개', '세 개 사과', '사과 개 세'], '사과 세 개', 'Ordre : nom + nombre + compteur (사과 + 세 + 개).', ['counters', 'numbers_native'], 2),
+            mc('Quelle phrase est correcte ? (deux cafés)', null, ['커피 두 잔', '두 커피 잔', '두 잔 커피', '잔 두 커피'], '커피 두 잔', 'Même ordre : nom + nombre + compteur ; et 둘 devient 두 devant le compteur.', ['counters', 'numbers_native'], 2),
             ro('J\'ai mangé trois pommes.', ['저는', '사과', '세', '개를', '먹었어요'], '저는 사과 세 개를 먹었어요', 'Nom + nombre + compteur + particule + verbe.', ['numbers_native', 'counters', 'object_particle'], 3),
           ],
         },
@@ -491,3 +495,75 @@ out.push(`-- ${exCount} exercices au total.`);
 const target = join(dirname(fileURLToPath(import.meta.url)), '..', 'seed.sql');
 writeFileSync(target, out.join('\n') + '\n');
 console.log(`seed.sql écrit : ${exCount} exercices, ${f.units.reduce((n, u) => n + u.lessons.length, 0)} leçons.`);
+
+// ---------- Document de relecture pour un humain (docs/relecture-etage1.md) ----------
+const md = [];
+md.push('# Relecture du coréen — étage 1');
+md.push('');
+md.push('Document généré depuis le contenu de l\'application (`supabase/seed/build-seed.mjs`). Les phrases ont été écrites par une IA, **sans relecteur humain**.');
+md.push('');
+md.push('## Consigne pour la personne qui relit');
+md.push('');
+md.push('Pour chaque ligne, répondre **OK**, ou **à corriger** avec la version correcte. Merci de vérifier :');
+md.push('');
+md.push('1. **La justesse** : la phrase coréenne est-elle grammaticalement correcte ?');
+md.push('2. **Le naturel** : est-ce ce qu\'un natif dirait ? (une phrase peut être correcte mais bizarre)');
+md.push('3. **Les mauvaises options** : sont-elles bien fausses ? (une option « fausse » qui serait en fait acceptable est un vrai problème)');
+md.push('4. **La traduction française** correspond-elle ?');
+md.push('5. **Les romanisations** des cours (Revised Romanization).');
+md.push('');
+md.push('Le niveau visé est A2 → B1. Les phrases sont volontairement simples.');
+md.push('');
+let n = 0;
+for (const u of f.units) {
+  md.push(`## Unité ${u.unit_number} — ${u.title_fr} (${u.title_ko})`);
+  md.push('');
+  for (const l of u.lessons) {
+    md.push(`### ${l.title_fr} (${l.title_ko}) — ${l.type}`);
+    md.push('');
+    if (l.content) {
+      md.push('**Cours (texte affiché dans l\'application)**');
+      md.push('');
+      for (const sec of l.content.sections) {
+        md.push(`- *${sec.title}* — ${sec.body}`);
+        for (const ex of sec.examples || []) md.push(`  - ${ex.ko} (${ex.rom}) — ${ex.fr}`);
+      }
+      if (l.content.tip) md.push(`- Astuce : ${l.content.tip}`);
+      md.push('');
+    }
+    md.push('**Exercices**');
+    md.push('');
+    md.push('| # | Phrase / question | Réponse attendue | Options fausses | Traduction / consigne | Avis |');
+    md.push('| --- | --- | --- | --- | --- | --- |');
+    for (const e of l.exercises) {
+      n++;
+      const answers = e.answer.split('|').map((x) => x.trim());
+      const cell = (t) => String(t ?? '').replaceAll('|', '\\|').replaceAll('\n', ' ');
+      let sentence;
+      let wrong = '';
+      if (e.type === 'fill_blank') {
+        sentence = e.ko.replace('___', `**${answers[0]}**`);
+        wrong = e.options.filter((o) => !answers.includes(o)).join(' · ');
+      } else if (e.type === 'multiple_choice') {
+        sentence = e.fr + (e.ko ? ` — ${e.ko}` : '');
+        wrong = e.options.filter((o) => !answers.includes(o)).join(' · ');
+      } else if (e.type === 'listening') {
+        sentence = `(écoute) ${e.ko}`;
+        wrong = e.options.filter((o) => !answers.includes(o)).join(' · ');
+      } else if (e.type === 'reorder') {
+        sentence = `(remettre en ordre) ${e.options.join(' / ')}`;
+      } else if (e.type === 'translate_fr') {
+        sentence = `(traduire en français) ${e.ko}`;
+      } else {
+        sentence = `(traduire en coréen) ${e.fr}`;
+      }
+      const shown = e.type === 'fill_blank' ? answers.join(' / ') : answers.join('  ·  ');
+      md.push(`| ${n} | ${cell(sentence)} | ${cell(shown)} | ${cell(wrong)} | ${cell(e.type === 'fill_blank' ? e.fr : e.type === 'multiple_choice' ? '' : e.type === 'translate_ko' ? '' : e.fr || '')} | |`);
+    }
+    md.push('');
+  }
+}
+const docsDir = join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'docs');
+mkdirSync(docsDir, { recursive: true });
+writeFileSync(join(docsDir, 'relecture-etage1.md'), md.join('\n') + '\n');
+console.log(`docs/relecture-etage1.md écrit : ${n} exercices à relire.`);

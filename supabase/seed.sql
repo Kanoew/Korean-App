@@ -75,6 +75,10 @@ select l.id, 'fill_blank', '선생님___ 한국 사람이에요.', 'Le professeu
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 1 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '우리___ 영화를 봐요.', 'Nous, on regarde un film.', '는', '["는","를","에서","로"]'::jsonb, '"우리를" est une erreur fréquente : 를 marque l''objet (영화를). Pour dire "nous" en thème, on met 는 : 우리는.', 2, ARRAY['topic_particle', 'object_particle', 'particles']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 1 and u.unit_number = 1 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
 select l.id, 'fill_blank', '비___ 와요.', 'Il pleut.', '가', '["가","이","를","는"]'::jsonb, '비 finit par une voyelle → 가.', 1, ARRAY['subject_particle', 'particles']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 1 and l.lesson_number = 2;
@@ -87,7 +91,7 @@ select l.id, 'reorder', NULL, 'Mon ami aime la cuisine coréenne.', '친구가 �
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 1 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'translate_fr', '저는 한국어를 공부해요.', NULL, 'J''étudie le coréen | Je étudie le coréen | J''apprends le coréen | Moi, j''étudie le coréen', NULL, '한국어(coréen) + 를 + 공부해요(étudier).', 2, ARRAY['object_particle', 'particles']::text[], false
+select l.id, 'translate_fr', '저는 한국어를 공부해요.', NULL, 'J''étudie le coréen | J''apprends le coréen | Moi, j''étudie le coréen', NULL, '한국어(coréen) + 를 + 공부해요(étudier).', 2, ARRAY['object_particle', 'particles']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 1 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
@@ -149,6 +153,10 @@ delete from exercises where is_llm_generated = false and lesson_id in (select l.
 where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 2);
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
 select l.id, 'fill_blank', '친구가 서울___ 있어요.', 'Mon ami est à Séoul.', '에', '["에","에서","를","로"]'::jsonb, '있다 (existence) → 에.', 1, ARRAY['e_vs_eseo', 'particles']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'fill_blank', '도서관___ 가요.', 'Je vais à la bibliothèque.', '에', '["에","에서","를","가"]'::jsonb, '가다 est un verbe de déplacement : il prend 에, jamais 에서. 도서관에 가요.', 2, ARRAY['e_vs_eseo', 'particles']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
@@ -318,7 +326,7 @@ select l.id, 'multiple_choice', NULL, 'Quel nombre signifie 100 ?', '백', '["�
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 4 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'translate_ko', NULL, 'Dix mille wons.', '만 원 | 일만 원', NULL, 'On dit simplement 만 원 (pas 일만 원).', 3, ARRAY['numbers_sino', 'counters']::text[], false
+select l.id, 'translate_ko', NULL, 'Dix mille wons.', '만 원', NULL, 'On dit simplement 만 원 (pas 일만 원).', 3, ARRAY['numbers_sino', 'counters']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 4 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
@@ -455,6 +463,14 @@ select l.id, 'translate_fr', '저는 책 두 권을 샀어요.', NULL, 'J''ai ac
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 5 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'multiple_choice', NULL, 'Quelle phrase est correcte ? (trois pommes)', '사과 세 개', '["사과 세 개","세 사과 개","세 개 사과","사과 개 세"]'::jsonb, 'Ordre : nom + nombre + compteur (사과 + 세 + 개).', 2, ARRAY['counters', 'numbers_native']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 1 and u.unit_number = 5 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'multiple_choice', NULL, 'Quelle phrase est correcte ? (deux cafés)', '커피 두 잔', '["커피 두 잔","두 커피 잔","두 잔 커피","잔 두 커피"]'::jsonb, 'Même ordre : nom + nombre + compteur ; et 둘 devient 두 devant le compteur.', 2, ARRAY['counters', 'numbers_native']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 1 and u.unit_number = 5 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
 select l.id, 'reorder', NULL, 'J''ai mangé trois pommes.', '저는 사과 세 개를 먹었어요', '["저는","사과","세","개를","먹었어요"]'::jsonb, 'Nom + nombre + compteur + particule + verbe.', 3, ARRAY['numbers_native', 'counters', 'object_particle', 'word_order']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 5 and l.lesson_number = 2;
@@ -524,4 +540,4 @@ select l.id, 'translate_ko', NULL, 'Je prends le petit-déjeuner à 7 heures.', 
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 6 and l.lesson_number = 1;
 
--- 99 exercices au total.
+-- 103 exercices au total.

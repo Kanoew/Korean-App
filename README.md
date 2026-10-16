@@ -142,6 +142,10 @@ puis recolle `seed.sql` dans le SQL Editor. Conventions :
 - Réponses multiples : sépare par ` | ` dans `correct_answer`.
 - Les `tags` (slugs ASCII : `e_vs_eseo`, `temporal`, `numbers_sino`…) alimentent le suivi des points faibles ; leurs libellés sont dans `js/utils/helpers.js` (`TAG_LABELS`).
 
+## Relecture du coréen par un humain
+
+`docs/relecture-etage1.md` liste toutes les phrases de l'étage 1 (réponses attendues, **mauvaises options**, cours, romanisations) avec une consigne pour le relecteur et une colonne « Avis ». Il est régénéré par `node supabase/seed/build-seed.mjs` en même temps que `seed.sql`. Le coréen a été écrit par une IA : à faire relire avant d'ajouter d'autres étages.
+
 ## Notes techniques
 
 - **Voix** : Web Speech API (`ko-KR`). Chrome a les meilleures voix coréennes ; si le navigateur n'en a pas, les exercices d'écoute affichent le texte.

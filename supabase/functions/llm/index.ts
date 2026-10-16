@@ -142,7 +142,7 @@ async function chatOnce(messages: { role: string; content: string }[], opts: { t
     if (res.status === 401 || res.status === 403) throw new AppError('provider_auth', "Clé refusée par le fournisseur. Vérifie LLM_API_KEY.");
     if (res.status === 404) throw new AppError('model_not_found', 'Modèle introuvable. Vérifie LLM_MODEL (nom exact affiché dans AI Studio).');
     if (res.status === 429) throw new AppError('provider_rate_limited', "Limite gratuite du fournisseur atteinte pour le moment. Réessaie plus tard.");
-    if (res.status === 500 || res.status === 502 || res.status === 503 || res.status === 504) throw new AppError('provider_busy', 'Le modèle est surchargé chez le fournisseur (pic de demande, souvent passager). Réessaie dans un instant, ou essaie un autre modèle dans LLM_MODEL.');
+    if (res.status === 502 || res.status === 503 || res.status === 504) throw new AppError('provider_busy', 'Le modèle est surchargé chez le fournisseur (pic de demande, souvent passager). Réessaie dans un instant, ou essaie un autre modèle dans LLM_MODEL.');
     throw new AppError('provider_error', `Erreur du fournisseur (${res.status}). ${detail}`);
   }
   const data = await res.json().catch(() => null);

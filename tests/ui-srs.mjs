@@ -192,6 +192,31 @@ await page.keyboard.press('Escape');
 assert.equal(await page.locator('.viewer').count(), 0);
 ok('Galerie : image débloquée à la fin de l\'étage 1, visionneuse plein écran, Échap ferme');
 
+// 7b. Porte souple : leçon 1 essayée 2 fois sans réussite → la leçon 2 s'ouvre quand même, étage suivant toujours en ordre
+await page.evaluate(() => {
+  window.__db.lesson_progress = [{ user_id: 'u1', lesson_id: 1, completed: false, best_score: 0.5, attempts: 2 }];
+  window.__db.exercises.push({ id: 50, lesson_id: 2, exercise_type: 'sounds_right', prompt_fr: null, prompt_ko: null, correct_answer: '집에서 먹어요', options: ['집에서 먹어요', '집에 먹어요'], tags: ['e_vs_eseo'], explanation_fr: 'x' });
+});
+await reload();
+await go('#/learn');
+await page.waitForSelector('.node');
+assert.equal(await page.locator('a.node[href="#/lesson/2"]').count(), 1, 'la leçon 2 doit être ouverte');
+assert.match(await page.textContent('a.node[href="#/lesson/1"]'), /à retenter/);
+await page.evaluate(() => (location.hash = '#/'));
+await page.waitForSelector('.dash');
+assert.ok((await page.getAttribute('a.btn.primary.big', 'href')).endsWith('/lesson/2'), 'Continuer doit mener à la leçon 2');
+ok('Porte souple : 2 essais ratés ouvrent la suite, la leçon reste « à retenter », Continuer avance');
+
+// 7c. « Laquelle sonne juste ? »
+await go('#/lesson/2');
+await page.waitForSelector('.opt-row');
+assert.equal(await page.locator('.opt-row').count(), 2);
+const right = page.locator('.opt[data-v="집에서 먹어요"]');
+await right.click();
+await page.click('#main');
+assert.ok((await right.getAttribute('class')).includes('correct'));
+ok('« Laquelle sonne juste ? » : deux phrases, la bonne est validée');
+
 // 8. Schéma non rejoué : colonnes absentes → message clair, app vivante
 await page.evaluate(() => { window.__db.srs_cards = [{ id: 1, user_id: 'u1', front_ko: 'x' }]; });
 await reload();

@@ -276,3 +276,8 @@
 .viewer img { max-width: 100%; max-height: calc(100vh - 100px); border-radius: var(--radius); object-fit: contain; }
 .viewer-cap { color: var(--muted); font-size: 0.9rem; }
 .viewer .icon-btn { position: absolute; top: calc(12px + env(safe-area-inset-top)); right: 12px; }
+
+/* ---------- « Laquelle sonne juste ? » ---------- */
+.opt-row { display: flex; gap: 8px; align-items: stretch; }
+.opt-row .opt { flex: 1; }
+.opt-row .icon-btn { flex: 0 0 auto; width: 48px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); font-size: 1.2rem; }

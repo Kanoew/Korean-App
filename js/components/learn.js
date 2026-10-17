@@ -1,5 +1,5 @@
 // Navigateur du curriculum : étages → unités → leçons.
-import { state, isCompleted, isUnlocked, floorProgress, currentFloor } from '../state.js';
+import { state, isCompleted, isPassed, isUnlocked, floorProgress, currentFloor } from '../state.js';
 import { esc } from '../utils/helpers.js';
 
 const TYPE = {
@@ -23,10 +23,11 @@ export async function render(root) {
               const open = isUnlocked(lesson);
               const t = TYPE[l.lesson_type] || TYPE.practice;
               const best = state.progress.get(l.id)?.best_score;
-              const status = done ? '✓' : open ? '▶' : '🔒';
+              const skipped = !done && isPassed(l.id);
+              const status = done ? '✓' : skipped ? '↷' : open ? '▶' : '🔒';
               const inner = `
                 <span class="node-icon">${t.icon}</span>
-                <span class="node-text"><strong>${esc(l.title_fr)}</strong><small>${t.label}${best ? ` · meilleur ${Math.round(best * 100)}%` : ''}</small></span>
+                <span class="node-text"><strong>${esc(l.title_fr)}</strong><small>${t.label}${best ? ` · meilleur ${Math.round(best * 100)}%` : ''}${skipped ? ' · à retenter' : ''}</small></span>
                 <span class="node-status">${status}</span>`;
               return open
                 ? `<a class="node ${done ? 'done' : 'open'}" href="#/lesson/${l.id}">${inner}</a>`
@@ -51,7 +52,7 @@ export async function render(root) {
   root.innerHTML = `
     <div class="fade-in">
       <h1>Apprendre</h1>
-      <p class="muted">Monte la tour étage par étage. Chaque leçon s'ouvre quand la précédente est validée (70 %).</p>
+      <p class="muted">Monte la tour étage par étage. Une leçon s'ouvre quand la précédente est validée (70 %), ou essayée deux fois : jamais de mur. Ce qui est raté revient en révision.</p>
       ${floors || '<div class="card center muted">Aucun contenu. Lance supabase/seed.sql dans le SQL Editor.</div>'}
     </div>`;
 }

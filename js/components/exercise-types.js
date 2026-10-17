@@ -29,6 +29,9 @@ function head(ex) {
     case 'translate_fr':
       return `<p class="ex-label">Traduis en français</p>
         <div class="ex-ko">${esc(ex.prompt_ko)} ${speakBtn(ex.prompt_ko)}</div>`;
+    case 'sounds_right':
+      return `<p class="ex-label">${esc(ex.prompt_fr || 'Écoute les phrases : laquelle sonne juste ?')}</p>
+        <p class="ex-hint">Touche 🔊 pour écouter chaque phrase, dis-la à voix haute, puis choisis celle qui sonne juste.</p>`;
     case 'listening':
       return `<p class="ex-label">${esc(ex.prompt_fr || 'Écoute et choisis ce que tu as entendu')}</p>
         <div class="listen">
@@ -50,7 +53,10 @@ export function renderExercise(ex, box, { onAnswer, onSubmit }) {
 
   if (mode === 'choice') {
     optionList = shuffle(ex.options || []);
-    body = `<div class="opts">${optionList.map((o) => `<button type="button" class="opt" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>`;
+    body =
+      ex.exercise_type === 'sounds_right'
+        ? `<div class="opts">${optionList.map((o) => `<div class="opt-row">${speakBtn(o)}<button type="button" class="opt" data-v="${esc(o)}">${esc(o)}</button></div>`).join('')}</div>`
+        : `<div class="opts">${optionList.map((o) => `<button type="button" class="opt" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>`;
   } else if (mode === 'typed') {
     const lang = ex.exercise_type === 'translate_fr' ? 'fr' : 'ko';
     body = `<input class="input answer-input" id="typed" type="text" lang="${lang}" autocomplete="off" autocapitalize="off"
@@ -94,6 +100,8 @@ export function renderExercise(ex, box, { onAnswer, onSubmit }) {
           if (alts.includes(b.dataset.v)) b.classList.add('correct');
           else if (b.dataset.v === selected && result === 'wrong') b.classList.add('wrong');
         });
+        // On réécoute la bonne phrase : l'oreille retient mieux que la règle
+        if (ex.exercise_type === 'sounds_right') speak(alts[0]);
       },
     };
   }

@@ -1,6 +1,6 @@
 // XP, séries, étages, points faibles — tout ce qui est écrit à la fin d'une session.
 import { supabase } from '../supabase.js';
-import { state } from '../state.js';
+import { state, nextLesson } from '../state.js';
 import { recordLessonCards } from './srs.js';
 import { todayStr, streakForToday, hasXpBoost, XP_LESSON, XP_BOSS, STREAK_MULTIPLIER, PASS_SCORE } from '../utils/helpers.js';
 
@@ -112,7 +112,7 @@ export async function finishSession({ lesson, results, startedAt, review = false
   }
 
   // Étage / niveau courant = celui de la première leçon non validée
-  const next = state.lessons.find((l) => !state.progress.get(l.id)?.completed);
+  const next = nextLesson();
   const floor = next ? next.floor : state.floors[state.floors.length - 1];
   const profilePatch = {
     xp: (profile.xp || 0) + xpEarned,

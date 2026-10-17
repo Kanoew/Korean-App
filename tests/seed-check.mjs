@@ -44,8 +44,8 @@ for (const floor of [floor2, floor3, floor4, floor5]) {
         const key = `${e.type}|${e.ko ?? ''}|${e.fr ?? ''}|${answers[0]}`;
         if (seen.has(key)) bad(w, `doublon avec #${seen.get(key)}`);
         seen.set(key, i + 1);
-        if (['multiple_choice', 'fill_blank', 'listening'].includes(e.type)) {
-          if (!Array.isArray(e.options) || e.options.length < 3) bad(w, 'moins de 3 options');
+        if (['multiple_choice', 'fill_blank', 'listening', 'sounds_right'].includes(e.type)) {
+          if (!Array.isArray(e.options) || e.options.length < (e.type === 'sounds_right' ? 2 : 3)) bad(w, 'pas assez d\'options');
           else {
             if (new Set(e.options).size !== e.options.length) bad(w, 'options en double');
             if (!answers.every((a) => e.options.includes(a))) bad(w, `la réponse « ${answers.join(' | ')} » n'est pas dans les options`);
@@ -69,7 +69,7 @@ for (const floor of [floor2, floor3, floor4, floor5]) {
           const target = answers[0].split(' ').sort().join('|');
           if (joined !== target) bad(w, `les mots (${e.options.join(' ')}) ne reconstituent pas « ${answers[0]} »`);
         }
-        if (e.type === 'multiple_choice' && Array.isArray(e.options)) {
+        if (['multiple_choice', 'sounds_right'].includes(e.type) && Array.isArray(e.options)) {
           for (const o of e.options.filter((x) => !answers.includes(x))) {
             const hit = accepted.get(squash(o));
             if (hit) bad(w, `l'option fausse « ${o} » est une phrase acceptée ailleurs (${hit})`);

@@ -11,3 +11,9 @@ export const ls = (ko, options, answer, expl, tags, d = 2) => ({ type: 'listenin
 // fp : production libre, corrigée par l'IA (jouable seulement si la couche IA est configurée).
 // `target` = le point de grammaire visé, donné à l'IA et affiché à l'élève.
 export const fp = (fr, target, expl, tags, d = 3) => ({ type: 'free_production', fr, answer: target, expl, tags: [...tags, 'production'], d });
+
+// sj : « laquelle sonne juste ? » — l'élève écoute chaque phrase (voix coréenne) et choisit celle qui sonne bien.
+// `options` = phrases complètes (2 ou 3), dont une seule est correcte.
+export const sj = (options, answer, expl, tags, d = 2) => ({
+  type: 'sounds_right', fr: 'Écoute les phrases : laquelle sonne juste ?', options, answer, expl, tags: [...tags, 'listening'], d,
+});

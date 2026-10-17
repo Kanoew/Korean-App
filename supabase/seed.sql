@@ -110,42 +110,42 @@ select id, 2, '장소 조사', 'Particules de lieu : 에, 에서, 으로', 'gram
 on conflict (floor_id, unit_number) do update set
   title_ko = excluded.title_ko, title_fr = excluded.title_fr, topic = excluded.topic, description = excluded.description;
 insert into lessons (unit_id, lesson_number, title_ko, title_fr, lesson_type, content_json)
-select u.id, 1, '에 vs 에서', '에 contre 에서', 'teach', '{"intro":"LE piège classique. On le démonte ensemble, une bonne fois.","sections":[{"title":"에 — le point sur la carte","body":"Destination (aller, venir), lieu d''existence (être, il y a) et heure précise. Verbes typiques : 가다, 오다, 있다, 없다.","examples":[{"ko":"학교에 가요.","rom":"hak-gyo-e ga-yo","fr":"Je vais à l''école."},{"ko":"집에 있어요.","rom":"ji-be i-sseo-yo","fr":"Je suis à la maison."}]},{"title":"에서 — là où l''action se passe","body":"Lieu d''une action (manger, étudier, travailler…) ou origine (\"de\"). Verbes typiques : 먹다, 공부하다, 일하다.","examples":[{"ko":"도서관에서 공부해요.","rom":"do-seo-gwa-ne-seo gong-bu-hae-yo","fr":"J''étudie à la bibliothèque."},{"ko":"프랑스에서 왔어요.","rom":"peu-rang-seu-e-seo wa-sseo-yo","fr":"Je viens de France."}]},{"title":"으로/로 — direction ou moyen","body":"Direction (\"vers\") ou moyen (\"en bus\", \"avec la main\"). Après une voyelle ou ㄹ : 로. Après une autre consonne : 으로.","examples":[{"ko":"버스로 가요.","rom":"beo-seu-ro ga-yo","fr":"J''y vais en bus."},{"ko":"손으로 먹어요.","rom":"so-neu-ro meo-geo-yo","fr":"Je mange avec les mains."}]}],"tip":"Demande-toi \"le verbe est une ACTION ?\" → 에서. \"Mouvement ou existence ?\" → 에. (Exception : 살다 accepte les deux.)"}'::jsonb
+select u.id, 1, '에 vs 에서', '에 ou 에서 : une petite liste', 'teach', '{"intro":"Oublie « action » et « état ». Pour 에 ou 에서, il suffit de connaître une toute petite liste de verbes, et de l''avoir dite à voix haute assez souvent pour qu''elle sonne juste.","sections":[{"title":"La liste des verbes en 에 : cinq verbes","body":"가다 (aller), 오다 (venir), 도착하다 (arriver), 있다 (être là, il y a), 없다 (ne pas être là). Si ton verbe est dans cette liste, le lieu prend 에. Apprends-les comme des mots, pas comme une règle.","examples":[{"ko":"학교에 가요.","rom":"hak-gyo-e ga-yo","fr":"Je vais à l''école."},{"ko":"집에 와요.","rom":"ji-be wa-yo","fr":"Je rentre à la maison."},{"ko":"공항에 도착해요.","rom":"gong-hang-e do-cha-kae-yo","fr":"J''arrive à l''aéroport."},{"ko":"집에 있어요.","rom":"ji-be i-sseo-yo","fr":"Je suis à la maison."},{"ko":"방에 없어요.","rom":"bang-e eop-sseo-yo","fr":"Il n''est pas dans la chambre."}]},{"title":"Tous les autres verbes : 에서","body":"Manger, boire, étudier, travailler, voir quelqu''un, acheter… Si le verbe n''est pas dans la liste, le lieu prend 에서. Pas besoin de réfléchir : liste → 에, sinon → 에서.","examples":[{"ko":"카페에서 커피를 마셔요.","rom":"ka-pe-e-seo keo-pi-reul ma-syeo-yo","fr":"Je bois un café au café."},{"ko":"도서관에서 공부해요.","rom":"do-seo-gwa-ne-seo gong-bu-hae-yo","fr":"J''étudie à la bibliothèque."},{"ko":"사무실에서 일해요.","rom":"sa-mu-si-re-seo il-hae-yo","fr":"Je travaille au bureau."},{"ko":"식당에서 친구를 만나요.","rom":"sik-dang-e-seo chin-gu-reul man-na-yo","fr":"Je retrouve un ami au restaurant."}]},{"title":"Écoute, puis dis-le à voix haute","body":"Touche 🔊 sur chaque phrase ci-dessus et répète-la trois fois à voix haute. Le but n''est pas de comprendre pourquoi, mais que 집에 있어요 et 집에서 먹어요 deviennent des blocs que ta bouche connaît. Les exercices te feront écouter deux versions, et tu choisiras celle qui sonne juste.","examples":[]},{"title":"으로/로 — direction ou moyen","body":"Direction (\"vers\") ou moyen (\"en bus\", \"avec la main\"). Après une voyelle ou ㄹ : 로. Après une autre consonne : 으로.","examples":[{"ko":"버스로 가요.","rom":"beo-seu-ro ga-yo","fr":"J''y vais en bus."},{"ko":"손으로 먹어요.","rom":"so-neu-ro meo-geo-yo","fr":"Je mange avec les mains."}]}],"tip":"Deux détails pour plus tard : 에서 veut aussi dire « de, depuis » (프랑스에서 왔어요 : je viens de France), et 살다 (habiter) accepte les deux, 서울에 살아요 étant le plus courant. Quelques verbes de placement (앉다, 놓다, 넣다) prennent aussi 에 : tu les verras en temps voulu."}'::jsonb
 from units u join floors f on f.id = u.floor_id where f.floor_number = 1 and u.unit_number = 2
 on conflict (unit_id, lesson_number) do update set
   title_ko = excluded.title_ko, title_fr = excluded.title_fr, lesson_type = excluded.lesson_type, content_json = excluded.content_json;
 delete from exercises where is_llm_generated = false and lesson_id in (select l.id from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 1);
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'fill_blank', '학교___ 가요.', 'Je vais à l''école.', '에', '["에","에서","을","가"]'::jsonb, '가다 = mouvement vers une destination → 에.', 1, ARRAY['e_vs_eseo', 'particles']::text[], false
+select l.id, 'sounds_right', NULL, 'Écoute les phrases : laquelle sonne juste ?', '학교에 가요', '["학교에 가요","학교에서 가요"]'::jsonb, '가다 est dans la liste des verbes en 에 : 학교에 가요.', 2, ARRAY['e_vs_eseo', 'particles', 'listening']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'fill_blank', '도서관___ 공부해요.', 'J''étudie à la bibliothèque.', '에서', '["에","에서","로","를"]'::jsonb, '공부하다 est une action → 에서.', 1, ARRAY['e_vs_eseo', 'particles']::text[], false
+select l.id, 'sounds_right', NULL, 'Écoute les phrases : laquelle sonne juste ?', '집에서 공부해요', '["집에서 공부해요","집에 공부해요"]'::jsonb, '공부하다 n''est pas dans la liste → 에서 : 집에서 공부해요.', 2, ARRAY['e_vs_eseo', 'particles', 'listening']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'fill_blank', '집___ 있어요.', 'Je suis à la maison.', '에', '["에","에서","으로","를"]'::jsonb, '있다 (exister, être quelque part) → 에.', 1, ARRAY['e_vs_eseo', 'particles']::text[], false
+select l.id, 'fill_blank', '집___ 있어요.', 'Je suis à la maison.', '에', '["에","에서","으로","를"]'::jsonb, '있다 est dans la liste des verbes en 에.', 1, ARRAY['e_vs_eseo', 'particles']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'fill_blank', '카페___ 커피를 마셔요.', 'Je bois un café dans un café.', '에서', '["에","에서","으로","가"]'::jsonb, '마시다 est une action → 에서.', 1, ARRAY['e_vs_eseo', 'particles']::text[], false
+select l.id, 'fill_blank', '카페___ 커피를 마셔요.', 'Je bois un café dans un café.', '에서', '["에","에서","으로","가"]'::jsonb, '마시다 n''est pas dans la liste → 에서.', 1, ARRAY['e_vs_eseo', 'particles']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'multiple_choice', NULL, 'Quelle particule avec une action (manger, étudier, travailler) ?', '에서', '["에서","에","으로","도"]'::jsonb, 'Action → 에서. Mouvement / existence → 에.', 1, ARRAY['e_vs_eseo', 'particles']::text[], false
+select l.id, 'multiple_choice', NULL, 'Lequel de ces verbes est dans la liste des verbes en 에 ?', '도착하다 (arriver)', '["도착하다 (arriver)","먹다 (manger)","일하다 (travailler)","마시다 (boire)"]'::jsonb, 'La liste : 가다, 오다, 도착하다, 있다, 없다.', 1, ARRAY['e_vs_eseo', 'particles']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'multiple_choice', NULL, 'Quelle particule avec 가다 / 오다 (destination) ?', '에', '["에","에서","이","는"]'::jsonb, '가다 / 오다 + lieu d''arrivée → 에.', 1, ARRAY['e_vs_eseo', 'particles']::text[], false
+select l.id, 'listening', '도서관에서 공부해요', 'Écoute et choisis la phrase entendue', '도서관에서 공부해요', '["도서관에서 공부해요","도서관에 가요","도서관에서 일해요","도서관에 있어요"]'::jsonb, '공부해요 n''est pas dans la liste → 에서. Écoute bien le verbe.', 2, ARRAY['e_vs_eseo', 'particles', 'listening']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'translate_ko', NULL, 'Je vais à la bibliothèque.', '도서관에 가요 | 저는 도서관에 가요', NULL, '도서관(bibliothèque) + 에 + 가요(aller) : destination → 에.', 2, ARRAY['e_vs_eseo', 'particles']::text[], false
+select l.id, 'translate_ko', NULL, 'Je vais à la bibliothèque.', '도서관에 가요 | 저는 도서관에 가요', NULL, '가다 est dans la liste → 에.', 2, ARRAY['e_vs_eseo', 'particles']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'translate_ko', NULL, 'Je travaille au café.', '카페에서 일해요 | 저는 카페에서 일해요', NULL, '일하다 est une action → 에서.', 3, ARRAY['e_vs_eseo', 'particles']::text[], false
+select l.id, 'translate_ko', NULL, 'Je travaille au café.', '카페에서 일해요 | 저는 카페에서 일해요', NULL, '일하다 n''est pas dans la liste → 에서.', 3, ARRAY['e_vs_eseo', 'particles']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 1;
 
@@ -157,19 +157,19 @@ on conflict (unit_id, lesson_number) do update set
 delete from exercises where is_llm_generated = false and lesson_id in (select l.id from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 2);
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'fill_blank', '친구가 서울___ 있어요.', 'Mon ami est à Séoul.', '에', '["에","에서","를","로"]'::jsonb, '있다 (existence) → 에.', 1, ARRAY['e_vs_eseo', 'particles']::text[], false
+select l.id, 'fill_blank', '친구가 서울___ 있어요.', 'Mon ami est à Séoul.', '에', '["에","에서","를","로"]'::jsonb, '있다 est dans la liste des verbes en 에.', 1, ARRAY['e_vs_eseo', 'particles']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'fill_blank', '도서관___ 가요.', 'Je vais à la bibliothèque.', '에', '["에","에서","를","가"]'::jsonb, '가다 est un verbe de déplacement : il prend 에, jamais 에서. 도서관에 가요.', 2, ARRAY['e_vs_eseo', 'particles']::text[], false
+select l.id, 'fill_blank', '도서관___ 가요.', 'Je vais à la bibliothèque.', '에', '["에","에서","를","가"]'::jsonb, '가다 est dans la liste des verbes en 에 : jamais 에서. 도서관에 가요.', 2, ARRAY['e_vs_eseo', 'particles']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'fill_blank', '식당___ 점심을 먹어요.', 'Je déjeune au restaurant.', '에서', '["에서","에","로","를"]'::jsonb, '먹다 est une action → 에서.', 1, ARRAY['e_vs_eseo', 'particles']::text[], false
+select l.id, 'fill_blank', '식당___ 점심을 먹어요.', 'Je déjeune au restaurant.', '에서', '["에서","에","로","를"]'::jsonb, '먹다 n''est pas dans la liste des verbes en 에 → 에서.', 1, ARRAY['e_vs_eseo', 'particles']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'fill_blank', '우리는 공원___ 운동해요.', 'Nous faisons du sport au parc.', '에서', '["에서","에","으로","가"]'::jsonb, '운동하다 est une action → 에서.', 1, ARRAY['e_vs_eseo', 'particles']::text[], false
+select l.id, 'fill_blank', '우리는 공원___ 운동해요.', 'Nous faisons du sport au parc.', '에서', '["에서","에","으로","가"]'::jsonb, '운동하다 n''est pas dans la liste des verbes en 에 → 에서.', 1, ARRAY['e_vs_eseo', 'particles']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
@@ -189,7 +189,19 @@ select l.id, 'fill_blank', '손___ 먹어요.', 'Je mange avec les mains.', '으
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'listening', '학교에 가요', 'Écoute et choisis la phrase entendue', '학교에 가요', '["학교에 가요","학교에서 가요","학교를 가요","학교가 가요"]'::jsonb, 'Aller à l''école : 가다 → destination → 에.', 2, ARRAY['e_vs_eseo', 'particles', 'listening']::text[], false
+select l.id, 'sounds_right', NULL, 'Écoute les phrases : laquelle sonne juste ?', '식당에서 점심을 먹어요', '["식당에서 점심을 먹어요","식당에 점심을 먹어요"]'::jsonb, '먹다 n''est pas dans la liste → 에서.', 2, ARRAY['e_vs_eseo', 'particles', 'listening']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'sounds_right', NULL, 'Écoute les phrases : laquelle sonne juste ?', '친구가 서울에 있어요', '["친구가 서울에 있어요","친구가 서울에서 있어요"]'::jsonb, '있다 est dans la liste des verbes en 에.', 2, ARRAY['e_vs_eseo', 'particles', 'listening']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'sounds_right', NULL, 'Écoute les phrases : laquelle sonne juste ?', '공원에서 운동해요', '["공원에서 운동해요","공원에 운동해요"]'::jsonb, '운동하다 n''est pas dans la liste → 에서.', 2, ARRAY['e_vs_eseo', 'particles', 'listening']::text[], false
+from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
+where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 2;
+insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
+select l.id, 'listening', '학교에 가요', 'Écoute et choisis la phrase entendue', '학교에 가요', '["학교에 가요","학교에서 가요","학교를 가요","학교가 가요"]'::jsonb, '가다 est dans la liste des verbes en 에.', 2, ARRAY['e_vs_eseo', 'particles', 'listening']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
@@ -197,7 +209,7 @@ select l.id, 'reorder', NULL, 'J''étudie à la bibliothèque.', '저는 도서�
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 2;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'translate_ko', NULL, 'Je mange au restaurant.', '식당에서 먹어요 | 저는 식당에서 먹어요', NULL, '먹다 est une action → 에서.', 3, ARRAY['e_vs_eseo', 'particles']::text[], false
+select l.id, 'translate_ko', NULL, 'Je mange au restaurant.', '식당에서 먹어요 | 저는 식당에서 먹어요', NULL, '먹다 n''est pas dans la liste des verbes en 에 → 에서.', 3, ARRAY['e_vs_eseo', 'particles']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 2 and l.lesson_number = 2;
 
@@ -493,7 +505,7 @@ on conflict (unit_id, lesson_number) do update set
 delete from exercises where is_llm_generated = false and lesson_id in (select l.id from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 6 and l.lesson_number = 1);
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'fill_blank', '저는 회사___ 일해요.', 'Je travaille au bureau.', '에서', '["에서","에","로","를"]'::jsonb, '일하다 est une action → 에서.', 3, ARRAY['e_vs_eseo', 'particles']::text[], false
+select l.id, 'fill_blank', '저는 회사___ 일해요.', 'Je travaille au bureau.', '에서', '["에서","에","로","를"]'::jsonb, '일하다 n''est pas dans la liste des verbes en 에 → 에서.', 3, ARRAY['e_vs_eseo', 'particles']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 6 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
@@ -521,7 +533,7 @@ select l.id, 'multiple_choice', NULL, 'Comment lit-on 10분 ?', '십 분', '["�
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 6 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
-select l.id, 'listening', '저는 식당에서 밥을 먹어요', 'Écoute et choisis la phrase entendue', '저는 식당에서 밥을 먹어요', '["저는 식당에서 밥을 먹어요","저는 식당에 밥을 먹어요","저는 식당에서 밥이 먹어요","저는 식당에서 밥을 마셔요"]'::jsonb, '먹다 est une action → 에서.', 3, ARRAY['e_vs_eseo', 'listening']::text[], false
+select l.id, 'listening', '저는 식당에서 밥을 먹어요', 'Écoute et choisis la phrase entendue', '저는 식당에서 밥을 먹어요', '["저는 식당에서 밥을 먹어요","저는 식당에 밥을 먹어요","저는 식당에서 밥이 먹어요","저는 식당에서 밥을 마셔요"]'::jsonb, '먹다 n''est pas dans la liste des verbes en 에 → 에서.', 3, ARRAY['e_vs_eseo', 'listening']::text[], false
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 1 and u.unit_number = 6 and l.lesson_number = 1;
 insert into exercises (lesson_id, exercise_type, prompt_ko, prompt_fr, correct_answer, options, explanation_fr, difficulty, tags, is_llm_generated)
@@ -2450,4 +2462,4 @@ select l.id, 'free_production', NULL, 'Parle d''une expérience en Corée (réel
 from lessons l join units u on u.id = l.unit_id join floors f on f.id = u.floor_id
 where f.floor_number = 5 and u.unit_number = 5 and l.lesson_number = 1;
 
--- 471 exercices au total.
+-- 474 exercices au total.

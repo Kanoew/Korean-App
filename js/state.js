@@ -60,13 +60,20 @@ export async function loadAll(user) {
 
 export const isCompleted = (lessonId) => !!state.progress.get(lessonId)?.completed;
 
-// Déblocage linéaire : une leçon s'ouvre quand la précédente est validée.
+// Porte souple : la montée reste linéaire, mais un mur n'arrête personne.
+// Une leçon est « franchie » quand elle est validée (70 %) OU quand on l'a tentée MAX_TRIES fois.
+// Les phrases ratées reviennent de toute façon en révision espacée.
+export const MAX_TRIES = 2;
+export const attemptsOf = (lessonId) => state.progress.get(lessonId)?.attempts || 0;
+export const isPassed = (lessonId) => isCompleted(lessonId) || attemptsOf(lessonId) >= MAX_TRIES;
+
+// Déblocage linéaire : une leçon s'ouvre quand la précédente est franchie.
 export function isUnlocked(lesson) {
   if (lesson.index === 0) return true;
-  return isCompleted(state.lessons[lesson.index - 1].id);
+  return isPassed(state.lessons[lesson.index - 1].id);
 }
 
-export const nextLesson = () => state.lessons.find((l) => !isCompleted(l.id)) || null;
+export const nextLesson = () => state.lessons.find((l) => !isPassed(l.id)) || null;
 
 export function floorProgress(floor) {
   const lessons = state.lessons.filter((l) => l.floor.id === floor.id);

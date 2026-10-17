@@ -33,6 +33,12 @@ Les révisions espacées (J+1/3/7/16) et une première galerie de récompenses s
 - **Séance** : jusqu'à 15 cartes (les plus en retard d'abord), XP et série comptés comme une session normale. Pastille rouge sur l'onglet et sur l'accueil = cartes dues.
 - Code : logique pure dans `js/srs.js` (testée), accès base dans `js/api/srs.js`, écran dans `js/components/review.js`. **Rejouer `supabase/schema.sql`** (colonnes ajoutées à `srs_cards`) ; sans ça l'onglet affiche un message clair et le reste de l'app fonctionne.
 
+## Progression et méthode 에 / 에서
+
+- **Porte souple** : la montée reste linéaire (étage après étage), mais une leçon est « franchie » quand elle est validée à 70 % **ou** tentée deux fois. La leçon ratée reste marquée « à retenter » (↷), et ses phrases ratées reviennent dans l'onglet Réviser. Réglage : `MAX_TRIES` dans `js/state.js`.
+- **« Laquelle sonne juste ? »** (type `sounds_right`) : deux phrases lues avec la voix coréenne du téléphone (🔊 sur chacune), on choisit celle qui sonne bien ; la bonne est relue à la correction. Pensé pour apprendre à l'oreille, pas par règle. Helper de seed : `sj(...)`.
+- **Leçon « 에 ou 에서 »** (étage 1, unité 2) réécrite : une liste fermée de cinq verbes en 에 (가다, 오다, 도착하다, 있다, 없다), tout le reste en 에서, à dire à voix haute.
+
 ## Récompenses (onglet 🎖️)
 
 Galerie **temporaire** : la liste est dans `js/components/rewards.js` (images dans `assets/gallery/`). Une image se débloque à la fin d'un étage, des badges à 7 jours de série / 1 000 XP / première carte acquise. Les déblocages sont mémorisés sur l'appareil (`localStorage`) ; plus tard, la liste passera dans la table `rewards`. Image actuelle : « Trace sur la vitre » (étage 1).

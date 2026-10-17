@@ -1,5 +1,5 @@
 // Parcours d'une leçon : intro (teach) → exercices → résultats. Gère aussi l'entraînement "points faibles".
-import { state, isUnlocked, xpBoostActive } from '../state.js';
+import { state, isUnlocked, xpBoostActive, isPassed } from '../state.js';
 import { loadExercises, loadWeakExercises } from '../api/exercises.js';
 import { generateExercises } from '../api/llm.js';
 import { loadWeaknesses, finishSession } from '../api/progress.js';
@@ -155,6 +155,7 @@ function showResults(root, lesson, s) {
       <div class="stack w100">
         ${s.passed && next ? `<a class="btn primary block" href="#/lesson/${next.id}">Leçon suivante →</a>` : ''}
         ${!s.passed && lesson ? `<a class="btn primary block" href="#/lesson/${lesson.id}" id="retry">Réessayer</a>` : ''}
+        ${!s.passed && lesson && next && isPassed(lesson.id) ? `<a class="btn ghost block" href="#/lesson/${next.id}">Passer à la suite →</a><p class="muted small">Tu pourras y revenir. Les phrases ratées reviendront dans l'onglet Réviser.</p>` : ''}
         <a class="btn ghost block" href="#/${s.weak ? '' : 'learn'}">Retour</a>
       </div>
     </div>`;
